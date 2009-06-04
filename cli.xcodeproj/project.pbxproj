@@ -17,7 +17,7 @@
 		08FB779EFE84155DC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32A70AAB03705E1F00C91783 /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		8DD76FA10486AA7600D96B5E /* app */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = app; sourceTree = BUILT_PRODUCTS_DIR; };
-		924311720FD12AAF00148B78 /* xattr */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = xattr; path = build/Debug/xattr; sourceTree = "<group>"; };
+		924311720FD12AAF00148B78 /* xattr */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = xattr; sourceTree = BUILT_PRODUCTS_DIR; };
 		924311760FD12ACB00148B78 /* xattr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xattr.c; sourceTree = "<group>"; };
 		928BE6B40F973AD600E2E886 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		928BE6B80F973AEE00E2E886 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
@@ -238,6 +238,7 @@
 				GCC_ENABLE_SSE3_EXTENSIONS = YES;
 				GCC_FAST_MATH = YES;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
+				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;
 				GCC_THREADSAFE_STATICS = NO;
@@ -278,15 +279,7 @@
 		924311750FD12AB000148B78 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_MODEL_TUNING = G5;
-				INSTALL_PATH = /usr/local/bin;
-				PREBINDING = NO;
 				PRODUCT_NAME = xattr;
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};

@@ -1,7 +1,7 @@
 // !$*UTF8*$!
 {
 	08FB7793FE84155DC02AAC07 /* Project object */ = {
-		activeBuildConfigurationName = Debug;
+		activeBuildConfigurationName = Release;
 		activeExecutable = 924311730FD12AAF00148B78 /* xattr */;
 		activeTarget = 924311710FD12AAF00148B78 /* xattr */;
 		addToTargets = (
@@ -59,8 +59,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 265362741;
-			PBXWorkspaceStateSaveDate = 265362741;
+			PBXPerProjectTemplateStateSaveDate = 265808188;
+			PBXWorkspaceStateSaveDate = 265808188;
 		};
 		sourceControlManager = 928BE6A90F9739EA00E2E886 /* Source Control */;
 		userBuildSettings = {
@@ -68,9 +68,9 @@
 	};
 	08FB7796FE84155DC02AAC07 /* app.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1300, 5313}}";
-			sepNavSelRange = "{100, 0}";
-			sepNavVisRange = "{0, 950}";
+			sepNavIntBoundsRect = "{{0, 0}, {1192, 5355}}";
+			sepNavSelRange = "{2279, 0}";
+			sepNavVisRange = "{2098, 650}";
 		};
 	};
 	32A70AAB03705E1F00C91783 /* Prefix.pch */ = {
@@ -117,9 +117,9 @@
 	};
 	924311760FD12ACB00148B78 /* xattr.c */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {717, 5838}}";
-			sepNavSelRange = "{532, 0}";
-			sepNavVisRange = "{0, 745}";
+			sepNavIntBoundsRect = "{{0, 0}, {727, 6678}}";
+			sepNavSelRange = "{6106, 0}";
+			sepNavVisRange = "{5717, 692}";
 		};
 	};
 	928BE6A10F9739CB00E2E886 /* app */ = {
