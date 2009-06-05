@@ -373,6 +373,8 @@
 							<key>Tabs</key>
 							<array>
 								<dict>
+									<key>BecomeActive</key>
+									<true/>
 									<key>ContentConfiguration</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
@@ -467,11 +469,11 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>92851C1B0FD7F39A00402FD2</string>
+				<string>9270507F0FD91971003074F2</string>
 				<string>1CA23ED40692098700951B8B</string>
-				<string>92851C1C0FD7F39A00402FD2</string>
+				<string>927050800FD91971003074F2</string>
 				<string>928BE6AB0F973A6A00E2E886</string>
-				<string>92851C1D0FD7F39A00402FD2</string>
+				<string>927050810FD91971003074F2</string>
 				<string>1CA23EDF0692099D00951B8B</string>
 				<string>1CA23EE00692099D00951B8B</string>
 				<string>1CA23EE10692099D00951B8B</string>
@@ -616,14 +618,14 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>92851C1E0FD7F39A00402FD2</string>
+				<string>9270508B0FD919B9003074F2</string>
 				<string>1CCC7628064C1048000F2A68</string>
 				<string>1CCC7629064C1048000F2A68</string>
-				<string>92851C1F0FD7F39A00402FD2</string>
-				<string>92851C200FD7F39A00402FD2</string>
-				<string>92851C210FD7F39A00402FD2</string>
-				<string>92851C220FD7F39A00402FD2</string>
-				<string>92851C230FD7F39A00402FD2</string>
+				<string>9270508C0FD919B9003074F2</string>
+				<string>9270508D0FD919B9003074F2</string>
+				<string>9270508E0FD919B9003074F2</string>
+				<string>9270508F0FD919B9003074F2</string>
+				<string>927050900FD919B9003074F2</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -638,7 +640,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>265812684.37539601</real>
+	<real>265886389.6126</real>
 	<key>ToolbarDisplayMode</key>
 	<integer>1</integer>
 	<key>ToolbarIsVisible</key>

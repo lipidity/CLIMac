@@ -2,10 +2,10 @@
 {
 	08FB7793FE84155DC02AAC07 /* Project object */ = {
 		activeBuildConfigurationName = Release;
-		activeExecutable = 924311730FD12AAF00148B78 /* xattr */;
-		activeTarget = 924311710FD12AAF00148B78 /* xattr */;
+		activeExecutable = 927050880FD91990003074F2 /* imgconv */;
+		activeTarget = 927050860FD91990003074F2 /* imgconv */;
 		addToTargets = (
-			924311710FD12AAF00148B78 /* xattr */,
+			927050860FD91990003074F2 /* imgconv */,
 		);
 		breakpoints = (
 		);
@@ -13,6 +13,7 @@
 		executables = (
 			928BE6A10F9739CB00E2E886 /* app */,
 			924311730FD12AAF00148B78 /* xattr */,
+			927050880FD91990003074F2 /* imgconv */,
 		);
 		perUserDictionary = {
 			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
@@ -59,8 +60,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 265808188;
-			PBXWorkspaceStateSaveDate = 265808188;
+			PBXPerProjectTemplateStateSaveDate = 265886064;
+			PBXWorkspaceStateSaveDate = 265886064;
 		};
 		sourceControlManager = 928BE6A90F9739EA00E2E886 /* Source Control */;
 		userBuildSettings = {
@@ -120,6 +121,42 @@
 			sepNavIntBoundsRect = "{{0, 0}, {727, 6678}}";
 			sepNavSelRange = "{6106, 0}";
 			sepNavVisRange = "{5717, 692}";
+		};
+	};
+	927050860FD91990003074F2 /* imgconv */ = {
+		activeExec = 0;
+		executables = (
+			927050880FD91990003074F2 /* imgconv */,
+		);
+	};
+	927050880FD91990003074F2 /* imgconv */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 1;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = imgconv;
+		sourceDirectories = (
+		);
+	};
+	927050930FD919CF003074F2 /* imgconv.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {952, 1176}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 980}";
 		};
 	};
 	928BE6A10F9739CB00E2E886 /* app */ = {
