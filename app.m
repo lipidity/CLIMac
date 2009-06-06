@@ -35,12 +35,12 @@ int main(int argc, const char * argv[])
 		if (i != 's') {
 			if (argc - optind == 0) { // no further arguments
 				switch (i) {
-					case 'w': a4w(optarg);
-					case 'b': a4b(optarg);
-					case 'f': a4f(optarg);
-					case 'e': a4e(optarg);
-					case 'l': list(NO, optarg);
-					case 'c': list(YES, optarg);
+					case 'w': a4w(optarg); break;
+					case 'b': a4b(optarg); break;
+					case 'f': a4f(optarg); break;
+					case 'e': a4e(optarg); break;
+					case 'l': list(NO, optarg); break;
+					case 'c': list(YES, optarg); break;
 					case 'a': {
 						CFArrayRef urls;
 						int retval = _LSCopyAllApplicationURLs(&urls);
@@ -119,7 +119,6 @@ static void a4f(const char *f)
 		exit(1);
 	}
 	CFRelease(itemURL);
-	exit(0);
 }
 
 static void a4b(const char *b)
@@ -225,7 +224,6 @@ loop:
 		}
 	}
 	[k release];
-	exit(0);
 }
 
 static void asc(const char *f)

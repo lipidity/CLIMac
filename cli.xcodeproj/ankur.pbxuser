@@ -2,10 +2,10 @@
 {
 	08FB7793FE84155DC02AAC07 /* Project object */ = {
 		activeBuildConfigurationName = Release;
-		activeExecutable = 927050880FD91990003074F2 /* imgconv */;
-		activeTarget = 927050860FD91990003074F2 /* imgconv */;
+		activeExecutable = 923C79A60FD94803008D3742 /* goosh */;
+		activeTarget = 92DFDACA0FD9FE4500F7C0BD /* All */;
 		addToTargets = (
-			927050860FD91990003074F2 /* imgconv */,
+			92DFDAB10FD9FDC900F7C0BD /* dup */,
 		);
 		breakpoints = (
 		);
@@ -14,6 +14,9 @@
 			928BE6A10F9739CB00E2E886 /* app */,
 			924311730FD12AAF00148B78 /* xattr */,
 			927050880FD91990003074F2 /* imgconv */,
+			923C79A60FD94803008D3742 /* goosh */,
+			92DFDAB90FD9FDC900F7C0BD /* dup */,
+			92DFDAC70FD9FE1800F7C0BD /* trash */,
 		);
 		perUserDictionary = {
 			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
@@ -60,8 +63,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 265893421;
-			PBXWorkspaceStateSaveDate = 265893421;
+			PBXPerProjectTemplateStateSaveDate = 265945111;
+			PBXWorkspaceStateSaveDate = 265945111;
 		};
 		sourceControlManager = 928BE6A90F9739EA00E2E886 /* Source Control */;
 		userBuildSettings = {
@@ -69,9 +72,9 @@
 	};
 	08FB7796FE84155DC02AAC07 /* app.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1192, 5355}}";
-			sepNavSelRange = "{2279, 0}";
-			sepNavVisRange = "{2098, 650}";
+			sepNavIntBoundsRect = "{{0, 0}, {1300, 5271}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{5627, 760}";
 		};
 	};
 	32A70AAB03705E1F00C91783 /* Prefix.pch */ = {
@@ -86,6 +89,70 @@
 		executables = (
 			928BE6A10F9739CB00E2E886 /* app */,
 		);
+	};
+	923C799D0FD94803008D3742 /* goosh */ = {
+		activeExec = 0;
+		executables = (
+			923C79A60FD94803008D3742 /* goosh */,
+		);
+	};
+	923C79A60FD94803008D3742 /* goosh */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 1;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = goosh;
+		sourceDirectories = (
+		);
+	};
+	923C79BD0FD9492B008D3742 /* goosh-fn.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {989, 650}}";
+			sepNavSelRange = "{216, 0}";
+			sepNavVisRange = "{0, 413}";
+		};
+	};
+	923C79BE0FD9492B008D3742 /* goosh-fn.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1235, 2268}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1174}";
+		};
+	};
+	923C79BF0FD9492B008D3742 /* goosh-JSON.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {989, 1407}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1527}";
+		};
+	};
+	923C79C00FD9492B008D3742 /* goosh-JSON.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {989, 7287}}";
+			sepNavSelRange = "{15, 0}";
+			sepNavVisRange = "{0, 567}";
+		};
+	};
+	923C79C10FD9492B008D3742 /* goosh.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {2097, 7308}}";
+			sepNavSelRange = "{104, 0}";
+			sepNavVisRange = "{0, 1234}";
+		};
 	};
 	924311710FD12AAF00148B78 /* xattr */ = {
 		activeExec = 0;
@@ -154,9 +221,9 @@
 	};
 	927050930FD919CF003074F2 /* imgconv.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {952, 1176}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 980}";
+			sepNavIntBoundsRect = "{{0, 0}, {989, 1806}}";
+			sepNavSelRange = "{31, 0}";
+			sepNavVisRange = "{0, 981}";
 		};
 	};
 	928BE6A10F9739CB00E2E886 /* app */ = {
@@ -204,11 +271,86 @@
 		isa = PBXCodeSenseManager;
 		indexTemplatePath = "";
 	};
+	92DFDAB10FD9FDC900F7C0BD /* dup */ = {
+		activeExec = 0;
+		executables = (
+			92DFDAB90FD9FDC900F7C0BD /* dup */,
+		);
+	};
+	92DFDAB90FD9FDC900F7C0BD /* dup */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 1;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = dup;
+		sourceDirectories = (
+		);
+	};
+	92DFDABA0FD9FE1400F7C0BD /* dup.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1321, 650}}";
+			sepNavSelRange = "{711, 0}";
+			sepNavVisRange = "{0, 711}";
+		};
+	};
+	92DFDABB0FD9FE1400F7C0BD /* trash.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1307, 650}}";
+			sepNavSelRange = "{616, 0}";
+			sepNavVisRange = "{0, 709}";
+		};
+	};
+	92DFDABE0FD9FE1800F7C0BD /* trash */ = {
+		activeExec = 0;
+		executables = (
+			92DFDAC70FD9FE1800F7C0BD /* trash */,
+		);
+	};
+	92DFDAC70FD9FE1800F7C0BD /* trash */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 1;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = trash;
+		sourceDirectories = (
+		);
+	};
+	92DFDACA0FD9FE4500F7C0BD /* All */ = {
+		activeExec = 0;
+	};
 	C6859EA3029092ED04C91782 /* app.1 */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {683, 1106}}";
+			sepNavIntBoundsRect = "{{0, 0}, {989, 1659}}";
 			sepNavSelRange = "{896, 0}";
-			sepNavVisRange = "{0, 2015}";
+			sepNavVisRange = "{2054, 1007}";
 		};
 	};
 }
