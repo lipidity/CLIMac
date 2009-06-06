@@ -1,7 +1,8 @@
 #import <Cocoa/Cocoa.h>
 #import <err.h>
 
-int main(int argc, const char *argv[]) {
+int main(int argc, const char *argv[])
+{
 	if (argc > 1) {
 		NSAutoreleasePool *pool = [NSAutoreleasePool new];
 		int i = 1;

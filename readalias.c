@@ -1,44 +1,60 @@
-#include <Carbon/Carbon.h>
-#include <unistd.h>
-
-Boolean f = 0;
-
-static Boolean p(const UInt8 *path) {
-	// FIX: convert to / from FSRef and CFURLRef
-	FSRef ref;
-	FSPathMakeRef(path, &ref, NULL);
-	Boolean wasAlias = 0, isDir = 0;
-	()FSResolveAliasFile(&ref, f, &isDir, &wasAlias);
-	if (wasAlias) {
-		UInt8 filepath[PATH_MAX];
-		FSRefMakePath(&ref, (UInt8*)&filepath, PATH_MAX);
-		puts((char*)filepath);
-		return 1;
-	} else
-		return 0;
-}
+#import <CoreFoundation/CoreFoundation.h>
+#import <CoreServices/CoreServices.h>
 
 int main(int argc, const char *argv[]) {
-	if (argc == 1) {
+	if (argc > 1) {
+		BOOL skipN = 0;
+		BOOL recurse = 0;
+
+		int c = 0;
+		while ((c = getopt(argc, (char **)argv, "fn")) != EOF) {
+			switch (c) {
+				case 'f':
+					recurse ^= 1;
+					break;
+				case 'n':
+					skipN ^= 1;
+					break;
+				default:
+					goto usage;
+			}
+		}
+
+		int numPrinted = 0;
+		c = optind;
+		while (c < argc) {
+			CFURLRef url = CFURLCreateFromFileSystemRepresentation(NULL, (const UInt8 *)argv[c], strlen(argv[c]), false);
+			if (url != NULL) {
+				FSRef ref;
+				Boolean wasAlias = 0, isDir = 0;
+				if (CFURLGetFSRef(url, &ref) && (FSResolveAliasFile(&ref, recurse, &isDir, &wasAlias) == 0)  && wasAlias) {
+					CFURLRef resolved = CFURLCreateFromFSRef(NULL, &ref);
+					if (resolved != NULL) {
+						CFStringRef pathString = CFURLCopyFileSystemPath(resolved, kCFURLPOSIXPathStyle);
+						if (pathString != NULL) {
+							CFIndex maxlen = CFStringGetMaximumSizeOfFileSystemRepresentation(pathString);
+							char *path = malloc(maxlen);
+							if (path == NULL)
+								err(1, NULL);
+							CFStringGetFileSystemRepresentation(pathString, path, maxlen);
+							fputs(path, stdout);
+							numPrinted += 1;
+							free(path);
+							if (skipN == 0)
+								putchar('\n');
+							CFRelease(pathString);
+						}
+						CFRelease(resolved);
+					}
+				}
+				CFRelease(url);
+			}
+			c += 1;
+		}
+		return !(numPrinted == (argc - optind));
+	} else {
 usage:
-		fprintf(stderr, "Usage:  %s [-f] <path>...\n", argv[0]);
+		fprintf(stderr, "usage:  %s [-n] [-f] <path>...\n", argv[0]);
 		return 1;
 	}
-	int c = 0;
-	while ((c = getopt(argc, (char **)argv, "f")) != EOF) {
-		switch (c) {
-			case 'f':
-				f ^= 1;
-				break;
-			default:
-				goto usage;
-		}
-	}
-	argc -= optind; argv += optind;
-
-	Boolean err = 0;
-	while (argc--) {
-		err |= p((UInt8 *) ((argv++)[0]));
-	}
-    return !err;
 }

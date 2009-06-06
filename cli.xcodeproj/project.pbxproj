@@ -37,11 +37,12 @@
 		9270509E0FD91A6B003074F2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B80F973AEE00E2E886 /* Cocoa.framework */; };
 		927E85D80FDA2464008D6B2B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B80F973AEE00E2E886 /* Cocoa.framework */; };
 		927E85DF0FDA24C4008D6B2B /* fileicon.m in Sources */ = {isa = PBXBuildFile; fileRef = 927E85DE0FDA24C4008D6B2B /* fileicon.m */; };
-		927E85FC0FDA378B008D6B2B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B80F973AEE00E2E886 /* Cocoa.framework */; };
 		927E86110FDA37CE008D6B2B /* readalias.c in Sources */ = {isa = PBXBuildFile; fileRef = 927E86100FDA37CE008D6B2B /* readalias.c */; };
 		928BE6B90F973AEE00E2E886 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B80F973AEE00E2E886 /* Cocoa.framework */; };
 		929062C50FDA016500D1F7F7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B80F973AEE00E2E886 /* Cocoa.framework */; };
 		929062C80FDA016C00D1F7F7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B80F973AEE00E2E886 /* Cocoa.framework */; };
+		92B4CF710FDA69C300F5AC0D /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B4CF6F0FDA69C300F5AC0D /* CoreFoundation.framework */; };
+		92B4CF720FDA69C300F5AC0D /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B4CF700FDA69C300F5AC0D /* CoreServices.framework */; };
 		92DFDABC0FD9FE1400F7C0BD /* dup.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DFDABA0FD9FE1400F7C0BD /* dup.m */; };
 		92DFDAC10FD9FE1800F7C0BD /* trash.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DFDABB0FD9FE1400F7C0BD /* trash.m */; };
 /* End PBXBuildFile section */
@@ -51,7 +52,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 927E85D40FDA2464008D6B2B /* fileicon */;
+			remoteGlobalIDString = 927E85D40FDA2464008D6B2B;
 			remoteInfo = fileicon;
 		};
 		92DFDACD0FD9FE6100F7C0BD /* PBXContainerItemProxy */ = {
@@ -119,6 +120,8 @@
 		927E86100FDA37CE008D6B2B /* readalias.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = readalias.c; sourceTree = "<group>"; };
 		928BE6B40F973AD600E2E886 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		928BE6B80F973AEE00E2E886 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		92B4CF6F0FDA69C300F5AC0D /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
+		92B4CF700FDA69C300F5AC0D /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		92DFDAB80FD9FDC900F7C0BD /* dup */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dup; sourceTree = BUILT_PRODUCTS_DIR; };
 		92DFDABA0FD9FE1400F7C0BD /* dup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dup.m; sourceTree = "<group>"; };
 		92DFDABB0FD9FE1400F7C0BD /* trash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = trash.m; sourceTree = "<group>"; };
@@ -170,7 +173,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				927E85FC0FDA378B008D6B2B /* Cocoa.framework in Frameworks */,
+				92B4CF710FDA69C300F5AC0D /* CoreFoundation.framework in Frameworks */,
+				92B4CF720FDA69C300F5AC0D /* CoreServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +227,8 @@
 		08FB779DFE84155DC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				92B4CF6F0FDA69C300F5AC0D /* CoreFoundation.framework */,
+				92B4CF700FDA69C300F5AC0D /* CoreServices.framework */,
 				928BE6B80F973AEE00E2E886 /* Cocoa.framework */,
 				928BE6B40F973AD600E2E886 /* AppKit.framework */,
 				08FB779EFE84155DC02AAC07 /* Foundation.framework */,

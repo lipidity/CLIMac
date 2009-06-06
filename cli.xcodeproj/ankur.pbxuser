@@ -3,7 +3,7 @@
 	08FB7793FE84155DC02AAC07 /* Project object */ = {
 		activeBuildConfigurationName = Release;
 		activeExecutable = 923C79A60FD94803008D3742 /* goosh */;
-		activeTarget = 927E85D40FDA2464008D6B2B /* fileicon */;
+		activeTarget = 927E85F80FDA378B008D6B2B /* readalias */;
 		addToTargets = (
 			927E85F80FDA378B008D6B2B /* readalias */,
 		);
@@ -65,8 +65,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 265954387;
-			PBXWorkspaceStateSaveDate = 265954387;
+			PBXPerProjectTemplateStateSaveDate = 265970801;
+			PBXWorkspaceStateSaveDate = 265970801;
 		};
 		sourceControlManager = 928BE6A90F9739EA00E2E886 /* Source Control */;
 		userBuildSettings = {
@@ -292,6 +292,13 @@
 		name = readalias;
 		sourceDirectories = (
 		);
+	};
+	927E86100FDA37CE008D6B2B /* readalias.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {989, 1281}}";
+			sepNavSelRange = "{80, 0}";
+			sepNavVisRange = "{0, 809}";
+		};
 	};
 	928BE6A10F9739CB00E2E886 /* app */ = {
 		isa = PBXExecutable;

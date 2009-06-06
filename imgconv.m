@@ -1,5 +1,3 @@
-#import <Cocoa/Cocoa.h>
-
 /*
  * Copies image data from one place to another,
  *  either from standard input or from an existing image file.
@@ -9,13 +7,14 @@
  *
  * Handles multiple image representations (eg. tiffs can have multiple image in one)
  */
-int main (int argc, const char * argv[]) {
-
+int main (int argc, const char * argv[])
+{
 // MAY:
 //	specify background color (if output doesn't handle alpha),
 //	specify compression type / level
 // using CGImageDestinationSetProperties()
-
+// MAY:
+// specify which image to extract (like tiffutil)
 	if (argc != 2 && argc != 3) {
 		fprintf(stderr, "usage:  %s [<src>] <dst>\n", argv[0]);
 		return 1;

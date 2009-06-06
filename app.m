@@ -1,6 +1,4 @@
-// app -a -f . : LSCopyAllHandlersForContentType; etc.
-
-int _LSCopyAllApplicationURLs(CFArrayRef *);
+int _LSCopyAllApplicationURLs(CFArrayRef *); // extern?
 
 CG_EXTERN CGError CGSConnectionGetPID(int cid, pid_t *outPID);
 CG_EXTERN int CGSMainConnectionID(void);
@@ -19,7 +17,8 @@ static void asc(const char *f);
 
 static void printCFURLPath(const void *value, void *context);
 
-static void printCFURLPath(const void *value, void *context) {
+static void printCFURLPath(const void *value, void *context)
+{
 	const char buffer[PATH_MAX];
 	if (CFURLGetFileSystemRepresentation(value, true, (UInt8 *)buffer, PATH_MAX))
 		puts(buffer);
