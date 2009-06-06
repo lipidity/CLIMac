@@ -5,75 +5,99 @@ size_t pr(void *info, const void *buffer, size_t count) {
 	return fwrite(buffer, 1, count, stdout);
 }
 /*
- * Gets icon of file in TIFF format.
- * If no destination path, dump to stdout (if not tty).
-*/
-// TODO:
-// % fileicon file1 file2	# use iconForFiles:
-// % fileicon -t 'txt'		# use iconForFileType:
+ * Gets icon of file or file type in TIFF format.
+ * If no destination path (and not tty), dump to stdout.
+ */
 int main(int argc, const char *argv[]) {
-	if (argc != 2 && argc != 3) {
-		fprintf(stderr, "usage:  %s <src> [<dst>.tiff]\n", argv[0]);
-		return 1;
-	}
+	if (argc > 1) {
+		BOOL useType = NO;
+		CFURLRef oURL = NULL;
+		NSMutableArray *args = [[NSMutableArray alloc] initWithCapacity:argc-1];
+		int i = 1;
+		if (strcmp("-t", argv[1]) == 0) {
+			useType = YES;
+			i += 1;
+			if (i >= argc)
+				goto usage;
+		}
 
-	if (argc == 2 && isatty(STDOUT_FILENO)) {
-		fputs("Please provide a path to save the image to (or pipe stdout to a file / command).\n", stderr);
-		return 1;
-	}
+		NSAutoreleasePool *pool = [NSAutoreleasePool new];
 
-//	if (access(argv[1], F_OK) != 0) {
-//		warn(argv[1]);
-//	}
+		NSFileManager *fm = [NSFileManager defaultManager];
+		NSString *cwd = [fm currentDirectoryPath];
+		while (i < argc) {
+			if (strcmp("-o", argv[i]) != 0) {
+				NSString *s = [fm stringWithFileSystemRepresentation:argv[i] length:strlen(argv[i])];
+				if (!useType && ![s isAbsolutePath])
+					s = [cwd stringByAppendingPathComponent:s];
+				[args addObject:s];
+			} else {
+				i += 1;
+				if (oURL != NULL)
+					CFRelease(oURL);
+				if (!(i < argc && (oURL = CFURLCreateFromFileSystemRepresentation(NULL, (const UInt8 *)argv[i], strlen(argv[i]), false)))) {
+					warnx("Option `-o' needs a path argument.");
+					goto usage;
+				}
+			}
+			i += 1;
+		}
 
-	NSAutoreleasePool *pool = [NSAutoreleasePool new];
+		// Only one file type allowed
+		if (useType && [args count] != 1u)
+			goto usage;
+		// Don't dump data to a Terminal
+		if (oURL == NULL && isatty(STDOUT_FILENO))
+			goto usage;
 
-	NSFileManager *fm = [NSFileManager defaultManager];
-	NSString *p = [fm stringWithFileSystemRepresentation:argv[1] length:strlen(argv[1])];
-	if (![p isAbsolutePath])
-		p = [[[NSFileManager defaultManager] currentDirectoryPath] stringByAppendingPathComponent:p];
-	NSImage *img = [[NSWorkspace sharedWorkspace] iconForFile:p];
-	CGImageSourceRef src = CGImageSourceCreateWithData((CFDataRef)[img TIFFRepresentation], NULL);
+		NSWorkspace *ws = [NSWorkspace sharedWorkspace];
+		NSImage *img = useType ?  [ws iconForFileType:[args objectAtIndex:0u]] : [ws iconForFiles:args];
 
-	if (src == NULL) {
-		fputs("Failed to create image source.\n", stderr);
-		return 1;
-	}
+		CGImageSourceRef src = CGImageSourceCreateWithData((CFDataRef)[img TIFFRepresentation], NULL);
 
-	NSUInteger num = CGImageSourceGetCount(src);
+		[pool release];
+		
+		if (src == NULL) {
+			fputs("Failed to create image source.\n", stderr);
+			return 1;
+		}
 
-	[pool release];
+		NSUInteger num = CGImageSourceGetCount(src);
 
-	CGImageDestinationRef dst;
-	if (argc == 3) {
-		CFURLRef uDst = CFURLCreateFromFileSystemRepresentation(NULL, (const UInt8 *)argv[2], strlen(argv[2]), false);
-		dst = CGImageDestinationCreateWithURL(uDst, CFSTR("public.tiff"), num, NULL);
-		CFRelease(uDst);
+		CGImageDestinationRef dst;
+		if (oURL != NULL) {
+			dst = CGImageDestinationCreateWithURL(oURL, CFSTR("public.tiff"), num, NULL);
+			CFRelease(oURL);
+		} else {
+			CGDataConsumerCallbacks c = {&pr, NULL};
+			CGDataConsumerRef cons = CGDataConsumerCreate(NULL, &c);
+			dst = CGImageDestinationCreateWithDataConsumer(cons, CFSTR("public.tiff"), num, NULL);
+			CFRelease(cons);
+		}
+
+		if (dst == NULL) {
+			fputs("Failed to create image destination.\n", stderr);
+			return 1;
+		}
+
+		NSUInteger k = 0u;
+		do {
+			CGImageDestinationAddImageFromSource(dst, src, k, NULL);
+			k += 1u;
+		} while (k < num);
+
+		if (CGImageDestinationFinalize(dst) != true) {
+			fputs("Failed to finalize destination image.\n", stderr);
+			return 1;
+		}
+
+		CFRelease(src);
+		CFRelease(dst);
+
+		return EX_OK;
 	} else {
-		CGDataConsumerCallbacks c = {&pr, NULL};
-		CGDataConsumerRef cons = CGDataConsumerCreate(NULL, &c);
-		dst = CGImageDestinationCreateWithDataConsumer(cons, CFSTR("public.tiff"), num, NULL);
-		CFRelease(cons);
-	}
-
-	if (dst == NULL) {
-		fputs("Failed to create image destination.\n", stderr);
+usage:
+		fprintf(stderr, "usage:  %s <file>... -o <dst>.tiff\n\t%s -t <type> -o <dst.tiff>\n", argv[0], argv[0]);
 		return 1;
 	}
-
-	NSUInteger i = 0;
-	do {
-		CGImageDestinationAddImageFromSource(dst, src, i, NULL);
-		i += 1;
-	} while (i < num);
-
-	if (CGImageDestinationFinalize(dst) != true) {
-		fputs("Failed to finalize destination image.\n", stderr);
-		return 1;
-	}
-
-	CFRelease(src);
-	CFRelease(dst);
-
-	return EX_OK;
 }
