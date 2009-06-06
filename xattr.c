@@ -18,9 +18,6 @@ static inline void xls(const char *path);
 static inline void xrm(const char * restrict path, const char * restrict name);
 static inline void xrmfr(const char *path);
 
-static inline void run_pager(const char *pager);
-static inline void setup_pager(void);
-
 int main(int argc, const char *argv[])
 {
 	int c;
@@ -96,7 +93,7 @@ usage:
 	}
 	argv += optind;
 
-	setup_pager();
+//	setup_pager();
 
 	switch (action) {
 		case '\0':
@@ -158,8 +155,7 @@ usage:
 			} while (++argv, --argc);
 			break;
 	}
-
-	return (errno == 0);
+	return (errno != 0);
 }
 
 static void xcat(const char * restrict path, const char * restrict name)
@@ -272,62 +268,4 @@ static inline void xrm(const char * restrict path, const char * restrict name)
 		if (!(multiple && errno == ENOATTR))
 			perror(path);
 	}
-}
-
-//
-//	*_pager functions taken from git.
-//
-
-static inline void run_pager(const char *pager)
-{
-	/* Work around bug in "less" by not starting it until we have real input */
-	fd_set in;
-
-	FD_ZERO(&in);
-	FD_SET(0, &in);
-	select(1, &in, NULL, &in, NULL);
-
-	execlp(pager, pager, NULL);
-	execl("/bin/sh", "sh", "-c", pager, NULL);
-}
-
-static inline void setup_pager(void)
-{
-	pid_t pid;
-	int fd[2];
-
-	if (!isatty(1))
-		return;
-	const char *pager = getenv("PAGER");
-	if (!pager)
-		pager = "less";
-	else if (!*pager || !strcmp(pager, "cat"))
-		return;
-
-	if (pipe(fd) < 0)
-		return;
-	pid = fork();
-	if (pid < 0) {
-		close(fd[0]);
-		close(fd[1]);
-		return;
-	}
-
-	/* return in the child */
-	if (!pid) {
-		dup2(fd[1], 1);
-		close(fd[0]);
-		close(fd[1]);
-		return;
-	}
-
-	/* The original process turns into the PAGER */
-	dup2(fd[0], 0);
-	close(fd[0]);
-	close(fd[1]);
-
-	setenv("LESS", "FRSX", 0);
-	run_pager(pager);
-	fprintf(stderr, "Unable to execute pager '%s'.", pager);
-	exit(255);
 }
