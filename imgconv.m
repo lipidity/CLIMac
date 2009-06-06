@@ -1,5 +1,4 @@
 #import <Cocoa/Cocoa.h>
-#import <sysexits.h>
 
 /*
  * Copies image data from one place to another,

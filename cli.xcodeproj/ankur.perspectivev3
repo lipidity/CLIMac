@@ -295,13 +295,12 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateExpansionKey</key>
 							<array>
 								<string>08FB7794FE84155DC02AAC07</string>
+								<string>1C37FBAC04509CD000000102</string>
+								<string>927E86040FDA37BA008D6B2B</string>
+								<string>927E86050FDA37BA008D6B2B</string>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
-							<array>
-								<array>
-									<integer>0</integer>
-								</array>
-							</array>
+							<array/>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
 							<string>{{0, 0}, {185, 428}}</string>
 						</dict>
@@ -468,11 +467,11 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>929062CA0FDA018700D1F7F7</string>
+				<string>927E86060FDA37BA008D6B2B</string>
 				<string>1CA23ED40692098700951B8B</string>
-				<string>929062CB0FDA018700D1F7F7</string>
+				<string>927E86070FDA37BA008D6B2B</string>
 				<string>928BE6AB0F973A6A00E2E886</string>
-				<string>929062CC0FDA018700D1F7F7</string>
+				<string>927E86080FDA37BA008D6B2B</string>
 				<string>1CA23EDF0692099D00951B8B</string>
 				<string>1CA23EE00692099D00951B8B</string>
 				<string>1CA23EE10692099D00951B8B</string>
@@ -617,14 +616,14 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>92DFDAE20FD9FFCC00F7C0BD</string>
+				<string>927E86090FDA37BA008D6B2B</string>
 				<string>1CCC7628064C1048000F2A68</string>
 				<string>1CCC7629064C1048000F2A68</string>
-				<string>92DFDAE30FD9FFCC00F7C0BD</string>
-				<string>92DFDAE40FD9FFCC00F7C0BD</string>
-				<string>92DFDAE50FD9FFCC00F7C0BD</string>
-				<string>92DFDAE60FD9FFCC00F7C0BD</string>
-				<string>92DFDAE70FD9FFCC00F7C0BD</string>
+				<string>927E860A0FDA37BA008D6B2B</string>
+				<string>927E860B0FDA37BA008D6B2B</string>
+				<string>927E860C0FDA37BA008D6B2B</string>
+				<string>927E860D0FDA37BA008D6B2B</string>
+				<string>927E860E0FDA37BA008D6B2B</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -639,7 +638,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>265945858.90556499</real>
+	<real>265959383.51154301</real>
 	<key>ToolbarDisplayMode</key>
 	<integer>1</integer>
 	<key>ToolbarIsVisible</key>
@@ -654,8 +653,9 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>929063FE0FDA030200D1F7F7</string>
+		<string>927E860F0FDA37BA008D6B2B</string>
 		<string>/Users/ankur/Work/.newCLI/cli.xcodeproj</string>
+		<string>927E86130FDA37D7008D6B2B</string>
 	</array>
 	<key>WindowString</key>
 	<string>372 291 810 487 0 0 1280 778 </string>
