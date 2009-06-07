@@ -93,8 +93,6 @@ usage:
 	}
 	argv += optind;
 
-//	setup_pager();
-
 	switch (action) {
 		case '\0':
 		case 'l': // list xattrs

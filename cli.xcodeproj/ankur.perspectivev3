@@ -469,11 +469,11 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>9204252D0FDA70970099346E</string>
+				<string>929B60470FDB6CBA0091F69B</string>
 				<string>1CA23ED40692098700951B8B</string>
-				<string>9204252E0FDA70970099346E</string>
+				<string>929B60480FDB6CBA0091F69B</string>
 				<string>928BE6AB0F973A6A00E2E886</string>
-				<string>9204252F0FDA70970099346E</string>
+				<string>929B60490FDB6CBA0091F69B</string>
 				<string>1CA23EDF0692099D00951B8B</string>
 				<string>1CA23EE00692099D00951B8B</string>
 				<string>1CA23EE10692099D00951B8B</string>
@@ -640,7 +640,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>265975345.82225701</real>
+	<real>266038458.72190899</real>
 	<key>ToolbarDisplayMode</key>
 	<integer>1</integer>
 	<key>ToolbarIsVisible</key>
@@ -655,6 +655,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>929B604A0FDB6CBA0091F69B</string>
 		<string>/Users/ankur/Work/.newCLI/cli.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
