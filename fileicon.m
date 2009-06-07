@@ -1,5 +1,5 @@
 /*
- * Gets icon of file or file type in TIFF format.
+ * Gets icon of file or file type in TIFF format (with LZW compression).
  * If no destination path (and not tty), dump to stdout.
  */
 int main(int argc, const char *argv[]) {
@@ -38,19 +38,18 @@ int main(int argc, const char *argv[]) {
 		}
 
 		// Only one file type allowed
-		if (useType && [args count] != 1u)
+		if (useType && ([args count] != 1u))
 			goto usage;
 		// Don't dump data to a Terminal
-		if (oURL == NULL && isatty(STDOUT_FILENO))
+		if ((oURL == NULL) && isatty(STDOUT_FILENO))
 			goto usage;
 
 		NSWorkspace *ws = [NSWorkspace sharedWorkspace];
 		NSImage *img = useType ?  [ws iconForFileType:[args objectAtIndex:0u]] : [ws iconForFiles:args];
 
-		NSData *tiff = [img TIFFRepresentation];
-		if (tiff == nil) {
+		NSData *tiff = [img TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:1.0f];
+		if (tiff == nil)
 			errx(1, "Couldn't get TIFF representation of icon.");
-		}
 
 		if (oURL != NULL) {
 			if (![tiff writeToURL:(NSURL *)oURL atomically:NO])

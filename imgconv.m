@@ -5,16 +5,15 @@
  * The format of the destination image is determined by
  *  the extension specified (eg. .tiff, .png, .jpg).
  *
- * Handles multiple image representations (eg. tiffs can have multiple image in one)
+ * Handles multiple image representations (eg. can have multiple images in one tiff file)
  */
 int main (int argc, const char * argv[])
 {
-// MAY:
-//	specify background color (if output doesn't handle alpha),
-//	specify compression type / level
-// using CGImageDestinationSetProperties()
-// MAY:
-// specify which image to extract (like tiffutil)
+//	These are probably not necessary as they can be done manually in Preview.app, but command-line capability wouldn't hurt.
+// MAY:	use CGImageDestinationSetProperties() to specify background color (if output doesn't handle alpha) & compression type / level
+// MAY:	have option to extract all with suffixes (eg. $(fileicon / | imgconv -a out.png) makes |out-<1-5>.png|) =OR=
+// MAY:	specify which image $(fileicon / | imgconv -e 3 out.png) =OR=
+// MAY:	specify which size image $(fileicon / | imgconv -s 32 out.png)
 	if (argc != 2 && argc != 3) {
 		fprintf(stderr, "usage:  %s [<src>] <dst>\n", argv[0]);
 		return 1;
