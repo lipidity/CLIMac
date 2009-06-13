@@ -28,19 +28,26 @@
 
 /* Begin PBXBuildFile section */
 		8DD76F9A0486AA7600D96B5E /* app.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* app.m */; settings = {ATTRIBUTES = (); }; };
-		923C79A10FD94803008D3742 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B80F973AEE00E2E886 /* Cocoa.framework */; };
 		923C79BB0FD948F7008D3742 /* imgconv.m in Sources */ = {isa = PBXBuildFile; fileRef = 927050930FD919CF003074F2 /* imgconv.m */; };
 		923C79C20FD9492B008D3742 /* goosh-fn.m in Sources */ = {isa = PBXBuildFile; fileRef = 923C79BE0FD9492B008D3742 /* goosh-fn.m */; };
 		923C79C30FD9492B008D3742 /* goosh-JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 923C79C00FD9492B008D3742 /* goosh-JSON.m */; };
 		923C79C40FD9492B008D3742 /* goosh.m in Sources */ = {isa = PBXBuildFile; fileRef = 923C79C10FD9492B008D3742 /* goosh.m */; };
 		924311770FD12ACB00148B78 /* xattr.c in Sources */ = {isa = PBXBuildFile; fileRef = 924311760FD12ACB00148B78 /* xattr.c */; };
-		9270509E0FD91A6B003074F2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B80F973AEE00E2E886 /* Cocoa.framework */; };
-		927E85D80FDA2464008D6B2B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B80F973AEE00E2E886 /* Cocoa.framework */; };
 		927E85DF0FDA24C4008D6B2B /* fileicon.m in Sources */ = {isa = PBXBuildFile; fileRef = 927E85DE0FDA24C4008D6B2B /* fileicon.m */; };
 		927E86110FDA37CE008D6B2B /* readalias.c in Sources */ = {isa = PBXBuildFile; fileRef = 927E86100FDA37CE008D6B2B /* readalias.c */; };
-		928BE6B90F973AEE00E2E886 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B80F973AEE00E2E886 /* Cocoa.framework */; };
-		929062C50FDA016500D1F7F7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B80F973AEE00E2E886 /* Cocoa.framework */; };
-		929062C80FDA016C00D1F7F7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B80F973AEE00E2E886 /* Cocoa.framework */; };
+		928EEC100FE3A49000B5953C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
+		928EEC130FE3A4A300B5953C /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928EEC120FE3A4A300B5953C /* ApplicationServices.framework */; };
+		928EEC1A0FE3A50200B5953C /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
+		928EEC1B0FE3A50500B5953C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
+		928EEC1D0FE3A54E00B5953C /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
+		928EEC1E0FE3A55400B5953C /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928EEC120FE3A4A300B5953C /* ApplicationServices.framework */; };
+		928EEC1F0FE3A55700B5953C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
+		928EEC210FE3A57100B5953C /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
+		928EEC250FE3A58900B5953C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
+		928EEC260FE3A59100B5953C /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
+		928EEC270FE3A59300B5953C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
+		928EEC290FE3A5A600B5953C /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
+		928EEC2A0FE3A5A800B5953C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		92B4CF710FDA69C300F5AC0D /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B4CF6F0FDA69C300F5AC0D /* CoreFoundation.framework */; };
 		92B4CF720FDA69C300F5AC0D /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B4CF700FDA69C300F5AC0D /* CoreServices.framework */; };
 		92DFDABC0FD9FE1400F7C0BD /* dup.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DFDABA0FD9FE1400F7C0BD /* dup.m */; };
@@ -119,7 +126,7 @@
 		927E86000FDA378B008D6B2B /* readalias */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = readalias; sourceTree = BUILT_PRODUCTS_DIR; };
 		927E86100FDA37CE008D6B2B /* readalias.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = readalias.c; sourceTree = "<group>"; };
 		928BE6B40F973AD600E2E886 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
-		928BE6B80F973AEE00E2E886 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		928EEC120FE3A4A300B5953C /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		92B4CF6F0FDA69C300F5AC0D /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
 		92B4CF700FDA69C300F5AC0D /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		92DFDAB80FD9FDC900F7C0BD /* dup */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dup; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,7 +141,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				928BE6B90F973AEE00E2E886 /* Cocoa.framework in Frameworks */,
+				928EEC1D0FE3A54E00B5953C /* AppKit.framework in Frameworks */,
+				928EEC1E0FE3A55400B5953C /* ApplicationServices.framework in Frameworks */,
+				928EEC1F0FE3A55700B5953C /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,7 +151,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				923C79A10FD94803008D3742 /* Cocoa.framework in Frameworks */,
+				928EEC290FE3A5A600B5953C /* AppKit.framework in Frameworks */,
+				928EEC2A0FE3A5A800B5953C /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,7 +167,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9270509E0FD91A6B003074F2 /* Cocoa.framework in Frameworks */,
+				928EEC100FE3A49000B5953C /* Foundation.framework in Frameworks */,
+				928EEC130FE3A4A300B5953C /* ApplicationServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,7 +176,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				927E85D80FDA2464008D6B2B /* Cocoa.framework in Frameworks */,
+				928EEC260FE3A59100B5953C /* AppKit.framework in Frameworks */,
+				928EEC270FE3A59300B5953C /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,7 +194,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				929062C80FDA016C00D1F7F7 /* Cocoa.framework in Frameworks */,
+				928EEC210FE3A57100B5953C /* AppKit.framework in Frameworks */,
+				928EEC250FE3A58900B5953C /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,7 +203,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				929062C50FDA016500D1F7F7 /* Cocoa.framework in Frameworks */,
+				928EEC1A0FE3A50200B5953C /* AppKit.framework in Frameworks */,
+				928EEC1B0FE3A50500B5953C /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,9 +241,9 @@
 		08FB779DFE84155DC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				928EEC120FE3A4A300B5953C /* ApplicationServices.framework */,
 				92B4CF6F0FDA69C300F5AC0D /* CoreFoundation.framework */,
 				92B4CF700FDA69C300F5AC0D /* CoreServices.framework */,
-				928BE6B80F973AEE00E2E886 /* Cocoa.framework */,
 				928BE6B40F973AD600E2E886 /* AppKit.framework */,
 				08FB779EFE84155DC02AAC07 /* Foundation.framework */,
 			);
@@ -547,37 +561,39 @@
 		1DEB927508733DD40010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				INSTALL_PATH = /usr/local/bin;
-				PRODUCT_NAME = app;
-				ZERO_LINK = YES;
 			};
 			name = Debug;
 		};
 		1DEB927608733DD40010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_MODEL_TUNING = G5;
-				PRODUCT_NAME = app;
 			};
 			name = Release;
 		};
 		1DEB927908733DD40010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_AUTO_VECTORIZATION = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DEBUGGING_SYMBOLS = full;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_ENABLE_SSE3_EXTENSIONS = YES;
 				GCC_FAST_MATH = YES;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
+				GCC_MODEL_TUNING = "";
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;
+				GCC_STRICT_ALIASING = YES;
 				GCC_THREADSAFE_STATICS = NO;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
+				GCC_VERSION = 4.2;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
 				GCC_WARN_SHADOW = YES;
 				GCC_WARN_SIGN_COMPARE = YES;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
@@ -586,12 +602,26 @@
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INSTALL_PATH = "$(HOME)/bin";
 				PREBINDING = NO;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				WARNING_CFLAGS = (
-					"-Wstrict-aliasing",
+					"-Wstrict-aliasing=2",
 					"-Wall",
+					"-Wextra",
+					"-Wpointer-arith",
+					"-Wbad-function-cast",
+					"-Wcast-qual",
+					"-Wcast-align",
+					"-Wwrite-strings",
+					"-Waggregate-return",
+					"-Wstrict-prototypes",
+					"-Wold-style-definition",
+					"-Wmissing-declarations",
+					"-Wunreachable-code",
+					"-Winline",
+					"-Wdisabled-optimization",
 				);
 			};
 			name = Debug;
@@ -604,14 +634,16 @@
 					ppc,
 					i386,
 				);
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_AUTO_VECTORIZATION = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
 				GCC_ENABLE_SSE3_EXTENSIONS = YES;
 				GCC_FAST_MATH = YES;
 				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
-				GCC_MODEL_TUNING = G5;
+				GCC_MODEL_TUNING = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;
+				GCC_STRICT_ALIASING = YES;
 				GCC_THREADSAFE_STATICS = NO;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_VERSION = 4.2;
@@ -621,13 +653,32 @@
 				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
 				GCC_WARN_SHADOW = YES;
 				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
+				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "$(HOME)/bin";
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				PREBINDING = NO;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				WARNING_CFLAGS = (
-					"-Wstrict-aliasing",
+					"-Wstrict-aliasing=2",
 					"-Wall",
+					"-Wextra",
+					"-Wpointer-arith",
+					"-Wbad-function-cast",
+					"-Wcast-qual",
+					"-Wcast-align",
+					"-Wwrite-strings",
+					"-Waggregate-return",
+					"-Wstrict-prototypes",
+					"-Wold-style-definition",
+					"-Wmissing-declarations",
+					"-Wunreachable-code",
+					"-Winline",
+					"-Wdisabled-optimization",
 				);
 			};
 			name = Release;
@@ -635,15 +686,7 @@
 		923C79A30FD94803008D3742 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				INSTALL_PATH = /usr/local/bin;
-				PREBINDING = NO;
-				PRODUCT_NAME = imgconv;
+				OTHER_LDFLAGS = "-ledit";
 			};
 			name = Debug;
 		};
@@ -651,160 +694,92 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				OTHER_LDFLAGS = "-ledit";
-				PRODUCT_NAME = goosh;
 			};
 			name = Release;
 		};
 		924311740FD12AB000148B78 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				INSTALL_PATH = /usr/local/bin;
-				PREBINDING = NO;
-				PRODUCT_NAME = xattr;
 			};
 			name = Debug;
 		};
 		924311750FD12AB000148B78 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_NAME = xattr;
 			};
 			name = Release;
 		};
 		927050890FD91990003074F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				INSTALL_PATH = /usr/local/bin;
-				PREBINDING = NO;
-				PRODUCT_NAME = imgconv;
+				OTHER_CFLAGS = "-fconstant-cfstrings";
 			};
 			name = Debug;
 		};
 		9270508A0FD91990003074F2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_NAME = imgconv;
+				OTHER_CFLAGS = "-fconstant-cfstrings";
 			};
 			name = Release;
 		};
 		927E85DA0FDA2464008D6B2B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				INSTALL_PATH = /usr/local/bin;
-				PREBINDING = NO;
-				PRODUCT_NAME = imgconv;
 			};
 			name = Debug;
 		};
 		927E85DB0FDA2464008D6B2B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_NAME = fileicon;
 			};
 			name = Release;
 		};
 		927E85FE0FDA378B008D6B2B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				INSTALL_PATH = /usr/local/bin;
-				PREBINDING = NO;
-				PRODUCT_NAME = imgconv;
 			};
 			name = Debug;
 		};
 		927E85FF0FDA378B008D6B2B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_NAME = readalias;
 			};
 			name = Release;
 		};
 		92DFDAB60FD9FDC900F7C0BD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				INSTALL_PATH = /usr/local/bin;
-				PREBINDING = NO;
-				PRODUCT_NAME = xattr;
 			};
 			name = Debug;
 		};
 		92DFDAB70FD9FDC900F7C0BD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_NAME = dup;
 			};
 			name = Release;
 		};
 		92DFDAC40FD9FE1800F7C0BD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				INSTALL_PATH = /usr/local/bin;
-				PREBINDING = NO;
-				PRODUCT_NAME = xattr;
 			};
 			name = Debug;
 		};
 		92DFDAC50FD9FE1800F7C0BD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				PRODUCT_NAME = trash;
 			};
 			name = Release;
 		};
 		92DFDACB0FD9FE4600F7C0BD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = "Build all";
 			};
 			name = Debug;
 		};
 		92DFDACC0FD9FE4600F7C0BD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				PRODUCT_NAME = "Build all";
-				ZERO_LINK = NO;
 			};
 			name = Release;
 		};

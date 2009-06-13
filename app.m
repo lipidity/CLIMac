@@ -19,9 +19,9 @@ static void printCFURLPath(const void *value, void *context);
 
 static void printCFURLPath(const void *value, void *context)
 {
-	const char buffer[PATH_MAX];
-	if (CFURLGetFileSystemRepresentation(value, true, (UInt8 *)buffer, PATH_MAX))
-		puts(buffer);
+	UInt8 buffer[PATH_MAX];
+	if (CFURLGetFileSystemRepresentation(value, true, buffer, PATH_MAX))
+		puts((char *)buffer);
 }
 
 int main(int argc, const char * argv[])
@@ -109,10 +109,10 @@ static void a4f(const char *f)
 {
 	CFURLRef appURL = NULL;
 	CFURLRef itemURL = CFURLCreateFromFileSystemRepresentation(NULL, (const UInt8 *)f, strlen(f), false);
-	const char path[PATH_MAX];
+	UInt8 path[PATH_MAX];
 	// FIXME: different errors for different points of failures
-	if (LSGetApplicationForURL(itemURL, kLSRolesAll, NULL, &appURL) == 0 && appURL != NULL && CFURLGetFileSystemRepresentation(appURL, true, (UInt8 *)path, PATH_MAX) == true) {
-		puts(path);
+	if (LSGetApplicationForURL(itemURL, kLSRolesAll, NULL, &appURL) == 0 && appURL != NULL && CFURLGetFileSystemRepresentation(appURL, true, path, PATH_MAX) == true) {
+		puts((char *)path);
 		CFRelease(appURL);
 	} else {
 		exit(1);
@@ -135,7 +135,7 @@ static void a4e(const char *e)
 	CFURLRef u = NULL;
 	/* OSStatus er = */ LSGetApplicationForInfo(kLSUnknownType, kLSUnknownCreator, (CFStringRef)[NSString stringWithUTF8String:e], kLSRolesAll, NULL, &u);
 	if (u) {
-		puts([[(NSURL *)u path] fileSystemRepresentation]);
+		printCFURLPath(u, NULL);
 		CFRelease(u);
 	} else {
 //		fprintf(stderr, "'%s': LS Error %d\n", e, (int)er);
@@ -151,10 +151,10 @@ static void a4w(const char *wid)
 	if (retval == 0) {
 		CGSConnectionGetPID(c, &p);
 		GetProcessForPID(p, &s);
-		NSString *m = nil;
-		OSStatus cperr = CopyProcessName(&s, (CFStringRef*)&m);
-		if (m != nil) {
-			puts([[[NSWorkspace sharedWorkspace] fullPathForApplication:m] fileSystemRepresentation]);
+		CFStringRef m = NULL;
+		OSStatus cperr = CopyProcessName(&s, &m);
+		if (m != NULL) {
+			puts([[[NSWorkspace sharedWorkspace] fullPathForApplication:(NSString *)m] fileSystemRepresentation]);
 			CFRelease(m);
 		} else {
 			// better error message?
@@ -169,9 +169,9 @@ static void a4w(const char *wid)
 
 static void app(const char *n)
 {
-	NSString *p;
 	CFStringRef application = CFStringCreateWithFileSystemRepresentation(NULL, n);
-	if ((p = [[NSWorkspace sharedWorkspace] fullPathForApplication:(NSString *)application])) {
+	NSString *p = [[NSWorkspace sharedWorkspace] fullPathForApplication:(NSString *)application];
+	if (p != nil) {
 		puts([p fileSystemRepresentation]);
 	} else {
 		exit(1);
@@ -184,7 +184,7 @@ static void printApp(NSDictionary *application, NSArray *opts)
 	NSEnumerator *e = [opts objectEnumerator];
 	NSString *key;
 	while ((key = [e nextObject]))
-		puts([[[application objectForKey:key] description] UTF8String]);
+		puts([[[application objectForKey:key] description] fileSystemRepresentation]);
 }
 
 static void list(BOOL a, const char opts[])
