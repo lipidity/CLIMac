@@ -1,1 +1,1 @@
-WARNING_CFLAGS = $(WARNING_CFLAGS) -Wno-cast-qual
+WARNING_CFLAGS = $(WARNING_CFLAGS) -Wno-cast-qual -Wno-strict-aliasing
