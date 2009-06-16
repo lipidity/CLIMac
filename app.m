@@ -1,15 +1,13 @@
 #import <getopt.h>
 
-extern OSStatus _LSCopyAllApplicationURLs(CFArrayRef *);
-
+CG_EXTERN OSStatus _LSCopyAllApplicationURLs(CFArrayRef *);
 CG_EXTERN CGError CGSConnectionGetPID(int cid, pid_t *outPID);
 CG_EXTERN int CGSMainConnectionID(void);
 CG_EXTERN CGError CGSGetWindowOwner(int cid, int wid, int *outOwner);
 
-@interface NSString (aBID)
-- (NSString *) cp4bid;
-@end
+/* LSCopyDefault(Role)?Handler functions are only valid for explicitly set associations. */
 
+@interface NSString (aBID) - (NSString *) cp4bid; @end
 @implementation NSString (aBID)
 - (NSString *) cp4bid; {
 	NSString *retval = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:self];
@@ -19,21 +17,19 @@ CG_EXTERN CGError CGSGetWindowOwner(int cid, int wid, int *outOwner);
 }
 @end
 
-
-int main(int argc, const char * argv[])
-{
+int main(int argc, const char * argv[]) {
 	if (argc > 1) {
 		NSAutoreleasePool *pool = [NSAutoreleasePool new];
 		const struct option longopts[] = {
-			// list
-			{ "all", no_argument, NULL, 'l' }, // show all apps (can use with -ut)
+			/* list */
+			{ "all", no_argument, NULL, 'l' },
 			{ "active", no_argument, NULL, 'a' },
-			// find
+			/* find */
 			{ "bundle", required_argument, NULL, 'b' },
 			{ "window", required_argument, NULL, 'w' },
 			{ "URL", required_argument, NULL, 'u' },
-			{ "type", required_argument, NULL, 't' }, // and specify role?
-			{ "file", required_argument, NULL, 'f' }, // some files have custom app
+			{ "type", required_argument, NULL, 't' },
+			{ "file", required_argument, NULL, 'f' },
 			{ NULL, 0, NULL, 0 }
 		};
 		int c;
@@ -76,11 +72,10 @@ int main(int argc, const char * argv[])
 		NSString *str = nil;
 		switch (action) {
 			case 'a':
-				if (listAll) {
+				if (listAll)
 					all = [[[ws launchedApplications] valueForKey:@"NSApplicationPath"] copy];
-				} else {
+				else
 					str = [[[ws activeApplication] objectForKey:@"NSApplicationPath"] copy];
-				}
 				break;
 			case 'b':
 				str = [[arg cp4bid] copy];
@@ -115,9 +110,8 @@ int main(int argc, const char * argv[])
 				} else {
 					NSURL *inURL = [[NSURL alloc] initWithScheme:arg host:@"" path:@"/"];
 					CFURLRef outURL = NULL;
-					if ((LSGetApplicationForURL((CFURLRef)inURL, kLSRolesAll, NULL, (CFURLRef *)&outURL) == 0) && (outURL != NULL)) {
+					if ((LSGetApplicationForURL((CFURLRef)inURL, kLSRolesAll, NULL, (CFURLRef *)&outURL) == 0) && (outURL != NULL))
 						str = (NSString *)CFURLCopyFileSystemPath(outURL, kCFURLPOSIXPathStyle);
-					}
 					[inURL release];
 #if 0
 					CFStringRef bundle = LSCopyDefaultHandlerForURLScheme((CFStringRef)arg);
@@ -171,7 +165,7 @@ int main(int argc, const char * argv[])
 					str = [appName copy];
 			}
 				break;
-			default:
+			default: {
 				if (listAll) {
 					CFArrayRef appURLs = NULL;
 					if (_LSCopyAllApplicationURLs(&appURLs) == 0) {
@@ -184,6 +178,8 @@ int main(int argc, const char * argv[])
 						str = [[ws fullPathForApplication:arg] copy];
 					}
 				}
+				break;
+			}
 		}
 		if (arg != NULL)
 			CFRelease(arg);
@@ -201,28 +197,18 @@ int main(int argc, const char * argv[])
 			exit(1);
 		}
 		[pool release];
+		return 0;
 	} else {
 usage:
 		fprintf(stderr, "usage:  %s <name>\n", argv[0]);
 		const char * const uses[] = {
-			"-l",
-			"-a",
-			"-b <bundle-id>",
-			"-w <window-id>",
-			"-u <url-scheme>",
-			"-t <UTI>",
-			"-f <file>"};
+			"-l", "-a", "-b <bundle-id>", "-w <window-id>", "-u <url-scheme>", "-t <UTI>", "-f <file>"
+		};
 		size_t j = 0;
 		do {
-			fputs("\t", stderr); // assume "\t" == 8 spaces
-			fputs(argv[0], stderr);
-			fputc(' ', stderr);
-			fputs(uses[j], stderr);
-			fputc('\n', stderr);
+			fprintf(stderr, "\t%s %s\n", argv[0], uses[j]);
 			j += 1;
 		} while (j < (sizeof(uses)/sizeof(uses[0])));
 		return 1;
 	}
-
-	return 0;
 }
