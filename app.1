@@ -35,11 +35,11 @@ tool prints the path at which application(s) are located. In the absence of any 
 .Pp
 In each case, the absolute paths to the applications matching the criteria are printed. Applications are specified by:
 .Bl -ohang
-.It Sy Fl l Ns / Ns Fl -all
+.It Fl l Ns / Ns Fl -all
 .Bd -ragged -offset indent -compact
 All applications.
 .Ed
-.It Sy Fl a Ns / Ns Fl -active
+.It Fl a Ns / Ns Fl -active
 .Bd -ragged -offset indent -compact
 The currently active
 .Pq frontmost
@@ -50,7 +50,7 @@ With the
 flag, all launched applications.
 .Ed
 .Ed
-.It Sy Fl u Ns / Ns Fl -scheme Aq Ar url-scheme
+.It Fl u Ns / Ns Fl -scheme Aq Ar url-scheme
 .Bd -ragged -offset indent -compact
 Application that opens URLs with the specified scheme.
 .Bd -ragged -compact
@@ -59,7 +59,7 @@ With the
 flag, all applications able to handle the specified URL scheme.
 .Ed
 .Ed
-.It Sy Fl t Ns / Ns Fl -type Aq Ar UTI
+.It Fl t Ns / Ns Fl -type Aq Ar UTI
 .Bd -ragged -offset indent -compact
 Application that opens files of the specified content-type
 .Pq Uniform Type Identifier Ns .
@@ -73,19 +73,19 @@ Use
 .Xr uti 1
 to determine UTIs.
 .Ed
-.It Sy Fl b Ns / Ns Fl -bundle Aq Ar bundle-ID
+.It Fl b Ns / Ns Fl -bundle Aq Ar bundle-ID
 .Bd -ragged -offset indent -compact
 Application that has the specified identifier.
 .Pq The bundle ID is a unique identifier for an application that is defined in the Info.plist under the key Sq CFBundleIdentifier
 .Ed
-.It Sy Fl f Ns / Ns Fl -file Aq Ar file
+.It Fl f Ns / Ns Fl -file Aq Ar file
 .Bd -ragged -offset indent -compact
 Application that will open the specified file.
 It is recommeded to use the
 .Fl t
 option in the general case, and this option only when information about a specific file is needed.
 .Ed
-.It Sy Fl w Ns / Ns Fl -window Aq Ar window-ID
+.It Fl w Ns / Ns Fl -window Aq Ar window-ID
 .Bd -ragged -offset indent -compact
 Application that owns the specified window.
 .Pp

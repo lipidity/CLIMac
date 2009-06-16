@@ -37,12 +37,17 @@
 		924A9B630FE4F4920098AC53 /* uti.c in Sources */ = {isa = PBXBuildFile; fileRef = 924A9B620FE4F4920098AC53 /* uti.c */; };
 		9256AF210FE7DA7000585BBB /* app.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859EA3029092ED04C91782 /* app.1 */; };
 		9256AF380FE7DC1200585BBB /* xattr.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9256AF360FE7DBFE00585BBB /* xattr.1 */; };
+		925C36C00FE7E97900E9B9E4 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B4CF700FDA69C300F5AC0D /* CoreServices.framework */; };
+		925C36D60FE7EC5A00E9B9E4 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
+		925C36D70FE7EC5A00E9B9E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
+		925C36E00FE7EC9000E9B9E4 /* seticon.m in Sources */ = {isa = PBXBuildFile; fileRef = 925C36DF0FE7EC9000E9B9E4 /* seticon.m */; };
+		925C36F60FE7F15F00E9B9E4 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
+		925C36F70FE7F15F00E9B9E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
+		925C37040FE7F2A300E9B9E4 /* pid.c in Sources */ = {isa = PBXBuildFile; fileRef = 925C37030FE7F2A300E9B9E4 /* pid.c */; };
 		927E85DF0FDA24C4008D6B2B /* fileicon.m in Sources */ = {isa = PBXBuildFile; fileRef = 927E85DE0FDA24C4008D6B2B /* fileicon.m */; };
 		927E86110FDA37CE008D6B2B /* readalias.c in Sources */ = {isa = PBXBuildFile; fileRef = 927E86100FDA37CE008D6B2B /* readalias.c */; };
 		928EEC100FE3A49000B5953C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		928EEC130FE3A4A300B5953C /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928EEC120FE3A4A300B5953C /* ApplicationServices.framework */; };
-		928EEC1A0FE3A50200B5953C /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
-		928EEC1B0FE3A50500B5953C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		928EEC1D0FE3A54E00B5953C /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
 		928EEC1E0FE3A55400B5953C /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928EEC120FE3A4A300B5953C /* ApplicationServices.framework */; };
 		928EEC1F0FE3A55700B5953C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
@@ -55,7 +60,7 @@
 		92B4CF710FDA69C300F5AC0D /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B4CF6F0FDA69C300F5AC0D /* CoreFoundation.framework */; };
 		92B4CF720FDA69C300F5AC0D /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B4CF700FDA69C300F5AC0D /* CoreServices.framework */; };
 		92DFDABC0FD9FE1400F7C0BD /* dup.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DFDABA0FD9FE1400F7C0BD /* dup.m */; };
-		92DFDAC10FD9FE1800F7C0BD /* trash.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DFDABB0FD9FE1400F7C0BD /* trash.m */; };
+		92DFDAC10FD9FE1800F7C0BD /* trash.c in Sources */ = {isa = PBXBuildFile; fileRef = 92DFDABB0FD9FE1400F7C0BD /* trash.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -194,6 +199,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		925C36D80FE7EC5A00E9B9E4 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = /Users/ankur/share/man/man1;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		925C36F80FE7F15F00E9B9E4 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = /Users/ankur/share/man/man1;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -212,6 +235,11 @@
 		924A9B600FE4F45F0098AC53 /* uti */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = uti; sourceTree = BUILT_PRODUCTS_DIR; };
 		924A9B620FE4F4920098AC53 /* uti.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = uti.c; sourceTree = "<group>"; };
 		9256AF360FE7DBFE00585BBB /* xattr.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = xattr.1; sourceTree = "<group>"; };
+		925C36DC0FE7EC5A00E9B9E4 /* seticon */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = seticon; sourceTree = BUILT_PRODUCTS_DIR; };
+		925C36DF0FE7EC9000E9B9E4 /* seticon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = seticon.m; sourceTree = "<group>"; };
+		925C36FC0FE7F15F00E9B9E4 /* seticon copy */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "seticon copy"; sourceTree = BUILT_PRODUCTS_DIR; };
+		925C37000FE7F20E00E9B9E4 /* done */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = done; sourceTree = "<group>"; };
+		925C37030FE7F2A300E9B9E4 /* pid.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pid.c; sourceTree = "<group>"; };
 		927050870FD91990003074F2 /* imgconv */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = imgconv; sourceTree = BUILT_PRODUCTS_DIR; };
 		927050930FD919CF003074F2 /* imgconv.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imgconv.m; sourceTree = "<group>"; };
 		927E85DC0FDA2464008D6B2B /* fileicon */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = fileicon; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -224,7 +252,7 @@
 		92B4CF700FDA69C300F5AC0D /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		92DFDAB80FD9FDC900F7C0BD /* dup */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dup; sourceTree = BUILT_PRODUCTS_DIR; };
 		92DFDABA0FD9FE1400F7C0BD /* dup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dup.m; sourceTree = "<group>"; };
-		92DFDABB0FD9FE1400F7C0BD /* trash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = trash.m; sourceTree = "<group>"; };
+		92DFDABB0FD9FE1400F7C0BD /* trash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = trash.c; sourceTree = "<group>"; };
 		92DFDAC60FD9FE1800F7C0BD /* trash */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = trash; sourceTree = BUILT_PRODUCTS_DIR; };
 		92ECA3820FE60214004022DA /* TollFree.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = TollFree.xcconfig; sourceTree = "<group>"; };
 		C6859EA3029092ED04C91782 /* app.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = app.1; sourceTree = "<group>"; wrapsLines = 1; };
@@ -262,6 +290,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				924A9B5B0FE4F45F0098AC53 /* ApplicationServices.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		925C36D50FE7EC5A00E9B9E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				925C36D60FE7EC5A00E9B9E4 /* AppKit.framework in Frameworks */,
+				925C36D70FE7EC5A00E9B9E4 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		925C36F50FE7F15F00E9B9E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				925C36F60FE7F15F00E9B9E4 /* AppKit.framework in Frameworks */,
+				925C36F70FE7F15F00E9B9E4 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,8 +351,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				928EEC1A0FE3A50200B5953C /* AppKit.framework in Frameworks */,
-				928EEC1B0FE3A50500B5953C /* Foundation.framework in Frameworks */,
+				925C36C00FE7E97900E9B9E4 /* CoreServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,11 +373,13 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				925C37030FE7F2A300E9B9E4 /* pid.c */,
+				925C36DF0FE7EC9000E9B9E4 /* seticon.m */,
 				924A9B620FE4F4920098AC53 /* uti.c */,
 				927E86100FDA37CE008D6B2B /* readalias.c */,
 				927E85DE0FDA24C4008D6B2B /* fileicon.m */,
 				92DFDABA0FD9FE1400F7C0BD /* dup.m */,
-				92DFDABB0FD9FE1400F7C0BD /* trash.m */,
+				92DFDABB0FD9FE1400F7C0BD /* trash.c */,
 				923C79BC0FD9492B008D3742 /* goosh */,
 				927050930FD919CF003074F2 /* imgconv.m */,
 				924311760FD12ACB00148B78 /* xattr.c */,
@@ -365,6 +412,8 @@
 				927E85DC0FDA2464008D6B2B /* fileicon */,
 				927E86000FDA378B008D6B2B /* readalias */,
 				924A9B600FE4F45F0098AC53 /* uti */,
+				925C36DC0FE7EC5A00E9B9E4 /* seticon */,
+				925C36FC0FE7F15F00E9B9E4 /* seticon copy */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -384,6 +433,7 @@
 		928BE6BD0F973B5B00E2E886 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				925C37000FE7F20E00E9B9E4 /* done */,
 				32A70AAB03705E1F00C91783 /* Prefix.pch */,
 				92ECA3820FE60214004022DA /* TollFree.xcconfig */,
 			);
@@ -470,6 +520,40 @@
 			productInstallPath = "$(HOME)/bin";
 			productName = cli;
 			productReference = 924A9B600FE4F45F0098AC53 /* uti */;
+			productType = "com.apple.product-type.tool";
+		};
+		925C36D20FE7EC5A00E9B9E4 /* seticon */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 925C36D90FE7EC5A00E9B9E4 /* Build configuration list for PBXNativeTarget "seticon" */;
+			buildPhases = (
+				925C36D30FE7EC5A00E9B9E4 /* Sources */,
+				925C36D50FE7EC5A00E9B9E4 /* Frameworks */,
+				925C36D80FE7EC5A00E9B9E4 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = seticon;
+			productName = imgconv;
+			productReference = 925C36DC0FE7EC5A00E9B9E4 /* seticon */;
+			productType = "com.apple.product-type.tool";
+		};
+		925C36F20FE7F15F00E9B9E4 /* pid */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 925C36F90FE7F15F00E9B9E4 /* Build configuration list for PBXNativeTarget "pid" */;
+			buildPhases = (
+				925C36F30FE7F15F00E9B9E4 /* Sources */,
+				925C36F50FE7F15F00E9B9E4 /* Frameworks */,
+				925C36F80FE7F15F00E9B9E4 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = pid;
+			productName = imgconv;
+			productReference = 925C36FC0FE7F15F00E9B9E4 /* seticon copy */;
 			productType = "com.apple.product-type.tool";
 		};
 		927050860FD91990003074F2 /* imgconv */ = {
@@ -572,8 +656,10 @@
 				8DD76F960486AA7600D96B5E /* app */,
 				92DFDAB10FD9FDC900F7C0BD /* dup */,
 				927E85D40FDA2464008D6B2B /* fileicon */,
+				925C36D20FE7EC5A00E9B9E4 /* seticon */,
 				923C799D0FD94803008D3742 /* goosh */,
 				927050860FD91990003074F2 /* imgconv */,
+				925C36F20FE7F15F00E9B9E4 /* pid */,
 				927E85F80FDA378B008D6B2B /* readalias */,
 				92DFDABE0FD9FE1800F7C0BD /* trash */,
 				924A9B560FE4F45F0098AC53 /* uti */,
@@ -618,6 +704,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		925C36D30FE7EC5A00E9B9E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				925C36E00FE7EC9000E9B9E4 /* seticon.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		925C36F30FE7F15F00E9B9E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				925C37040FE7F2A300E9B9E4 /* pid.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		927050840FD91990003074F2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -654,7 +756,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92DFDAC10FD9FE1800F7C0BD /* trash.m in Sources */,
+				92DFDAC10FD9FE1800F7C0BD /* trash.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -865,6 +967,32 @@
 			};
 			name = Release;
 		};
+		925C36DA0FE7EC5A00E9B9E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 92ECA3820FE60214004022DA /* TollFree.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		925C36DB0FE7EC5A00E9B9E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		925C36FA0FE7F15F00E9B9E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 92ECA3820FE60214004022DA /* TollFree.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		925C36FB0FE7F15F00E9B9E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
 		927050890FD91990003074F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -984,6 +1112,24 @@
 			buildConfigurations = (
 				924A9B5E0FE4F45F0098AC53 /* Debug */,
 				924A9B5F0FE4F45F0098AC53 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		925C36D90FE7EC5A00E9B9E4 /* Build configuration list for PBXNativeTarget "seticon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				925C36DA0FE7EC5A00E9B9E4 /* Debug */,
+				925C36DB0FE7EC5A00E9B9E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		925C36F90FE7F15F00E9B9E4 /* Build configuration list for PBXNativeTarget "pid" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				925C36FA0FE7F15F00E9B9E4 /* Debug */,
+				925C36FB0FE7F15F00E9B9E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
