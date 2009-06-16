@@ -3,11 +3,12 @@
 
 static inline void pS(CFStringRef str) {
 	CFIndex len = CFStringGetMaximumSizeOfFileSystemRepresentation(str);
-	char *buffer = alloca(len);
+	char *buffer = malloc(len);
 	if (CFStringGetFileSystemRepresentation(str, buffer, len))
 		puts(buffer);
 //	else
 //		; // error
+	free(buffer);
 }
 
 int main (int argc, const char * argv[]) {
@@ -15,13 +16,13 @@ int main (int argc, const char * argv[]) {
 		// TODO: UTTypeCopyPreferredTagWithClass and UTTypeConformsTo and UTTypeEqual
 		// SHOULD: allow -c on -lmOe
 		// Return 1 if UTI not found; error messages
-		static struct option longopts[] = {
+		static const struct option longopts[] = {
 			{ "all", no_argument, NULL, 'l' }, // show all (not just preferred)
 			{ "mime", required_argument, NULL, 'm' },
 			{ "OSType", required_argument, NULL, 'O' },
 			{ "extension", required_argument, NULL, 'e' },
-			{ "file", required_argument, NULL, 'f' },
-			{ "where", required_argument, NULL, 'b' },
+			{ "describe", required_argument, NULL, 'i' },
+			{ "locate", required_argument, NULL, 'b' },
 			{ "define", required_argument, NULL, 'd' },
 //			{ "conforms", required_argument, NULL, 'c' },
 //			{ "equals", required_argument, NULL, '=' },
@@ -31,16 +32,16 @@ int main (int argc, const char * argv[]) {
 		CFStringRef arg = NULL;
 		char action = 0;
 		BOOL listAll = NO;
-		while ((c = getopt_long(argc, (char **)argv, "lm:O:e:f:b:d:", longopts, NULL)) != EOF) {
+		while ((c = getopt_long(argc, (char **)argv, "lm:O:e:i:b:d:", longopts, NULL)) != EOF) {
 			switch (c) {
 				case 'm':
 				case 'O':
 				case 'e':
-				case 'f':
+				case 'i':
 				case 'b':
 				case 'd':
 					if (action != 0) {
-						fputs("You may not specify more than one `-mOefbd' option", stderr);
+						fputs("You may not specify more than one `-mOeibd' option", stderr);
 						goto usage;
 					} else {
 						action = c;
@@ -54,6 +55,8 @@ int main (int argc, const char * argv[]) {
 					goto usage;
 			}
 		}
+		if (argc != optind && argc != 2)
+			goto usage;
 		argv += optind; argc -= optind;
 		CFStringRef one = NULL;
 		CFStringRef tag = NULL;
@@ -67,36 +70,38 @@ int main (int argc, const char * argv[]) {
 			case 'e':
 				tag = kUTTagClassFilenameExtension;
 				break;
-			case 'f': {
-				CFURLRef url = CFURLCreateWithFileSystemPath(NULL, arg, kCFURLPOSIXPathStyle, false);
-				FSRef ref;
-				CFURLGetFSRef(url, &ref); // chk
-				LSCopyItemAttribute(&ref, kLSRolesNone, kLSItemContentType, (CFTypeRef *)&one); // chk
-			} break;
-			case 'b': {
-				CFURLRef url = UTTypeCopyDeclaringBundleURL(arg);
-				one = CFURLCopyFileSystemPath(url, kCFURLPOSIXPathStyle);
-				CFRelease(url);
-			} break;
-			case 'd': {
-				CFDictionaryRef dict = UTTypeCopyDeclaration(arg);
-				one = CFCopyDescription(dict);
-				CFRelease(dict);
-			} break;
-			default: {
-				if (argc != 1)
-					goto usage;
-				arg = CFStringCreateWithFileSystemRepresentation(NULL, argv[0]);
+			case 'i': {
 				CFStringRef desc = UTTypeCopyDescription(arg);
 				if (desc) {
 					CFShow(desc);
 					CFRelease(desc);
 				} // chk properly
 				return EX_OK;
+			} break;
+			case 'b': {
+				CFURLRef url = UTTypeCopyDeclaringBundleURL(arg);
+				if (url) {
+					one = CFURLCopyFileSystemPath(url, kCFURLPOSIXPathStyle);
+					CFRelease(url);
+				}
+			} break;
+			case 'd': {
+				CFDictionaryRef dict = UTTypeCopyDeclaration(arg);
+				if (dict) {
+					one = CFCopyDescription(dict);
+					CFRelease(dict);
+				}
+			} break;
+			default: {
+				arg = CFStringCreateWithFileSystemRepresentation(NULL, argv[0]);
+				CFURLRef url = CFURLCreateWithFileSystemPath(NULL, arg, kCFURLPOSIXPathStyle, false);
+				if (url) {
+					FSRef ref = {{0}};
+					CFURLGetFSRef(url, &ref); // chk
+					LSCopyItemAttribute(&ref, kLSRolesNone, kLSItemContentType, (CFTypeRef *)&one); // chk
+				}
 			}
 		}
-		if (argc)
-			goto usage;
 		if (tag) {
 			if (listAll) {
 				CFArrayRef all = UTTypeCreateAllIdentifiersForTag(tag, arg, NULL); // chk; SHOULD: third argument
@@ -112,13 +117,13 @@ int main (int argc, const char * argv[]) {
 		if (one != NULL) {
 			pS(one);
 			CFRelease(one);
+			return 0;
 		} else {
-			// error
+			return 1;
 		}
-		return 0;
 	} else {
 usage:
-		fprintf(stderr, "usage:  %s <UTI>...\n", getprogname());
+		fprintf(stderr, "usage:  %s <file>\n", argv[0]);
 		return 1;
 	}
 }
