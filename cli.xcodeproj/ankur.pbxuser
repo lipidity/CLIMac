@@ -2,9 +2,10 @@
 {
 	08FB7793FE84155DC02AAC07 /* Project object */ = {
 		activeBuildConfigurationName = Debug;
-		activeExecutable = 928BE6A10F9739CB00E2E886 /* app */;
-		activeTarget = 8DD76F960486AA7600D96B5E /* app */;
+		activeExecutable = 924311730FD12AAF00148B78 /* xattr */;
+		activeTarget = 924311710FD12AAF00148B78 /* xattr */;
 		addToTargets = (
+			924311710FD12AAF00148B78 /* xattr */,
 		);
 		breakpoints = (
 		);
@@ -43,6 +44,20 @@
 					PBXBreakpointsDataSource_ConditionID,
 					PBXBreakpointsDataSource_IgnoreCountID,
 					PBXBreakpointsDataSource_ContinueID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXExecutablesDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXExecutablesDataSource_NameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					22,
+					300,
+					252,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXExecutablesDataSource_ActiveFlagID,
+					PBXExecutablesDataSource_NameID,
+					PBXExecutablesDataSource_CommentsID,
 				);
 			};
 			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
@@ -89,8 +104,8 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 266835776;
-			PBXWorkspaceStateSaveDate = 266835776;
+			PBXPerProjectTemplateStateSaveDate = 266846149;
+			PBXWorkspaceStateSaveDate = 266846149;
 		};
 		sourceControlManager = 928BE6A90F9739EA00E2E886 /* Source Control */;
 		userBuildSettings = {
@@ -98,9 +113,9 @@
 	};
 	08FB7796FE84155DC02AAC07 /* app.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1436, 5259}}";
-			sepNavSelRange = "{4034, 22}";
-			sepNavVisRange = "{3536, 1110}";
+			sepNavIntBoundsRect = "{{0, 0}, {741, 4557}}";
+			sepNavSelRange = "{1035, 0}";
+			sepNavVisRange = "{649, 848}";
 		};
 	};
 	32A70AAB03705E1F00C91783 /* Prefix.pch */ = {
@@ -250,6 +265,13 @@
 			sepNavIntBoundsRect = "{{0, 0}, {989, 2730}}";
 			sepNavSelRange = "{0, 0}";
 			sepNavVisRange = "{0, 1137}";
+		};
+	};
+	9256AF360FE7DBFE00585BBB /* xattr.1 */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {617, 2331}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 916}";
 		};
 	};
 	927050860FD91990003074F2 /* imgconv */ = {
@@ -500,9 +522,9 @@
 	};
 	C6859EA3029092ED04C91782 /* app.1 */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {989, 1659}}";
-			sepNavSelRange = "{896, 0}";
-			sepNavVisRange = "{2054, 1007}";
+			sepNavIntBoundsRect = "{{0, 0}, {617, 3066}}";
+			sepNavSelRange = "{2994, 0}";
+			sepNavVisRange = "{0, 1075}";
 		};
 	};
 }

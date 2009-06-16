@@ -27,7 +27,7 @@ int main(int argc, const char * argv[]) {
 			/* find */
 			{ "bundle", required_argument, NULL, 'b' },
 			{ "window", required_argument, NULL, 'w' },
-			{ "URL", required_argument, NULL, 'u' },
+			{ "scheme", required_argument, NULL, 'u' },
 			{ "type", required_argument, NULL, 't' },
 			{ "file", required_argument, NULL, 'f' },
 			{ NULL, 0, NULL, 0 }
