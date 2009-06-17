@@ -4,8 +4,8 @@
 .\"man mdoc for the short list of editing options
 .\"/usr/share/misc/mdoc.template
 .Dd June 14, 2009
-.Os BSD
-.Dt xattr \&1 "CLIMac Reference Manual"
+.Os "Mac OS X"
+.Dt XATTR \&1 "CLIMac Reference Manual"
 .Sh NAME                 \" Section Header - required - don't modify 
 .Nm xattr
 .\" The following lines are read in generating the apropos(man -k) database. Use only key
@@ -13,58 +13,53 @@
 .Nd Manipulate the extended attributes of files.
 .Sh SYNOPSIS             \" Section Header - required - don't modify
 .Nm
-.Op Fl sl         \" [-slRC] 
-.Ao Ar path... Ac
-.Nm
-.Fl p
-.Op Fl sl
-.Ar name
-.Ao Ar path... Ac
-.Nm
-.Fl d
-.Op Fl sl
-.Ar name
-.Ao Ar path... Ac
-.Nm
-.Fl w
-.Op Fl slRC
-.Ar name
-.Ar value
-.Ao Ar path... Ac
-
+.Op Fl L
+.Op Fl l \*(Ba p Ar name \*(Ba Fl o Ar name \*(Ba Fl d Ar name \*(Ba Fl D \*(Ba Bo Fl RC Bc Fl w Ar name
+.Ar
 .Sh DESCRIPTION          \" Section Header - required - don't modify
-With the 
-.Nm
-command, the extended attributes of one or more files may be listed, written (set), printed (displayed), or deleted.  
 .Pp
-Extended attributes allow the arbitrary association of name:data pairs with file system objects (file, directories, symbolic links, et cetera).  The name of an extended attribute may be any null-terminated UTF-8 string.  The data associated with it may be either textual or binary.
+Extended attributes extend the basic attributes of files and directories in the file system. They are stored as name:data pairs associated with file system objects (files, directories, symlinks, etc).
 .Pp
-This implimentation of the 
+The
 .Nm
-command is designed to be backwards-compatible with the version that shipped with Macintosh OS 10.5.0 (Leopard).  The display format has been changed slightly for use in shell scripts.
-.Pp
-By default,
-.Nm
-lists the extended attributes associate with the object at the specified path.  Alternate behavior is triggered by the use of a command flag.
+command lists, writes, prints or deletes extended attributes. It is backwards-compatible with the python script of the same name that ships Mac OS X 10.5.
+.\".Pp
+.\"By default,
+.\".Nm
+.\"lists the extended attributes associated with the object at the specified path. Alternate behavior is triggered by the use of a command flag.
 .Sh COMMANDS
-.Bl -tag -width "this wide" -compact
+.Bl -tag -width "wider" -compact
+.It Fl l
+Print the names and a hex dump of the data of extended attributes.
 .It Fl p
-Display (print) the value of a given extended attribute.
+Print a hex dump of the specified extended attribute data.
+.It Fl o
+Print the raw data of the specified extended attribute.
 .It Fl d
-Delete an existing extended attribute.
+Delete the specified extended attribute. If
+.Ar name No is Sq - Ns ,
+read a newline-separated list of extended attributes to delete from the standard input.
+.It Fl D
+Delete
+.Sy all
+extended attributes associated with the given files.
 .It Fl w
-Set (write) a given extended attribute to a given value.
+Set (write) the specified extended attribute. Data to associate with
+.Ar name
+is taken from the standard input.
 .El 
 .Sh OPTIONS
-.Bl -tag -width "this wide" -compact
-.It Fl s
-Do not follow symbolic links.
-.It Fl l
-Display results in long format.
+.Bl -tag -width "wider" -compact
+.It Fl L
+Follow symbolic links. If
+.Ar file
+is a symbolic link, operations will be performed on the target of
+.Ar file Ns , and not to Ar file
+itself.
 .It Fl R
-Expect to edit existing extended attributes;  fail rather than create a new one.
+Replace existing extended attributes; fail rather than create a new one.
 .It Fl C
-Expect to create new extended attributes;  fail rather than edit an existing one.
+Create new extended attributes; fail rather than replace an existing one.
 .El
 .\" 
 .\" .Sh ENVIRONMENT      \" May not be needed
@@ -74,13 +69,6 @@ Expect to create new extended attributes;  fail rather than edit an existing one
 .\" .It Ev ENV_VAR_2
 .\" Description of ENV_VAR_2
 .\" .El                      
-.Sh FILES                \" File used or created by the topic of the man page
-.Bl -tag -width "/Users/joeuser/Library/really_long_file_name" -compact
-.It Pa /usr/local/bin/xattr
-a command-line executable
-.It Pa /usr/share/man/xattr\&.1
-this man page
-.El                      \" Ends the list
 .\" .Sh DIAGNOSTICS       \" May not be needed
 .\" .Bl -diag
 .\" .It Diagnostic Tag
@@ -88,14 +76,20 @@ this man page
 .\" .It Diagnostic Tag
 .\" Diagnostic informtion here.
 .\" .El
-.Sh SEE ALSO 
+.Sh SEE ALSO
 .\" List links in ascending order by section, alphabetically within a section.
 .\" Please do not reference files that do not exist without filing a bug report
 .Xr getxattr 2 , 
-.Xr setxattr 2 ,
 .Xr listxattr 2 , 
-.Xr removexattr 2
-.Sh BUGS              \" Document known, unremedied bugs
-This implimentation of the xattr command was written by a computer hobbyist;  the source code has not, to date, been reviewed by an experienced C programmer.
-Apple currently (as of OS X 10.5.1) advises that the names of extended attributes be limited to 750 characters.
-.\" .Sh HISTORY           \" Document history if command behaves in a unique manner
+.Xr removexattr 2 ,
+.Xr setxattr 2
+.Sh HISTORY
+.Pp
+Extended attributes first appeared in Mac OS X 10.4.
+.Sh AUTHORS
+.Pp
+The
+.Nm
+utility was written by
+.An Vacuous Virtuoso
+.Aq http://lipidity.com Ns .

@@ -296,9 +296,9 @@
 	};
 	924311760FD12ACB00148B78 /* xattr.c */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {989, 5700}}";
+			sepNavIntBoundsRect = "{{0, 0}, {692, 5649}}";
 			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{79, 790}";
+			sepNavVisRange = "{0, 869}";
 		};
 	};
 	924A9B560FE4F45F0098AC53 /* uti */ = {
@@ -339,9 +339,9 @@
 	};
 	9256AF360FE7DBFE00585BBB /* xattr.1 */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {617, 2331}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 916}";
+			sepNavIntBoundsRect = "{{0, 0}, {692, 2100}}";
+			sepNavSelRange = "{3161, 96}";
+			sepNavVisRange = "{2315, 942}";
 		};
 	};
 	925C36D20FE7EC5A00E9B9E4 /* seticon */ = {
@@ -815,8 +815,8 @@
 	};
 	C6859EA3029092ED04C91782 /* app.1 */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {617, 2919}}";
-			sepNavSelRange = "{405, 0}";
+			sepNavIntBoundsRect = "{{0, 0}, {692, 3129}}";
+			sepNavSelRange = "{0, 0}";
 			sepNavVisRange = "{0, 1075}";
 		};
 	};
