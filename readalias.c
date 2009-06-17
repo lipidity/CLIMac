@@ -1,13 +1,13 @@
 #import <CoreFoundation/CoreFoundation.h>
 #import <CoreServices/CoreServices.h>
 
-int main(int argc, const char *argv[]) {
+int main(int argc, char *argv[]) {
 	if (argc > 1) {
 		BOOL skipN = 0;
 		BOOL recurse = 0;
 
 		int c = 0;
-		while ((c = getopt(argc, (char **)argv, "fn")) != EOF) {
+		while ((c = getopt(argc, argv, "fn")) != EOF) {
 			switch (c) {
 				case 'f':
 					recurse ^= 1;
@@ -54,7 +54,7 @@ int main(int argc, const char *argv[]) {
 		return !(numPrinted == (argc - optind));
 	} else {
 usage:
-		fprintf(stderr, "usage:  %s [-n] [-f] <path>...\n", argv[0]);
+		fprintf(stderr, "usage:  %s [-fn] <path>...\n", argv[0]);
 		return 1;
 	}
 }

@@ -1,8 +1,12 @@
 app
+beep
 dup
 fileicon
 imgconv
+loginitems (leo)
+pid
 readalias
+setapp
 seticon
 trash
 uti

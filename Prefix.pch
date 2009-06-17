@@ -2,15 +2,17 @@
 // Prefix header for all source files in the 'cli' project.
 //
 
-#import <libc.h>
-#import <err.h>
-#import <sysexits.h>
 #import <sys/errno.h>
+#import <err.h>
+#import <getopt.h>
+#import <libc.h>
+#import <sysexits.h>
 
 #ifdef __OBJC__
 	#import <Cocoa/Cocoa.h>
 #else
+	#import <CoreFoundation/CoreFoundation.h>
 	typedef signed char BOOL;
-#define YES (BOOL)1
-#define NO (BOOL)0
+	#define YES (BOOL)1
+	#define NO (BOOL)0
 #endif

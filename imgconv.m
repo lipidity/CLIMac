@@ -46,7 +46,7 @@ int main (int argc, const char * argv[])
 	if (![(NSArray *)all containsObject:(NSString *)uti]) {
 		CFRelease(uti);
 		fputs("Could not determine image type from destination path extension. Using TIFF format.\n", stderr);
-		uti = CFRetain(@"public.tiff");
+		uti = CFRetain(CFSTR("public.tiff"));
 	}
 
 	size_t numImages = CGImageSourceGetCount(src);
