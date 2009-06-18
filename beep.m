@@ -5,23 +5,19 @@
 int main(int argc, char *argv[]) {
 #if 1
 	const struct option longopts[] = {
-		{ "sound", required_argument, NULL, 's' },
+		{ "help", no_argument, NULL, 'h' },
 		{ "volume", required_argument, NULL, 'v' },
 		{ "loop", no_argument, NULL, 'l' },
 		{ NULL, 0, NULL, 0 }
 	};
-	BOOL setS = 0, setV = 0;
+	BOOL setV = 0;
 	BOOL loop = NO;
 	NSString *whichSnd = nil;
 	float volume = 1.0f;
 	int c;
 	NSAutoreleasePool *pool = [NSAutoreleasePool new];
-	while ((c = getopt_long_only(argc, argv, "s:v:l", longopts, NULL)) != EOF) {
+	while ((c = getopt_long_only(argc, argv, "v:lh", longopts, NULL)) != EOF) {
 		switch (c) {
-			case 's':
-				setS = 1;
-				whichSnd = [[NSFileManager defaultManager] stringWithFileSystemRepresentation:optarg length:strlen(optarg)];
-				break;
 			case 'v': {
 				setV = 1;
 				volume = strtof(optarg, NULL);
@@ -29,15 +25,25 @@ int main(int argc, char *argv[]) {
 			case 'l': {
 				loop ^= 1;
 			}	break;
+			case 'h':
+				fprintf(stderr, "usage:  %s [-l] [-s <sound>] [-v <volume>]\n", argv[0]);
+				return 0;
 			default:
-				break;
+usage:
+				fprintf(stderr, "usage:  %s [-l] [-s <sound>] [-v <volume>]\n", argv[0]);
+				return 1;
 		}
+	}
+	argc -= optind; argv += optind;
+	if (argc == 1) {
+		whichSnd = [[NSFileManager defaultManager] stringWithFileSystemRepresentation:argv[0] length:strlen(argv[0])];
+	} else if (argc != 0) {
+		goto usage;
 	}
 	NSArray *keys = [[NSArray alloc] initWithObjects:@"com.apple.sound.beep.sound", @"com.apple.sound.beep.volume", nil];
 	NSDictionary *dict = (NSDictionary *)CFPreferencesCopyMultiple((CFArrayRef)keys, CFSTR("com.apple.systemsound"), kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
-	if (!setS) {
+	if (whichSnd == nil)
 		whichSnd = [dict objectForKey:@"com.apple.sound.beep.sound"];
-	}
 	if (!setV) {
 		id num = [dict objectForKey:@"com.apple.sound.beep.volume"];
 		if (num)

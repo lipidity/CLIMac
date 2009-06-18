@@ -4,9 +4,9 @@
 		activeBuildConfigurationName = Release;
 		activeExecutable = 925C36DD0FE7EC5A00E9B9E4 /* seticon */;
 		activeSDKPreference = "";
-		activeTarget = 92ACC3D20FE9E5C5009E0760 /* winlevel */;
+		activeTarget = 928F92E00FE8B2600031CEB8 /* beep */;
 		addToTargets = (
-			92ACC3D20FE9E5C5009E0760 /* winlevel */,
+			928F92E00FE8B2600031CEB8 /* beep */,
 		);
 		breakpoints = (
 		);

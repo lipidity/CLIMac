@@ -30,69 +30,32 @@
 .Pp
 The
 .Nm
-tool prints the path at which application(s) are located. In the absence of any other flags or options, the single argument is interpreted as the name of an application, and the full path to its bundle is printed.
+utility prints the path at which application(s) are located. In the absence of any other flags or options, the single argument is interpreted as the name of an application, and the full path to its bundle is printed.
 .Sh OPTIONS
 .Pp
 In each case, the absolute paths to the applications matching the criteria are printed. Applications are specified by:
 .Bl -ohang
 .It Fl l Ns / Ns Fl -all
-.Bd -ragged -offset indent -compact
-All applications.
-.Ed
+.D1 All applications .
 .It Fl a Ns / Ns Fl -active
-.Bd -ragged -offset indent -compact
-The currently active
-.Pq frontmost
-application.
-.Bd -ragged -compact
-With the
-.Fl l
-flag, all launched applications.
-.Ed
-.Ed
+.D1 The currently active Po frontmost Pc application .
+.D1 With the Fl l No flag , all launched applications .
 .It Fl u Ns / Ns Fl -scheme Aq Ar url-scheme
-.Bd -ragged -offset indent -compact
-Application that opens URLs with the specified scheme.
-.Bd -ragged -compact
-With the
-.Fl l
-flag, all applications able to handle the specified URL scheme.
-.Ed
-.Ed
+.D1 Application that opens URLs with the specified scheme .
+.D1 With the Fl l No flag , all applications able to handle the specified URL scheme .
 .It Fl t Ns / Ns Fl -type Aq Ar UTI
-.Bd -ragged -offset indent -compact
-Application that opens files of the specified content-type
-.Pq Uniform Type Identifier Ns .
-.Bd -ragged -compact
-With the
-.Fl l
-flag, all applications able to open files of the specified content-type.
-.Ed
+.D1 Application that opens files of the specified content-type Po Uniform Type Identifier Pc .
+.D1 With the Fl l No flag , all applications able to open files of the specified content-type .
 .Pp
-Use
-.Xr uti 1
-to determine UTIs.
-.Ed
+.D1 Use Xr uti 1 to determine UTIs .
 .It Fl b Ns / Ns Fl -bundle Aq Ar bundle-ID
-.Bd -ragged -offset indent -compact
-Application that has the specified identifier.
-.Pq The bundle ID is a unique identifier for an application that is defined in the Info.plist under the key Sq CFBundleIdentifier
-.Ed
+.D1 Application that has the specified identifier . Pq The bundle ID is a unique identifier for an application that is defined in the Info.plist under the key Sq CFBundleIdentifier
 .It Fl f Ns / Ns Fl -file Aq Ar file
-.Bd -ragged -offset indent -compact
-Application that will open the specified file.
-It is recommeded to use the
-.Fl t
-option in the general case, and this option only when information about a specific file is needed.
-.Ed
+.D1 Application that will open the specified file . I\&t is recommeded to use the Fl t No option in the general case , and the Fl f No option only when information about a specific file is needed .
 .It Fl w Ns / Ns Fl -window Aq Ar window-ID
-.Bd -ragged -offset indent -compact
-Application that owns the specified window.
+.D1 Application that owns the specified window .
 .Pp
-Use
-.Xr wid 1
-to determine window IDs.
-.Ed
+.D1 Use Xr wid 1 to determine window IDs .
 .El
 .Pp
 Only the default application for the given criteria is printed unless the
@@ -127,6 +90,8 @@ flag is also given.
 % app -b com.apple.Dock
 /System/Library/CoreServices/Dock.app
 .Ed
+.Sh DIAGNOSTICS
+.Ex -std beep
 .\".Sh COMPATIBILITY
 .Sh SEE ALSO 
 .\" List links in ascending order by section, alphabetically within a section.

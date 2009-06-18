@@ -394,6 +394,7 @@
 		926ED7FB0FE8A0DC00FD42D0 /* loginitems.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = loginitems.c; sourceTree = "<group>"; };
 		927050870FD91990003074F2 /* imgconv */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = imgconv; sourceTree = BUILT_PRODUCTS_DIR; };
 		927050930FD919CF003074F2 /* imgconv.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imgconv.m; sourceTree = "<group>"; };
+		9270CF290FEA390F0026D4F5 /* beep.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = beep.1; sourceTree = "<group>"; };
 		927D16740FE8F3670009ECA3 /* target */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = target; sourceTree = BUILT_PRODUCTS_DIR; };
 		927E85DC0FDA2464008D6B2B /* fileicon */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = fileicon; sourceTree = BUILT_PRODUCTS_DIR; };
 		927E85DE0FDA24C4008D6B2B /* fileicon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fileicon.m; sourceTree = "<group>"; };
@@ -698,6 +699,7 @@
 		C6859EA2029092E104C91782 /* Documentation */ = {
 			isa = PBXGroup;
 			children = (
+				9270CF290FEA390F0026D4F5 /* beep.1 */,
 				9256AF360FE7DBFE00585BBB /* xattr.1 */,
 				C6859EA3029092ED04C91782 /* app.1 */,
 			);
