@@ -1,5 +1,5 @@
 #import <ApplicationServices/ApplicationServices.h>
-#import "CGS/CGSInternal/CGSInternal.h"
+#import "CGSInternal/CGSInternal.h"
 
 #define SCFRelease(x) if(x)CFRelease(x)
 
@@ -45,7 +45,7 @@ CGEventRef p(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *r)
 }
 
 int main (int argc, const char * argv[]) {
-	int c = CGSMainConnectionID();
+	CGSConnectionID c = CGSMainConnectionID();
 
 	if(argc > 1 && strcmp(argv[1], "-i")==0) {
 		CFMachPortRef ep; CFRunLoopSourceRef es; CFRunLoopRef rl;
@@ -80,10 +80,9 @@ int main (int argc, const char * argv[]) {
 		CGSReleaseWindow(c, r[0]);
 	} else {
 		int u = 0;
-		CGSWindowID *l;
 
 		CGSGetOnScreenWindowCount(c, kCGSNullConnectionID, &u);
-		l = (CGSWindowID*)calloc(u, sizeof(CGSWindowID));
+		CGSWindowID *l = (CGSWindowID *)calloc(u, sizeof(CGSWindowID));
 		CGSGetOnScreenWindowList(c, kCGSNullConnectionID, u, l, &u);
 		printf("    WID   APP                     TITLE\n");
 		int i = -1;

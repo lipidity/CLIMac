@@ -10,7 +10,7 @@
 .Nm xattr
 .\" The following lines are read in generating the apropos(man -k) database. Use only key
 .\" words here as the database is built based on the words here and in the .ND line.
-.Nd Manipulate the extended attributes of files.
+.Nd manipulate the extended attributes of files
 .Sh SYNOPSIS             \" Section Header - required - don't modify
 .Nm
 .Op Fl L
@@ -69,7 +69,10 @@ Create new extended attributes; fail rather than replace an existing one.
 .\" .It Ev ENV_VAR_2
 .\" Description of ENV_VAR_2
 .\" .El                      
-.\" .Sh DIAGNOSTICS       \" May not be needed
+.Sh DIAGNOSTICS       \" May not be needed
+The
+.Nm
+utility exits 0 on success, and >0 if an error occurs.
 .\" .Bl -diag
 .\" .It Diagnostic Tag
 .\" Diagnostic informtion here.
@@ -91,5 +94,5 @@ Extended attributes first appeared in Mac OS X 10.4.
 The
 .Nm
 utility was written by
-.An Vacuous Virtuoso
+.An Sq Vacuous Virtuoso
 .Aq http://lipidity.com Ns .

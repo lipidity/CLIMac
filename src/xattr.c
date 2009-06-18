@@ -18,11 +18,10 @@ static inline void xls(const char *path);
 static inline void xrm(const char * restrict path, const char * restrict name);
 static inline void xrmfr(const char *path);
 
-int main(int argc, const char *argv[])
-{
+int main(int argc, char *argv[]) {
 	int c;
 	const char *attr = NULL;
-	while ((c = getopt(argc, (char **)argv, "Dlo:p:d:w:RCLc:")) != EOF) {
+	while ((c = getopt(argc, argv, "Dlo:p:d:w:RCLc:")) != EOF) {
 		switch (c) {
 			case 'l':
 			case 'o':

@@ -1,0 +1,53 @@
+.\"Modified from man(1) of FreeBSD, the NetBSD mdoc.template, and mdoc.samples.
+.\"See Also:
+.\"man mdoc.samples for a complete listing of options
+.\"man mdoc for the short list of editing options
+.\"/usr/share/misc/mdoc.template
+.Dd June 14, 2009
+.Os "Mac OS X"
+.Dt BEEP \&1 "CLIMac Reference Manual"
+.Sh NAME                 \" Section Header - required - don't modify 
+.Nm beep
+.Nd play the system alert sound
+.Sh SYNOPSIS             \" Section Header - required - don't modify
+.Nm
+.Op Fl v Ar volume
+.Op Fl l
+.Op Ar sound
+.Sh DESCRIPTION          \" Section Header - required - don't modify
+.Pp
+With no arguments, the
+.Nm
+utility plays the system alert sound as specified in System Preferences.
+.Pp
+A different
+.Ar sound
+file to play may be specified (this argument may be the path to a sound file or the name of a system sound). Other options modify how the sound is played:
+.Bl -ohang
+.It Fl l Ns / Ns Fl -loop
+.D1 Play the sound repeatedly (until SIGQUIT is received).
+.It Fl v Ns / Ns Fl -volume
+.D1 Volume at which to play the alert sound ranging from 0.0 (minimum) to 1.0 (maximum).
+.El
+.\".Sh FILES                \" File used or created by the topic of the man page
+.\".Sh EXAMPLES
+.Sh DIAGNOSTICS
+The
+.Nm
+utility exits 0 on success, and >0 if an error occurs.
+.\".Sh COMPATIBILITY
+.Sh SEE ALSO 
+.\" List links in ascending order by section, alphabetically within a section.
+.\" Please do not reference files that do not exist without filing a bug report
+.Xr afplay 1
+.Sh BUGS              \" Document known, unremedied bugs
+.Pp
+The volume of the sound played by this tool is slightly louder than the real alert sound.
+.\" .Sh HISTORY           \" Document history if command behaves in a unique manner
+.Sh AUTHORS
+.Pp
+The
+.Nm
+utility was written by
+.An Sq Vacuous Virtuoso
+.Aq http://lipidity.com Ns .
