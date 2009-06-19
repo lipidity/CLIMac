@@ -1,0 +1,76 @@
+.\"Modified from man(1) of FreeBSD, the NetBSD mdoc.template, and mdoc.samples.
+.\"See Also:
+.\"man mdoc.samples for a complete listing of options
+.\"man mdoc for the short list of editing options
+.\"/usr/share/misc/mdoc.template
+.Dd June 14, 2009
+.Os "Mac OS X"
+.Dt SETAPP \&1 "CLIMac Reference Manual"
+.Sh NAME                 \" Section Header - required - don't modify 
+.Nm setapp
+.Nd set default application for file types
+.Sh SYNOPSIS             \" Section Header - required - don't modify
+.Nm
+.Ar application
+.Op Ar UTI \*(Ba Fl u Ar URL-scheme
+.Ar ...
+.Sh DESCRIPTION          \" Section Header - required - don't modify
+.Pp
+The
+.Nm
+utility is used to set which application should be used for opening particular file types or URL schemes. Settings made through this tool apply to most applications - for example, double-clicking files in the Finder or using the
+.Xr open 1
+command.
+.\".Sh FILES                \" File used or created by the topic of the man page
+.Sh EXAMPLES
+.Pp
+The following sets all C source files to open in TextEdit.
+.Pp
+.Dl % setapp TextEdit public.c-source
+.Pp
+If you don't know the
+.Tn UTI
+.Pq Uniform Type Identifier
+for a particular file, you can look it up using the
+.Xr uti 1
+tool like this:
+.Pp
+.Dl % setapp TextEdit `uti main.c`
+.Pp
+or look it up by a file extension:
+.Pp
+.Dl % setapp TextEdit `uti --extension c`
+.Pp
+The
+.Nm
+utility also sets handlers for URLs. To open all
+.Sq mailto:
+links in Thunderbird and all
+.Sq http(s):
+links in FireFox,
+.Pp
+.Dl % setapp Thunderbird -u mailto
+.Dl % setapp FireFox -u http -u https
+.Sh DIAGNOSTICS
+The
+.Nm
+utility exits 0 on success, and \*(Gt0 if an error occurs.
+.\".Sh COMPATIBILITY
+.Sh SEE ALSO 
+.\" List links in ascending order by section, alphabetically within a section.
+.\" Please do not reference files that do not exist without filing a bug report
+.Xr app 1 ,
+.Xr open 1 ,
+.Xr uti 1
+.Sh BUGS              \" Document known, unremedied bugs
+.Pp
+Currently there is no support for setting applications on a per-file basis
+.Pq only per-file-type .
+.\" .Sh HISTORY           \" Document history if command behaves in a unique manner
+.Sh AUTHORS
+.Pp
+The
+.Nm
+utility was written by
+.An Sq Vacuous Virtuoso
+.Aq http://lipidity.com Ns .

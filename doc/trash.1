@@ -5,33 +5,26 @@
 .\"/usr/share/misc/mdoc.template
 .Dd June 14, 2009
 .Os "Mac OS X"
-.Dt BEEP \&1 "CLIMac Reference Manual"
+.Dt TRASH \&1 "CLIMac Reference Manual"
 .Sh NAME                 \" Section Header - required - don't modify 
-.Nm beep
-.Nd play the system alert sound
+.Nm trash
+.Nd move files to trash
 .Sh SYNOPSIS             \" Section Header - required - don't modify
 .Nm
-.Op Fl v Ar volume
-.Op Fl l
-.Op Ar sound
+.Ar
 .Sh DESCRIPTION          \" Section Header - required - don't modify
 .Pp
-With no arguments, the
+The
 .Nm
-utility plays the system alert sound as specified in System Preferences.
+utility moves
+.Ar file
+to the trash folder on the volume containing the file. If a file with the same name currently exists in the trash folder, the new file is renamed. If no trash folder exists on the volume containing the file, the operation fails.
 .Pp
-A different
-.Ar sound
-file to play may be specified (this argument may be the path to a sound file or the name of a system sound). Other options modify how the sound is played:
-.Bl -ohang
-.It Fl l Ns / Ns Fl -loop
-.D1 Play the sound repeatedly (until SIGQUIT is received).
-.It Fl v Ns / Ns Fl -volume
-.D1 Volume at which to play the alert sound ranging from 0.0 (minimum) to 1.0 (maximum).
-.El
+Symlinks are never followed. Metadata such as owner and group numbers, file permissions, and modification date are preserved.
 .\".Sh FILES                \" File used or created by the topic of the man page
 .\".Sh EXAMPLES
 .Sh DIAGNOSTICS
+.Pp
 The
 .Nm
 utility exits 0 on success, and \*(Gt0 if an error occurs.
@@ -39,10 +32,14 @@ utility exits 0 on success, and \*(Gt0 if an error occurs.
 .Sh SEE ALSO 
 .\" List links in ascending order by section, alphabetically within a section.
 .\" Please do not reference files that do not exist without filing a bug report
-.Xr afplay 1
+.Xr mv 1
 .Sh BUGS              \" Document known, unremedied bugs
 .Pp
-The volume of the sound played by this tool is slightly louder than the real alert sound.
+The Cocoa APIs which the
+.Nm
+utility uses assert that you need write permissions on the containing directory for the operation to succeed. This means escalation via
+.Xr sudo 1
+currently has little effect.
 .\" .Sh HISTORY           \" Document history if command behaves in a unique manner
 .Sh AUTHORS
 .Pp

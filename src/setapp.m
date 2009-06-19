@@ -60,6 +60,6 @@ int main(int argc, const char *argv[]) {
 
 		return retval;
 	} else {
-		errx(1, "usage:  %s <application> [<UTI> | -f <file> | -u <url-scheme>]\n", argv[0]);
+		errx(1, "usage:  %s <application> [<UTI>" /* " | -f <file>" */ " | -u <url-scheme>]\n", argv[0]);
 	}
 }
