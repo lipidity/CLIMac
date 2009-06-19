@@ -54,6 +54,8 @@
 		925C37040FE7F2A300E9B9E4 /* pid.c in Sources */ = {isa = PBXBuildFile; fileRef = 925C37030FE7F2A300E9B9E4 /* pid.c */; };
 		926ED7FA0FE8A0B100FD42D0 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B4CF700FDA69C300F5AC0D /* CoreServices.framework */; };
 		926ED7FC0FE8A0DC00FD42D0 /* loginitems.c in Sources */ = {isa = PBXBuildFile; fileRef = 926ED7FB0FE8A0DC00FD42D0 /* loginitems.c */; };
+		927089260FEB4A9000835BB3 /* winalpha.c in Sources */ = {isa = PBXBuildFile; fileRef = 92ACC3DD0FE9E5FE009E0760 /* winalpha.c */; };
+		927089270FEB4A9A00835BB3 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928EEC120FE3A4A300B5953C /* ApplicationServices.framework */; };
 		9270CF3C0FEA4DE00026D4F5 /* beep.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9270CF290FEA390F0026D4F5 /* beep.1 */; };
 		9270CF3D0FEA4DF20026D4F5 /* dup.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9270CF3B0FEA4DD80026D4F5 /* dup.1 */; };
 		9270CFC60FEA6DA40026D4F5 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
@@ -328,6 +330,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		9270891D0FEB4A7700835BB3 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = /Users/ankur/share/man/man1;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		9270CFC00FEA6D740026D4F5 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 8;
@@ -427,6 +438,7 @@
 		926ED7FB0FE8A0DC00FD42D0 /* loginitems.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = loginitems.c; sourceTree = "<group>"; };
 		927050870FD91990003074F2 /* imgconv */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = imgconv; sourceTree = BUILT_PRODUCTS_DIR; };
 		927050930FD919CF003074F2 /* imgconv.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imgconv.m; sourceTree = "<group>"; };
+		927089210FEB4A7700835BB3 /* target copy */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "target copy"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9270CF290FEA390F0026D4F5 /* beep.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = beep.1; sourceTree = "<group>"; };
 		9270CF3B0FEA4DD80026D4F5 /* dup.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = dup.1; sourceTree = "<group>"; };
 		9270CFC40FEA6D740026D4F5 /* cifilter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cifilter; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -531,6 +543,14 @@
 			files = (
 				928EEC100FE3A49000B5953C /* Foundation.framework in Frameworks */,
 				928EEC130FE3A4A300B5953C /* ApplicationServices.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9270891C0FEB4A7700835BB3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				927089270FEB4A9A00835BB3 /* ApplicationServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -721,6 +741,7 @@
 				92ACC2310FE9E234009E0760 /* wid */,
 				92ACC3DB0FE9E5C5009E0760 /* winlevel */,
 				9270CFC40FEA6D740026D4F5 /* cifilter */,
+				927089210FEB4A7700835BB3 /* target copy */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -907,6 +928,23 @@
 			name = imgconv;
 			productName = imgconv;
 			productReference = 927050870FD91990003074F2 /* imgconv */;
+			productType = "com.apple.product-type.tool";
+		};
+		9270891A0FEB4A7700835BB3 /* winalpha */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9270891E0FEB4A7700835BB3 /* Build configuration list for PBXNativeTarget "winalpha" */;
+			buildPhases = (
+				9270891B0FEB4A7700835BB3 /* Sources */,
+				9270891C0FEB4A7700835BB3 /* Frameworks */,
+				9270891D0FEB4A7700835BB3 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = winalpha;
+			productName = imgconv;
+			productReference = 927089210FEB4A7700835BB3 /* target copy */;
 			productType = "com.apple.product-type.tool";
 		};
 		9270CFBD0FEA6D740026D4F5 /* cifilter */ = {
@@ -1145,6 +1183,7 @@
 				92DFDABE0FD9FE1800F7C0BD /* trash */,
 				924A9B560FE4F45F0098AC53 /* uti */,
 				92ACC22A0FE9E234009E0760 /* wid */,
+				9270891A0FEB4A7700835BB3 /* winalpha */,
 				92ACC3D20FE9E5C5009E0760 /* winlevel */,
 				924311710FD12AAF00148B78 /* xattr */,
 				92DFDACA0FD9FE4500F7C0BD /* All */,
@@ -1216,6 +1255,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				923C79BB0FD948F7008D3742 /* imgconv.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9270891B0FEB4A7700835BB3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				927089260FEB4A9000835BB3 /* winalpha.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1629,6 +1676,18 @@
 			};
 			name = Release;
 		};
+		9270891F0FEB4A7700835BB3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		927089200FEB4A7700835BB3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
 		9270CFC20FEA6D740026D4F5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 92ECA3820FE60214004022DA /* TollFree.xcconfig */;
@@ -1884,6 +1943,15 @@
 			buildConfigurations = (
 				927050890FD91990003074F2 /* Debug */,
 				9270508A0FD91990003074F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9270891E0FEB4A7700835BB3 /* Build configuration list for PBXNativeTarget "winalpha" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9270891F0FEB4A7700835BB3 /* Debug */,
+				927089200FEB4A7700835BB3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
