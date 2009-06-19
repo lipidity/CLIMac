@@ -162,14 +162,14 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 9270CFBD0FEA6D740026D4F5 /* cifilter */;
+			remoteGlobalIDString = 9270CFBD0FEA6D740026D4F5;
 			remoteInfo = cifilter;
 		};
 		92BFB9480FEA8BCA00FADB84 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 92ACC3D20FE9E5C5009E0760 /* winlevel */;
+			remoteGlobalIDString = 92ACC3D20FE9E5C5009E0760;
 			remoteInfo = winlevel;
 		};
 		92DFDACD0FD9FE6100F7C0BD /* PBXContainerItemProxy */ = {
@@ -404,67 +404,67 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		08FB7796FE84155DC02AAC07 /* app.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = app.m; path = src/app.m; sourceTree = "<group>"; wrapsLines = 0; };
+		08FB7796FE84155DC02AAC07 /* app.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = app.m; sourceTree = "<group>"; wrapsLines = 0; };
 		08FB779EFE84155DC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32A70AAB03705E1F00C91783 /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		8DD76FA10486AA7600D96B5E /* app */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = app; sourceTree = BUILT_PRODUCTS_DIR; };
 		923C79A50FD94803008D3742 /* goosh */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = goosh; sourceTree = BUILT_PRODUCTS_DIR; };
-		923C79BD0FD9492B008D3742 /* goosh-fn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "goosh-fn.h"; path = "src/goosh-fn.h"; sourceTree = "<group>"; };
-		923C79BE0FD9492B008D3742 /* goosh-fn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "goosh-fn.m"; path = "src/goosh-fn.m"; sourceTree = "<group>"; };
-		923C79BF0FD9492B008D3742 /* goosh-JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "goosh-JSON.h"; path = "src/goosh-JSON.h"; sourceTree = "<group>"; };
-		923C79C00FD9492B008D3742 /* goosh-JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "goosh-JSON.m"; path = "src/goosh-JSON.m"; sourceTree = "<group>"; };
-		923C79C10FD9492B008D3742 /* goosh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = goosh.m; path = src/goosh.m; sourceTree = "<group>"; };
+		923C79BD0FD9492B008D3742 /* goosh-fn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "goosh-fn.h"; sourceTree = "<group>"; };
+		923C79BE0FD9492B008D3742 /* goosh-fn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "goosh-fn.m"; sourceTree = "<group>"; };
+		923C79BF0FD9492B008D3742 /* goosh-JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "goosh-JSON.h"; sourceTree = "<group>"; };
+		923C79C00FD9492B008D3742 /* goosh-JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "goosh-JSON.m"; sourceTree = "<group>"; };
+		923C79C10FD9492B008D3742 /* goosh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = goosh.m; sourceTree = "<group>"; };
 		924311720FD12AAF00148B78 /* xattr */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = xattr; sourceTree = BUILT_PRODUCTS_DIR; };
-		924311760FD12ACB00148B78 /* xattr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = xattr.c; path = src/xattr.c; sourceTree = "<group>"; };
+		924311760FD12ACB00148B78 /* xattr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xattr.c; sourceTree = "<group>"; };
 		924A9B600FE4F45F0098AC53 /* uti */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = uti; sourceTree = BUILT_PRODUCTS_DIR; };
-		924A9B620FE4F4920098AC53 /* uti.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = uti.c; path = src/uti.c; sourceTree = "<group>"; };
-		9256AF360FE7DBFE00585BBB /* xattr.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; name = xattr.1; path = doc/xattr.1; sourceTree = "<group>"; };
+		924A9B620FE4F4920098AC53 /* uti.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = uti.c; sourceTree = "<group>"; };
+		9256AF360FE7DBFE00585BBB /* xattr.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = xattr.1; sourceTree = "<group>"; };
 		925C36DC0FE7EC5A00E9B9E4 /* seticon */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = seticon; sourceTree = BUILT_PRODUCTS_DIR; };
-		925C36DF0FE7EC9000E9B9E4 /* seticon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = seticon.m; path = src/seticon.m; sourceTree = "<group>"; };
+		925C36DF0FE7EC9000E9B9E4 /* seticon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = seticon.m; sourceTree = "<group>"; };
 		925C36FC0FE7F15F00E9B9E4 /* pid */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pid; sourceTree = BUILT_PRODUCTS_DIR; };
-		925C37030FE7F2A300E9B9E4 /* pid.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = pid.c; path = src/pid.c; sourceTree = "<group>"; };
+		925C37030FE7F2A300E9B9E4 /* pid.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pid.c; sourceTree = "<group>"; };
 		926ED7F60FE8A02100FD42D0 /* loginitems */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = loginitems; sourceTree = BUILT_PRODUCTS_DIR; };
-		926ED7FB0FE8A0DC00FD42D0 /* loginitems.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = loginitems.c; path = src/loginitems.c; sourceTree = "<group>"; };
+		926ED7FB0FE8A0DC00FD42D0 /* loginitems.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = loginitems.c; sourceTree = "<group>"; };
 		927050870FD91990003074F2 /* imgconv */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = imgconv; sourceTree = BUILT_PRODUCTS_DIR; };
-		927050930FD919CF003074F2 /* imgconv.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = imgconv.m; path = src/imgconv.m; sourceTree = "<group>"; };
-		9270CF290FEA390F0026D4F5 /* beep.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; name = beep.1; path = doc/beep.1; sourceTree = "<group>"; };
-		9270CF3B0FEA4DD80026D4F5 /* dup.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; name = dup.1; path = doc/dup.1; sourceTree = "<group>"; };
+		927050930FD919CF003074F2 /* imgconv.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imgconv.m; sourceTree = "<group>"; };
+		9270CF290FEA390F0026D4F5 /* beep.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = beep.1; sourceTree = "<group>"; };
+		9270CF3B0FEA4DD80026D4F5 /* dup.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = dup.1; sourceTree = "<group>"; };
 		9270CFC40FEA6D740026D4F5 /* cifilter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cifilter; sourceTree = BUILT_PRODUCTS_DIR; };
 		9270CFC80FEA6DA40026D4F5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		9270D3940FEA6E020026D4F5 /* cifilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cifilter.m; sourceTree = "<group>"; };
 		927D16740FE8F3670009ECA3 /* target */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = target; sourceTree = BUILT_PRODUCTS_DIR; };
 		927E85DC0FDA2464008D6B2B /* fileicon */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = fileicon; sourceTree = BUILT_PRODUCTS_DIR; };
-		927E85DE0FDA24C4008D6B2B /* fileicon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = fileicon.m; path = src/fileicon.m; sourceTree = "<group>"; };
+		927E85DE0FDA24C4008D6B2B /* fileicon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fileicon.m; sourceTree = "<group>"; };
 		927E86000FDA378B008D6B2B /* readalias */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = readalias; sourceTree = BUILT_PRODUCTS_DIR; };
-		927E86100FDA37CE008D6B2B /* readalias.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = readalias.c; path = src/readalias.c; sourceTree = "<group>"; };
+		927E86100FDA37CE008D6B2B /* readalias.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = readalias.c; sourceTree = "<group>"; };
 		928BE6B40F973AD600E2E886 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		928EEC120FE3A4A300B5953C /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
-		928F92DF0FE8B2590031CEB8 /* beep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = beep.m; path = src/beep.m; sourceTree = "<group>"; };
+		928F92DF0FE8B2590031CEB8 /* beep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beep.m; sourceTree = "<group>"; };
 		928F92E90FE8B2600031CEB8 /* beep */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = beep; sourceTree = BUILT_PRODUCTS_DIR; };
 		92ACC0B20FE9C717009E0760 /* slideshow */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = slideshow; sourceTree = BUILT_PRODUCTS_DIR; };
-		92ACC0B40FE9C756009E0760 /* slideshow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = slideshow.m; path = src/slideshow.m; sourceTree = "<group>"; };
+		92ACC0B40FE9C756009E0760 /* slideshow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = slideshow.m; sourceTree = "<group>"; };
 		92ACC0B70FE9C783009E0760 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
 		92ACC1380FE9DB57009E0760 /* panel */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = panel; sourceTree = BUILT_PRODUCTS_DIR; };
-		92ACC13A0FE9DB76009E0760 /* panel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = panel.m; path = src/panel.m; sourceTree = "<group>"; };
+		92ACC13A0FE9DB76009E0760 /* panel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = panel.m; sourceTree = "<group>"; };
 		92ACC2160FE9E0EA009E0760 /* panel-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "panel-Info.plist"; sourceTree = "<group>"; };
 		92ACC2310FE9E234009E0760 /* wid */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = wid; sourceTree = BUILT_PRODUCTS_DIR; };
-		92ACC2330FE9E254009E0760 /* wid.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = wid.c; path = src/wid.c; sourceTree = "<group>"; };
+		92ACC2330FE9E254009E0760 /* wid.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = wid.c; sourceTree = "<group>"; };
 		92ACC30A0FE9E38D009E0760 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		92ACC3DB0FE9E5C5009E0760 /* winlevel */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = winlevel; sourceTree = BUILT_PRODUCTS_DIR; };
-		92ACC3DD0FE9E5FE009E0760 /* winalpha.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = winalpha.c; path = src/winalpha.c; sourceTree = "<group>"; };
-		92ACC3DE0FE9E5FE009E0760 /* winlevel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = winlevel.c; path = src/winlevel.c; sourceTree = "<group>"; };
-		92ACC3DF0FE9E5FE009E0760 /* winmove.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = winmove.c; path = src/winmove.c; sourceTree = "<group>"; };
+		92ACC3DD0FE9E5FE009E0760 /* winalpha.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = winalpha.c; sourceTree = "<group>"; };
+		92ACC3DE0FE9E5FE009E0760 /* winlevel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = winlevel.c; sourceTree = "<group>"; };
+		92ACC3DF0FE9E5FE009E0760 /* winmove.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = winmove.c; sourceTree = "<group>"; };
 		92B2E0D30FE87694001CAD1E /* setapp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = setapp; sourceTree = BUILT_PRODUCTS_DIR; };
-		92B2E0D50FE87743001CAD1E /* setapp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = setapp.m; path = src/setapp.m; sourceTree = "<group>"; };
-		92B2E11D0FE88E82001CAD1E /* loginitems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = loginitems.m; path = src/loginitems.m; sourceTree = "<group>"; };
+		92B2E0D50FE87743001CAD1E /* setapp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = setapp.m; sourceTree = "<group>"; };
+		92B2E11D0FE88E82001CAD1E /* loginitems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = loginitems.m; sourceTree = "<group>"; };
 		92B4CF6F0FDA69C300F5AC0D /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
 		92B4CF700FDA69C300F5AC0D /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		92DFDAB80FD9FDC900F7C0BD /* dup */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dup; sourceTree = BUILT_PRODUCTS_DIR; };
-		92DFDABA0FD9FE1400F7C0BD /* dup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = dup.m; path = src/dup.m; sourceTree = "<group>"; };
-		92DFDABB0FD9FE1400F7C0BD /* trash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = trash.c; path = src/trash.c; sourceTree = "<group>"; };
+		92DFDABA0FD9FE1400F7C0BD /* dup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dup.m; sourceTree = "<group>"; };
+		92DFDABB0FD9FE1400F7C0BD /* trash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = trash.c; sourceTree = "<group>"; };
 		92DFDAC60FD9FE1800F7C0BD /* trash */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = trash; sourceTree = BUILT_PRODUCTS_DIR; };
 		92ECA3820FE60214004022DA /* TollFree.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = TollFree.xcconfig; sourceTree = "<group>"; };
-		C6859EA3029092ED04C91782 /* app.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; name = app.1; path = doc/app.1; sourceTree = "<group>"; wrapsLines = 1; };
+		C6859EA3029092ED04C91782 /* app.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = app.1; sourceTree = "<group>"; wrapsLines = 1; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -680,6 +680,7 @@
 				92ACC0B40FE9C756009E0760 /* slideshow.m */,
 			);
 			name = Source;
+			path = src;
 			sourceTree = "<group>";
 		};
 		08FB779DFE84155DC02AAC07 /* External Frameworks and Libraries */ = {
@@ -763,6 +764,7 @@
 				C6859EA3029092ED04C91782 /* app.1 */,
 			);
 			name = Documentation;
+			path = doc;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -258,8 +258,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -373,6 +371,8 @@
 							<key>Tabs</key>
 							<array>
 								<dict>
+									<key>BecomeActive</key>
+									<true/>
 									<key>ContentConfiguration</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
@@ -428,7 +428,7 @@
 									<key>ContentConfiguration</key>
 									<dict>
 										<key>PBXBuildLogShowsTranscriptDefaultKey</key>
-										<string>{{0, 143}, {618, 271}}</string>
+										<string>{{0, 26}, {618, 388}}</string>
 										<key>PBXProjectModuleGUID</key>
 										<string>XCMainBuildResultsModuleGUID</string>
 										<key>PBXProjectModuleLabel</key>
@@ -469,11 +469,11 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>92BFB94A0FEA8BDA00FADB84</string>
+				<string>927088E80FEB489600835BB3</string>
 				<string>1CA23ED40692098700951B8B</string>
-				<string>92BFB94B0FEA8BDA00FADB84</string>
+				<string>927088E90FEB489600835BB3</string>
 				<string>928BE6AB0F973A6A00E2E886</string>
-				<string>92BFB94C0FEA8BDA00FADB84</string>
+				<string>927088EA0FEB489600835BB3</string>
 				<string>1CA23EDF0692099D00951B8B</string>
 				<string>1CA23EE00692099D00951B8B</string>
 				<string>1CA23EE10692099D00951B8B</string>
@@ -640,7 +640,7 @@
 	<key>StatusbarIsVisible</key>
 	<true/>
 	<key>TimeStamp</key>
-	<real>267029467.86285201</real>
+	<real>267077782.51493099</real>
 	<key>ToolbarDisplayMode</key>
 	<integer>1</integer>
 	<key>ToolbarIsVisible</key>
