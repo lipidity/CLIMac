@@ -8,6 +8,9 @@
 #import <stdlib.h>
 #import <string.h>
 
+// TODO: try separate fns for each command flag. All the branching takes a lot of opcodes.
+// can have helper fns like hexdump, xsize, 
+
 static int options = XATTR_NOFOLLOW;
 static long cols = 16;
 static char action = '\0';
@@ -21,23 +24,25 @@ static inline void xrmfr(const char *path);
 int main(int argc, char *argv[]) {
 	int c;
 	const char *attr = NULL;
-	// todo: -e, -p and -o have optional arguments (terminate with --) to print / dump all XAs (so -p -- replaces -l)
 	// todo: -e - and -p - and -e - (like existing -d -)
-	while ((c = getopt(argc, argv, "e:lo:p:d:w:RCLDc:")) != EOF) {
+	// todo: -s <> and -S options to get XA sizes?
+	while ((c = getopt(argc, argv, "Ee:Oo:Pp:Dd:w:RCLc:h")) != EOF) {
 		switch (c) {
-			case 'l':
 			case 'o':
+			case 'O':
 			case 'p':
+			case 'P':
 			case 'd':
-			case 'w':
 			case 'D':
 			case 'e':
+			case 'E':
+			case 'w':
 				if (action) {
-					fputs("You may not specify more than one `-elopdwD' option.\n", stderr);
-					goto usage;
+					fprintf(stderr, "You may not specify more than one `-deopwDEOP' option\n");
+					errx(1, "Try `%s -h' for usage information.", argv[0]);
 				} else {
 					action = c;
-					if (c != 'l' && c != 'D')
+					if (!isupper(c))
 						attr = optarg;
 				}
 				break;
@@ -57,6 +62,9 @@ int main(int argc, char *argv[]) {
 				else
 					err(1, NULL);
 			} break;
+			case '?':
+				errx(1, "Try `%s -h' for usage information.", argv[0]);
+//			case 'h':
 			default:
 				goto usage;
 		}
@@ -96,8 +104,19 @@ usage:
 	argv += optind;
 
 	switch (action) {
-		case '\0':
-		case 'l': // list xattrs
+		case 'o':
+		case 'p': // print xattr data
+			do {
+				if (multiple) {
+					fputs(argv[0], stdout);
+					puts(":");
+				}
+				xcat(argv[0], attr);
+			} while (++argv, --argc);
+			break;
+		case 'O':
+		case 'P':
+		case '\0': // \0 should be "	name	size"
 			do {
 				xls(argv[0]);
 			} while (++argv, --argc);
@@ -148,13 +167,7 @@ usage:
 				xrmfr(argv[0]);
 			} while (++argv, --argc);
 			break;
-		case 'o':
-		case 'p': // print xattr data
-			do {
-				xcat(argv[0], attr);
-			} while (++argv, --argc);
-			break;
-		case 'e': // check if xattr exists in ALL files
+		case 'e': // xattr exists in ALL files?
 			errno = 0;
 			do {
 				getxattr(argv[0], attr, NULL, 0, 0, options);
@@ -165,6 +178,15 @@ usage:
 						return 1;
 					}
 				}
+			} while (++argv, --argc);
+			break;
+		case 'E': // file has any xattrs?
+			do {
+				ssize_t n = listxattr(argv[0], NULL, 0, options);
+				if (n == 0)
+					return 1;
+				if (n < 0)
+					err(2, argv[0]);
 			} while (++argv, --argc);
 			break;
 	}
@@ -178,15 +200,12 @@ static void xcat(const char * restrict path, const char * restrict name)
 		unsigned char buf[n];
 		n = getxattr(path, name, buf, n, 0, options);
 		if (n >= 0) {
-			// if multiple files, print filenames
-			if (multiple && action == 'p') {
-				fputs(path, stdout);
-				puts(":");
-			}
-			if (action == 'o') {
+			if (tolower(action) == 'o') {
 				// raw data
 				if (write(1, buf, n) != n)
 					perror(path);
+				if (buf[n-1] != '\n')
+					putchar('\n');
 			} else {
 				// print in hex
 				long i = 0;
@@ -263,9 +282,17 @@ static inline void xls(const char *path) {
 			}
 			char *ptr = buf;
 			while (ptr < buf + n) {
-				puts(ptr);
-				if (action == 'l') // print xattr data
+				if (multiple && action == '\0')
+					putchar('\t');
+				fputs(ptr, stdout);
+				if (action != '\0') {
+					if (!multiple)
+						putchar(':');
+					putchar('\n');
 					xcat(path, ptr);
+				} else {
+					putchar('\n');
+				}
 				ptr += strlen(ptr) + 1;
 			}
 		} // else?
