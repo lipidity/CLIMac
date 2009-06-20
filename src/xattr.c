@@ -21,7 +21,9 @@ static inline void xrmfr(const char *path);
 int main(int argc, char *argv[]) {
 	int c;
 	const char *attr = NULL;
-	while ((c = getopt(argc, argv, "Dlo:p:d:w:RCLc:")) != EOF) {
+	// todo: -e, -p and -o have optional arguments (terminate with --) to print / dump all XAs (so -p -- replaces -l)
+	// todo: -e - and -p - and -e - (like existing -d -)
+	while ((c = getopt(argc, argv, "e:lo:p:d:w:RCLDc:")) != EOF) {
 		switch (c) {
 			case 'l':
 			case 'o':
@@ -29,8 +31,9 @@ int main(int argc, char *argv[]) {
 			case 'd':
 			case 'w':
 			case 'D':
+			case 'e':
 				if (action) {
-					fputs("You may not specify more than one `-lopdwD' option.\n", stderr);
+					fputs("You may not specify more than one `-elopdwD' option.\n", stderr);
 					goto usage;
 				} else {
 					action = c;
@@ -149,6 +152,19 @@ usage:
 		case 'p': // print xattr data
 			do {
 				xcat(argv[0], attr);
+			} while (++argv, --argc);
+			break;
+		case 'e': // check if xattr exists in ALL files
+			errno = 0;
+			do {
+				getxattr(argv[0], attr, NULL, 0, 0, options);
+				if (errno != 0) {
+					if (errno != ENOATTR) {
+						err(2, argv[0]);
+					} else {
+						return 1;
+					}
+				}
 			} while (++argv, --argc);
 			break;
 	}
