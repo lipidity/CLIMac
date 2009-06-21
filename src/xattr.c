@@ -173,7 +173,7 @@ usage:
 				getxattr(argv[0], attr, NULL, 0, 0, options);
 				if (errno != 0) {
 					if (errno != ENOATTR) {
-						err(2, argv[0]);
+						err(2, "%s", argv[0]);
 					} else {
 						return 1;
 					}
@@ -186,7 +186,7 @@ usage:
 				if (n == 0)
 					return 1;
 				if (n < 0)
-					err(2, argv[0]);
+					err(2, "%s", argv[0]);
 			} while (++argv, --argc);
 			break;
 	}

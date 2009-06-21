@@ -24,16 +24,31 @@ int main (int argc, const char * argv[]) {
 			{ "describe", required_argument, NULL, 'i' },
 			{ "locate", required_argument, NULL, 'b' },
 			{ "define", required_argument, NULL, 'd' },
-//			{ "conforms", required_argument, NULL, 'c' },
-//			{ "equals", required_argument, NULL, '=' },
+			{ "conform", required_argument, NULL, 'c' },
+			{ "equal", required_argument, NULL, 'q' },
 			{ NULL, 0, NULL, 0 }
 		};
 		int c;
 		CFStringRef arg = NULL;
 		char action = 0;
 		BOOL listAll = NO;
-		while ((c = getopt_long(argc, (char **)argv, "lm:O:e:i:b:d:", longopts, NULL)) != EOF) {
+		Boolean (*fn)(CFStringRef, CFStringRef) = &UTTypeConformsTo;
+		while ((c = getopt_long(argc, (char **)argv, "lm:O:e:i:b:d:c:q:", longopts, NULL)) != EOF) {
 			switch (c) {
+				case 'q':
+					fn = &UTTypeEqual; // fall through
+				case 'c':
+					arg = CFStringCreateWithFileSystemRepresentation(NULL, optarg);
+					if (arg == NULL)
+						return 1;
+					argv += optind; argc -= optind;
+					for (int i = 0; i < argc; i++) {
+						CFStringRef uti = CFStringCreateWithFileSystemRepresentation(NULL, argv[i]);
+						if ((uti == NULL) || (!fn(uti, arg)))
+							return 1;
+						CFRelease(uti);
+					}
+					return 0;
 				case 'm':
 				case 'O':
 				case 'e':
@@ -46,6 +61,8 @@ int main (int argc, const char * argv[]) {
 					} else {
 						action = c;
 						arg = CFStringCreateWithFileSystemRepresentation(NULL, optarg);
+						if (arg == NULL)
+							return 1;
 					}
 					break;
 				case 'l':
@@ -76,7 +93,7 @@ int main (int argc, const char * argv[]) {
 					CFShow(desc);
 					CFRelease(desc);
 				} // chk properly
-				return EX_OK;
+				return 0;
 			} break;
 			case 'b': {
 				CFURLRef url = UTTypeCopyDeclaringBundleURL(arg);
@@ -110,6 +127,7 @@ int main (int argc, const char * argv[]) {
 					pS((CFStringRef)CFArrayGetValueAtIndex(all, i));
 				}
 				CFRelease(all);
+				return 0;
 			} else {
 				one = UTTypeCreatePreferredIdentifierForTag(tag, arg, NULL); // chk
 			}
