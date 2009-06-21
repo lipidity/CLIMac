@@ -51,22 +51,22 @@ int main(int argc, const char *argv[]) {
 
 		NSData *tiff = [img TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:1.0f];
 		if (tiff == nil)
-			errx(1, "Couldn't get TIFF representation of icon.");
+			errx(2, "Couldn't get TIFF representation of icon.");
 
 		if (oURL != NULL) {
 			if (![tiff writeToURL:(NSURL *)oURL atomically:NO])
 				err(1, "Couldn't write image.");
 		} else {
 			if (fwrite([tiff bytes], [tiff length], 1, stdout) != 1)
-				err(1, NULL);
+				err(1, "Couldn't write image.");
 		}
 
 		[pool release];
 
-		return EX_OK;
+		return 0;
 	} else {
 usage:
-		fprintf(stderr, "usage:  %s <file>... -o <dst>.tiff\n\t%s -t <type> -o <dst.tiff>\n", argv[0], argv[0]);
+		fprintf(stderr, "usage:  %s <file>... -o <out>.tiff\n\t%s -t <type> -o <out>.tiff\n", argv[0], argv[0]);
 		return 1;
 	}
 }

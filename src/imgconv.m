@@ -78,5 +78,5 @@ int main (int argc, const char * argv[])
 	CFRelease(src);
 	CFRelease(dst);
 
-	return EX_OK;
+	return 0;
 }
