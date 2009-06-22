@@ -76,8 +76,6 @@ usage:
 				"ACTIONS\n"
 				" (default)\n"
 				"    List names of xattrs associated with <file>.\n"
-				" -l\n"
-				"    List xattr names and data.\n"
 				" -p <name>\n"
 				"    Print data for given xattr (hex).\n"
 				" -o <name>\n"

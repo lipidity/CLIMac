@@ -3,7 +3,15 @@
 @interface S : NSObject {} @end
 
 int main(int argc, char *argv[]) {
-#if 1
+	[NSAutoreleasePool new];
+	[[NSApplication sharedApplication] setDelegate:[S new]];
+	[NSApp finishLaunching];
+	while (1) {
+		NSEvent *e = [NSApp nextEventMatchingMask:NSAnyEventMask untilDate:[NSDate distantFuture] inMode:NSDefaultRunLoopMode dequeue:YES];
+		if (e)
+			[NSApp sendEvent:e];
+	}
+#if 0
 	const struct option longopts[] = {
 		{ "help", no_argument, NULL, 'h' },
 		{ "volume", required_argument, NULL, 'v' },
@@ -56,40 +64,15 @@ usage:
 		[sound play];
 		[[NSRunLoop currentRunLoop] run];
 	}
-	return 1;
-#else
-	NSAutoreleasePool *pool = [NSAutoreleasePool new];
-	NSString *whichSnd = nil;
-	float volume = 1.0f;
-	if (argc == 2) {
-		whichSnd = [(NSString *)CFStringCreateWithFileSystemRepresentation(NULL, argv[1]) autorelease];
-	}
-	if (whichSnd == nil) {
-		NSArray *keys = [[NSArray alloc] initWithObjects:@"com.apple.sound.beep.sound", @"com.apple.sound.beep.volume", nil];
-		NSDictionary *dict = (NSDictionary *)CFPreferencesCopyMultiple((CFArrayRef)keys, CFSTR("com.apple.systemsound"), kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
-		if (dict != nil) {
-			whichSnd = [dict objectForKey:@"com.apple.sound.beep.sound"];
-			id num = [dict objectForKey:@"com.apple.sound.beep.volume"];
-			if (num)
-				volume = [num floatValue];
-			CFRelease(dict);
-		}
-		[keys release];
-	}
-	NSSound *sound = [NSSound soundNamed:whichSnd] ? : [[NSSound alloc] initWithContentsOfFile:whichSnd byReference:YES];
-	[pool release];
-	if (sound != nil) {
-		[sound setVolume:volume];
-		[sound setDelegate:[[S allocWithZone:NULL] init]];
-		[sound play];
-		[[NSRunLoop currentRunLoop] run];
-	}
-	return 1;
 #endif
+	return 1;
 }
 
 @implementation S
-- (void) sound:(NSSound *)s didFinishPlaying:(BOOL)success {
-	exit(!success);
+- (void) applicationDidFinishLaunching:(NSNotification *)aNotification {
+	[NSApp activateIgnoringOtherApps:YES];
+	NSAlert *a = [NSAlert alertWithMessageText:@"hello" defaultButton:@"OK" alternateButton:@"alt" otherButton:@"other" informativeTextWithFormat:@"info"];
+	[a runModal];
+	exit(0);
 }
 @end

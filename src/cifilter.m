@@ -163,16 +163,16 @@ parse: ;
 							} while ([sc scanString:@"," intoString:NULL]);
 							if (![sc scanString:@")" intoString:NULL])
 								FAIL("No closing parenthesis");
-							if ([fn isEqualToString:@"rotater"] || [fn isEqualToString:@"rotr"]) {
-								if ([args count] == 1)
-									[xfrm rotateByRadians:(CGFloat)[[args objectAtIndex:0] doubleValue]];
-								else
-									FAIL("rotater needs one argument");
-							} else if ([fn hasPrefix:@"rot"]) {
+							if ([fn isEqualToString:@"rotated"] || [fn isEqualToString:@"rotd"]) {
 								if ([args count] == 1)
 									[xfrm rotateByDegrees:(CGFloat)[[args objectAtIndex:0] doubleValue]];
 								else
 									FAIL("rotated needs one argument");
+							} else if ([fn hasPrefix:@"rot"]) {
+								if ([args count] == 1)
+									[xfrm rotateByRadians:(CGFloat)[[args objectAtIndex:0] doubleValue]];
+								else
+									FAIL("rotater needs one argument");
 							} else if ([fn hasPrefix:@"sca"]) {
 								if ([args count] == 2)
 									[xfrm scaleXBy:(CGFloat)[[args objectAtIndex:0] doubleValue] yBy:(CGFloat)[[args objectAtIndex:1] doubleValue]];

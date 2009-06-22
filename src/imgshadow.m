@@ -42,7 +42,7 @@ int main (int argc, char * argv[]) {
 				case 'c': {
 					float rgb[3] = {0.0f, 0.0f, 0.0f}, alpha = 1.0f;
 					if (sscanf(optarg, "%g %g %g %g", &rgb[0], &rgb[1], &rgb[2], &alpha) < 3)
-						errx(1, "Invalid argument to `-c' option");
+						errx(1, "invalid argument to `-c' option");
 					color = [NSColor colorWithCalibratedRed:rgb[0] green:rgb[1] blue:rgb[2] alpha:alpha];
 					break;
 				}
