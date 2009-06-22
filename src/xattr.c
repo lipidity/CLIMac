@@ -8,24 +8,38 @@
 #import <stdlib.h>
 #import <string.h>
 
-// TODO: try separate fns for each command flag. All the branching takes a lot of opcodes.
-// can have helper fns like hexdump, xsize, 
+static inline void *xmalloc(size_t n);
+static inline void *xmalloc(size_t n) {
+	void *r;
+	if ((r = malloc(n)) == NULL)
+		err(1, NULL);
+	return r;
+}
 
 static int options = XATTR_NOFOLLOW;
-static long cols = 16;
+static long gCols = 16;
 static char action = '\0';
-static signed char multiple = 0;
 
-static void xcat(const char * restrict path, const char * restrict name);
-static inline void xls(const char *path);
-static inline void xrm(const char * restrict path, const char * restrict name);
-static inline void xrmfr(const char *path);
+static inline void x(const char *path);
+static void xo(const char * restrict path, const char * restrict name);
+static void xp(const char * restrict path, const char * restrict name);
+static inline void xO(const char *path);
+static inline void xP(const char *path);
+static inline void xd(const char * restrict path, const char * restrict name);
+static inline void xD(const char *path);
+static inline ssize_t xtotalsize(const char *path);
+static inline ssize_t xsize(const char * restrict path, const char * restrict name);
+static inline void hexdump(const unsigned char *data, size_t n);
+static char **readList(size_t *n);
+static unsigned char *xCopyData(const char * restrict path, const char * restrict name, ssize_t *n);
+static char *xCopyList(const char *path, ssize_t *n);
 
 int main(int argc, char *argv[]) {
 	int c;
-	const char *attr = NULL;
-	// todo: -e - and -p - and -e - (like existing -d -)
+	char *attr = NULL;
+	char *value = NULL;
 	// todo: -s <> and -S options to get XA sizes?
+	// todo: -w <> -f <> ?
 	while ((c = getopt(argc, argv, "Ee:Oo:Pp:Dd:w:RCLc:h")) != EOF) {
 		switch (c) {
 			case 'o':
@@ -42,10 +56,21 @@ int main(int argc, char *argv[]) {
 					errx(1, "Try `%s -h' for usage information.", argv[0]);
 				} else {
 					action = c;
-					if (!isupper(c))
-						attr = optarg;
+					if (!isupper(c)) {
+						size_t l = strlen(optarg) + 1;
+						attr = xmalloc(l);
+						memcpy(attr, optarg, l);
+					}
 				}
 				break;
+#if 0
+			case 'v': {
+				size_t l = strlen(optarg) + 1;
+				value = xmalloc(l);
+				memcpy(value, optarg, l);
+				break;
+			}
+#endif
 			case 'R':
 				options ^= XATTR_REPLACE;
 				break;
@@ -58,7 +83,7 @@ int main(int argc, char *argv[]) {
 			case 'c': {
 				long acols = strtol(optarg, NULL, 0);
 				if (acols > 0 && errno == 0)
-					cols = acols;
+					gCols = acols;
 				else
 					err(1, NULL);
 			} break;
@@ -69,6 +94,7 @@ int main(int argc, char *argv[]) {
 				goto usage;
 		}
 	}
+	argv += optind;
 	if ((argc -= optind) == 0) {
 usage:
 		// or					 %s [-L] [-c <num>] ACTION [ARG] <file>...
@@ -96,214 +122,356 @@ usage:
 				"    Show <num> bytes per line in hex output.\n"
 				, argv[0]);
 		return 1;
-	} else if (argc > 1) {
-		multiple = 1;
 	}
-	argv += optind;
 
 	switch (action) {
 		case 'o':
-		case 'p': // print xattr data
-			do {
-				if (multiple) {
-					fputs(argv[0], stdout);
-					puts(":");
+			if (strcmp("-", attr) != 0) {
+				if (argc == 1)
+					xo(argv[0], attr);
+				else {
+					printf("%s:\n", argv[0]);
+					xo(argv[0], attr);
+					argv += 1; argc -= 1;
+					do {
+						printf("\n%s:\n", argv[0]);
+						xo(argv[0], attr);
+					} while (++argv, --argc);
 				}
-				xcat(argv[0], attr);
-			} while (++argv, --argc);
+			} else {
+				size_t n;
+				char **list = readList(&n); // check
+				goto oloopInit;
+			oloop:
+				putchar('\n');
+			oloopInit:
+				printf("%s:\n", argv[0]);
+				for (size_t i = 0; i < n; i++) {
+					printf("%s:\n", list[i]);
+					xo(argv[0], list[i]);
+				}
+				argv += 1; argc -= 1;
+				if (argc)
+					goto oloop;
+				// fixme: ? leaking each list item
+				free(list);
+			}
+			break;
+		case 'p':
+			if (strcmp("-", attr) != 0) {
+				if (argc == 1)
+					xp(argv[0], attr);
+				else {
+					printf("%s:\n", argv[0]);
+					xp(argv[0], attr);
+					argv += 1; argc -= 1;
+					do {
+						printf("\n%s:\n", argv[0]);
+						xp(argv[0], attr);
+					} while (++argv, --argc);
+				}
+			} else {
+				size_t n;
+				char **list = readList(&n); // check
+				goto ploopInit;
+			ploop:
+				putchar('\n');
+			ploopInit:
+				printf("%s:\n", argv[0]);
+				for (size_t i = 0; i < n; i++) {
+					printf("%s:\n", list[i]);
+					xp(argv[0], list[i]);
+				}
+				argv += 1; argc -= 1;
+				if (argc)
+					goto ploop;
+				// fixme: ? leaking each list item
+				free(list);
+			}
 			break;
 		case 'O':
+			if (argc == 1)
+				xO(argv[0]);
+			else
+				do {
+					printf("%s:\n", argv[0]);
+					xO(argv[0]);
+				} while (++argv, --argc);
+			break;
 		case 'P':
-		case '\0': // \0 should be "	name	size"
-			do {
-				xls(argv[0]);
-			} while (++argv, --argc);
+			if (argc == 1)
+				xP(argv[0]);
+			else {
+				printf("%s:\n", argv[0]);
+				xP(argv[0]);
+				argv += 1; argc -= 1;
+				do {
+					printf("\n%s:\n", argv[0]);
+					xP(argv[0]);
+				} while (++argv, --argc);
+			}
+			break;
+		case '\0':
+			if (argc == 1)
+				x(argv[0]);
+			else {
+				printf("%s:\n", argv[0]);
+				x(argv[0]);
+				argv += 1;
+				do {
+					printf("\n%s:\n", argv[0]);
+					x(argv[0]);
+				} while (++argv, --argc);
+			}
 			break;
 		case 'w': { // write xattr
 			// Read data from stdin
 			// 4096 bytes is max size for all xattrs except resource fork
-			unsigned int n = 0;
-			char *value = malloc(4096);
-			size_t lastReadSize = 0;
-			// Accumulate data into buffer, expanding as needed
-			while (value && (lastReadSize = fread(value + (n*4096), 1, 4096, stdin)) == 4096)
-				value = reallocf(value, (++n + 1)*4096);
-			if (value == NULL)
-				err(1, NULL);
-			size_t totalSize = (n*4096)+lastReadSize;
+			size_t totalSize;
+//			if (value == NULL) {
+				value = malloc(4096);
+				size_t lastReadSize = 0;
+				unsigned int n = 0;
+				// Accumulate data into buffer, expanding as needed
+				while (value && (lastReadSize = fread(value + (n*4096), 1, 4096, stdin)) == 4096)
+					value = realloc(value, (++n + 1)*4096);
+				if (value == NULL)
+					err(1, NULL);
+				totalSize = (n*4096)+lastReadSize;
+//			} else {
+//				totalSize = strlen(value);
+//			}
 			do {
 				if (setxattr(argv[0], attr, value, totalSize, 0, options) != 0)
-					perror(argv[0]);
+					warn("%s", argv[0]);
 			} while (++argv, --argc);
 			free(value);
 		}
 			break;
 		case 'd': // delete xattrs
-			if (strcmp(attr, "-") == 0) {
-				// read (newline-separated) xattr names to delete from stdin
-				char *dattr = NULL;
+			if (strcmp("-", attr) != 0) {
 				do {
-					size_t len = 0;
-					dattr = fgetln(stdin, &len);
-					if (dattr && len > 0) {
-						// null-terminate the string (replacing '\n' or '\0')
-						*(dattr + len - 1) = '\0';
-						if (*dattr != '\0') {
-							for (int i = 0; i < argc; i++)
-								xrm(argv[i], dattr);
-						}
-					}
-				} while (dattr != NULL);
-			} else {
-				do {
-					xrm(argv[0], attr);
+					xd(argv[0], attr);
 				} while (++argv, --argc);
+			} else {
+				size_t n;
+				char **list = readList(&n); // check
+				do {
+					for (size_t i = 0; i < n; i++)
+						xd(argv[0], list[i]);
+				} while (++argv, --argc);
+				// fixme: ? leaking each list item
+				free(list);
 			}
 			break;
 		case 'D': // delete all XAs
 			do {
-				xrmfr(argv[0]);
+				xD(argv[0]);
 			} while (++argv, --argc);
 			break;
 		case 'e': // xattr exists in ALL files?
 			errno = 0;
-			do {
-				getxattr(argv[0], attr, NULL, 0, 0, options);
-				if (errno != 0) {
-					if (errno != ENOATTR) {
-						err(2, "%s", argv[0]);
-					} else {
-						return 1;
+			if (strcmp("-", attr) != 0) {
+				do {
+					getxattr(argv[0], attr, NULL, 0, 0, options);
+					if (errno != 0) {
+						if (errno != ENOATTR) {
+							err(2, "%s", argv[0]);
+						} else {
+							return 1;
+						}
 					}
-				}
-			} while (++argv, --argc);
+				} while (++argv, --argc);
+			} else {
+				size_t n;
+				char **list = readList(&n); // check
+				BOOL hasOne;
+				do {
+					hasOne = 0;
+					for (size_t i = 0; i < n; i++) {
+						getxattr(argv[0], list[i], NULL, 0, 0, options);
+						if (errno == 0) {
+							hasOne = 1;
+							break;
+						} else if (errno != ENOATTR)
+							err(2, "%s", argv[0]);
+					}
+				} while ((++argv, --argc) && hasOne);
+				// fixme: ? leaking each list item
+				free(list);
+				errno = !hasOne;
+			}
 			break;
 		case 'E': // file has any xattrs?
 			do {
-				ssize_t n = listxattr(argv[0], NULL, 0, options);
-				if (n == 0)
+				if (xtotalsize(argv[0]) == 0)
 					return 1;
-				if (n < 0)
-					err(2, "%s", argv[0]);
 			} while (++argv, --argc);
 			break;
 	}
+	free(attr);
 	return (errno != 0);
 }
+static inline void x(const char *path) {
+	ssize_t n;
+	char *all = xCopyList(path, &n);
+	if (all) {
+		char *ptr = all;
+		do {
+			puts(ptr);
+			ptr += strlen(ptr) + 1;
+		} while (ptr < all + n);
+		free(all);
+	}
+}
+static void xo(const char * restrict path, const char * restrict name) {
+	ssize_t n;
+	unsigned char *data = xCopyData(path, name, &n);
+	if (data) {
+		if (write(STDOUT_FILENO, data, n) == n) {
+			if (isatty(STDOUT_FILENO) && data[n-1] != '\n')
+				putchar('\n');
+		} else {
+			warn("write");
+		}
+		free(data);
+	}
+}
+static void xp(const char * restrict path, const char * restrict name) {
+	ssize_t n;
+	unsigned char *data = xCopyData(path, name, &n);
+	if (data) {
+		hexdump(data, n);
+		free(data);
+	}
+}
+static inline void xO(const char *path) {
+	ssize_t n;
+	char *all = xCopyList(path, &n);
+	if (all) {
+		char *ptr = all;
+		do {
+			printf("%s:\n", ptr);
+			xo(path, ptr);
+			ptr += strlen(ptr) + 1;
+		} while (ptr < all + n);
+		free(all);
+	}
+}
+static inline void xP(const char *path) {
+	ssize_t n;
+	char *all = xCopyList(path, &n);
+	if (all) {
+		char *ptr = all;
+		do {
+			printf("%s:\n", ptr);
+			xp(path, ptr);
+			ptr += strlen(ptr) + 1;
+		} while (ptr < all + n);
+		free(all);
+	}
+}
+static inline void xd(const char * restrict path, const char * restrict name) {
+	if (removexattr(path, name, options) != 0)
+		warn(NULL);
+}
+static inline void xD(const char *path) {
+	ssize_t n;
+	char *all = xCopyList(path, &n);
+	if (all) {
+		char *ptr = all;
+		do {
+			xd(path, ptr);
+			ptr += strlen(ptr) + 1;
+		} while (ptr < all + n);
+		free(all);
+	}
+}
 
-static void xcat(const char * restrict path, const char * restrict name)
-{
+
+static inline ssize_t xtotalsize(const char *path) {
+	ssize_t n = listxattr(path, NULL, 0, options);
+	if (n == -1)
+		err(1, "%s", path);
+	return n;
+}
+static char *xCopyList(const char *path, ssize_t *n) {
+	*n = xtotalsize(path);
+	if (*n) {
+		char *all = xmalloc(*n);
+		if (listxattr(path, all, (size_t)*n, options) == *n)
+			return all;
+		warn("%s", path);
+		free(all);
+	}
+	return NULL;
+}
+static unsigned char *xCopyData(const char * restrict path, const char * restrict name, ssize_t *n) {
+	*n = xsize(path, name);
+	if (*n) {
+		unsigned char *data = xmalloc(*n);
+		if (getxattr(path, name, data, *n, 0, options) == *n) {
+			return data;
+		} else {
+			free(data);
+			warn("%s", name);
+		}
+	}
+	return NULL;
+}
+static inline ssize_t xsize(const char * restrict path, const char * restrict name) {
 	ssize_t n = getxattr(path, name, NULL, 0, 0, options);
-	if (n >= 0) {
-		unsigned char buf[n];
-		n = getxattr(path, name, buf, n, 0, options);
-		if (n >= 0) {
-			if (tolower(action) == 'o') {
-				// raw data
-				if (write(1, buf, n) != n)
-					perror(path);
-				if (buf[n-1] != '\n')
-					putchar('\n');
-			} else {
-				// print in hex
-				long i = 0;
-				while (i++ < n) {
-					printf("%.2X ", buf[i-1]);
-					if (i % cols == 0) {
-						putchar(' ');
-						for (long j = i - cols; j < i; j++)
-							putchar(isprint(buf[j]) ? buf[j] : '.');
-						putchar('\n');
-					}
-				}
-				// pad the last row if needed
-				if (--i % cols != 0) {
-					for (long j = 0; j < cols - (i % cols); j++)
-						fputs("   ", stdout);
-					putchar(' ');
-					for (long j = i - (i % cols); j < i; j++)
-						putchar(isprint(buf[j]) ? buf[j] : '.');
-					putchar('\n');
+	if (n >= 0)
+		return n;
+	warn("%s", name);
+	return 0;
+}
+
+static inline void hexdump(const unsigned char *data, size_t n) {
+	size_t i = 0;
+	while (i < n) {
+		printf("%.2X ", data[i]);
+		i += 1;
+		if (i % gCols == 0) {
+			putchar(' ');
+			for (size_t j = i - gCols; j < i; j++)
+				putchar(isprint(data[j]) ? data[j] : '.');
+			putchar('\n');
+		}
+	}
+	size_t rem = i % gCols;
+	if (rem != 0) {
+		for (size_t j = 0; j < gCols - rem; j++)
+			fputs("   ", stdout);
+		putchar(' ');
+		for (size_t j = i - rem; j < i; j++)
+			putchar(isprint(data[j]) ? data[j] : '.');
+		putchar('\n');
+	}
+}
+
+// read (newline-separated) xattr names to delete from stdin
+static char **readList(size_t *size) {
+	size_t n = 0;
+	char **list = xmalloc(sizeof(char *) * 16);
+	char *dattr;
+	do {
+		size_t len = 0;
+		dattr = fgetln(stdin, &len);
+		if (dattr != NULL) {
+			BOOL newln = (dattr[len - 1] == '\n');
+			if ((len > 1) || !newln) {
+				list[n] = xmalloc(len + !newln);
+				memcpy(list[n], dattr, len - newln);
+				list[n][len - newln] = '\0';
+				n += 1;
+				if (n % 16 == 0) {
+					if ((list = realloc(list, (n + 16) * sizeof(char *))) == NULL)
+						err(1, NULL);
 				}
 			}
 		}
-	} else {
-		perror(path);
-	}
-}
-
-static inline void xrmfr(const char *path) {
-	ssize_t n;
-	// n = size of buffer needed
-	n = listxattr(path, NULL, 0, options);
-	if (n == 0) {
-		return; // no xattrs
-	} else if (n > 0) {
-		char *buf = malloc(n); // could just use VA or alloca
-		if (buf == NULL)
-			err(1, NULL);
-		n = listxattr(path, buf, n, options);
-		if (n > 0) {
-			char *ptr = buf;
-			while (ptr < buf + n) {
-				if (removexattr(path, ptr, options) != 0)
-					warn("%s (%s)", path, ptr);
-				ptr += strlen(ptr) + 1;
-			}
-		} // else?
-		free(buf);
-	} else {
-		perror(path);
-	}
-}
-
-static inline void xls(const char *path) {
-	static signed char firstRun = 0;
-	ssize_t n;
-	// n = size of buffer needed
-	n = listxattr(path, NULL, 0, options);
-	if (n == 0) {
-		return; // no xattrs
-	} else if (n > 0) {
-		char *buf = malloc(n); // could just use VA or alloca
-		if (buf == NULL)
-			err(1, NULL);
-		n = listxattr(path, buf, n, options);
-		if (n > 0) {
-			if (multiple) { // print filenames
-				if (firstRun)
-					putchar('\n');
-				else
-					firstRun = 1;
-				fputs(path, stdout);
-				puts(":");
-			}
-			char *ptr = buf;
-			while (ptr < buf + n) {
-				if (multiple && action == '\0')
-					putchar('\t');
-				fputs(ptr, stdout);
-				if (action != '\0') {
-					if (!multiple)
-						putchar(':');
-					putchar('\n');
-					xcat(path, ptr);
-				} else {
-					putchar('\n');
-				}
-				ptr += strlen(ptr) + 1;
-			}
-		} // else?
-		free(buf);
-	} else {
-		perror(path);
-	}
-}
-
-static inline void xrm(const char * restrict path, const char * restrict name)
-{
-	if (removexattr(path, name, options) != 0) {
-		if (!(multiple && errno == ENOATTR))
-			perror(path);
-	}
+	} while (dattr != NULL);
+	*size = n;
+	return list;
 }
