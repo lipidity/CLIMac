@@ -13,53 +13,64 @@
 .Nd manipulate the extended attributes of files
 .Sh SYNOPSIS             \" Section Header - required - don't modify
 .Nm
-.Op Fl L
-.Op Fl l \*(Ba p Ar name \*(Ba Fl o Ar name \*(Ba Fl d Ar name \*(Ba Fl D \*(Ba Bo Fl RC Bc Fl w Ar name
+.Op Fl LRC
+.Op Fl p Ar name \*(Ba Fl o Ar name \*(Ba Fl d Ar name \*(Ba Fl w Ar name
 .Ar
 .Sh DESCRIPTION          \" Section Header - required - don't modify
 .Pp
 Extended attributes extend the basic attributes of files and directories in the file system. They are stored as name:data pairs associated with file system objects (files, directories, symlinks, etc).
 .Pp
-The
+The xattr command lists, writes, prints or deletes extended attributes. It is backwards-compatible with the python script of the same name that ships Mac OS X 10.5.
+.Pp
+With no options,
 .Nm
-command lists, writes, prints or deletes extended attributes. It is backwards-compatible with the python script of the same name that ships Mac OS X 10.5.
-.\".Pp
-.\"By default,
-.\".Nm
-.\"lists the extended attributes associated with the object at the specified path. Alternate behavior is triggered by the use of a command flag.
-.Sh COMMANDS
-.Bl -tag -width "wider" -compact
-.It Fl l
-Print the names and a hex dump of the data of extended attributes.
-.It Fl p
-Print a hex dump of the specified extended attribute data.
-.It Fl o
-Print the raw data of the specified extended attribute.
-.It Fl d
-Delete the specified extended attribute. If
-.Ar name No is Sq - Ns ,
-read a newline-separated list of extended attributes to delete from the standard input.
-.It Fl D
-Delete
-.Sy all
-extended attributes associated with the given files.
-.It Fl w
+lists the names of the extended attributes associated with the given files.
+.Pp
+The options are as follows:
+.Bl -tag -width 4n
+.It Fl p Ar name
+Print a hex dump of the extended attribute data associated with
+.Ar name .
+.It Fl o Ar name
+Output the raw data of the extended attribute data associated with
+.Ar name .
+.It Fl d Ar name
+Delete the specified extended attribute.
+.It Fl w Ar name
 Set (write) the specified extended attribute. Data to associate with
 .Ar name
 is taken from the standard input.
-.El 
-.Sh OPTIONS
-.Bl -tag -width "wider" -compact
 .It Fl L
 Follow symbolic links. If
 .Ar file
 is a symbolic link, operations will be performed on the target of
-.Ar file Ns , and not to Ar file
+.Ar file Ns , and not on Ar file
 itself.
-.It Fl R
-Replace existing extended attributes; fail rather than create a new one.
 .It Fl C
 Create new extended attributes; fail rather than replace an existing one.
+.It Fl R
+Replace existing extended attributes; fail rather than create a new one.
+.El
+.Pp
+For the
+.Fl p , o
+and
+.Fl d
+options:
+.Bl -bullet
+.It
+If 
+.Ar name
+is
+.Sq - Ns ,
+read a newline-separated list of extended attribute names from the standard input.
+.It
+If the option flag is in upper-case,
+.\" .Pq ie. Fl P , O , D ,
+perform the action on
+.Sy all
+extended attributes associated with the given files
+.Pq Fl P No to print all , Fl O No to output all , Fl D No to delete all .
 .El
 .\" 
 .\" .Sh ENVIRONMENT      \" May not be needed
@@ -95,4 +106,4 @@ The
 .Nm
 utility was written by
 .An Sq Vacuous Virtuoso
-.Aq http://lipidity.com Ns .
+.Aq http://lipidity.com

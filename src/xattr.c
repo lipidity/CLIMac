@@ -21,12 +21,12 @@ static long gCols = 16;
 static char action = '\0';
 
 static inline void x(const char *path);
-static void xo(const char * restrict path, const char * restrict name);
-static void xp(const char * restrict path, const char * restrict name);
-static inline void xO(const char *path);
-static inline void xP(const char *path);
-static inline void xd(const char * restrict path, const char * restrict name);
 static inline void xD(const char *path);
+static inline void xd(const char * restrict path, const char * restrict name);
+static inline void xO(const char *path);
+static void xo(const char * restrict path, const char * restrict name);
+static inline void xP(const char *path);
+static void xp(const char * restrict path, const char * restrict name);
 static inline ssize_t xtotalsize(const char *path);
 static inline ssize_t xsize(const char * restrict path, const char * restrict name);
 static inline void hexdump(const unsigned char *data, size_t n);
@@ -40,20 +40,21 @@ int main(int argc, char *argv[]) {
 	char *value = NULL;
 	// todo: -s <> and -S options to get XA sizes?
 	// todo: -w <> -f <> ?
-	while ((c = getopt(argc, argv, "Ee:Oo:Pp:Dd:w:RCLc:h")) != EOF) {
+	while ((c = getopt(argc, argv, "lDd:Oo:Pp:w:RCLc:h")) != EOF) {
 		switch (c) {
+			case 'l':
+				c = 'P'; // compatibility
 			case 'o':
 			case 'O':
 			case 'p':
 			case 'P':
 			case 'd':
 			case 'D':
-			case 'e':
-			case 'E':
 			case 'w':
 				if (action) {
-					fprintf(stderr, "You may not specify more than one `-deopwDEOP' option\n");
-					errx(1, "Try `%s -h' for usage information.", argv[0]);
+					warnx("You may not specify more than one `-DdOoPpw' option");
+					fprintf(stderr, "Try `%s -h' for usage information\n", argv[0]);
+					return 1;
 				} else {
 					action = c;
 					if (!isupper(c)) {
@@ -63,14 +64,6 @@ int main(int argc, char *argv[]) {
 					}
 				}
 				break;
-#if 0
-			case 'v': {
-				size_t l = strlen(optarg) + 1;
-				value = xmalloc(l);
-				memcpy(value, optarg, l);
-				break;
-			}
-#endif
 			case 'R':
 				options ^= XATTR_REPLACE;
 				break;
@@ -88,43 +81,59 @@ int main(int argc, char *argv[]) {
 					err(1, NULL);
 			} break;
 			case '?':
-				errx(1, "Try `%s -h' for usage information.", argv[0]);
+				fprintf(stderr, "Try `%s -h' for usage information\n", argv[0]);
+				return 1;
 //			case 'h':
 			default:
 				goto usage;
 		}
 	}
-	argv += optind;
 	if ((argc -= optind) == 0) {
+//		warnx("No files to act on");
 usage:
 		// or					 %s [-L] [-c <num>] ACTION [ARG] <file>...
 		fprintf(stderr, "usage:  %s [<action>] [<options>] <file>...\n"
 				"ACTIONS\n"
-				" (default)\n"
-				"    List names of xattrs associated with <file>.\n"
-				" -p <name>\n"
-				"    Print data for given xattr (hex).\n"
-				" -o <name>\n"
-				"    Output data for given xattr (raw).\n"
-				" -d <name>\n"
-				"    Delete given xattr.\n"
-				"    Pass `-' to read names from stdin.\n"
-				" -w <name> [-R | -C]\n"
-				"    Write xattr <name>. Data for xattr taken from stdin.\n"
-				"    With `-C', fail if xattr exists (create).\n"
-				"    With `-R', fail if xattr doesn't exist (replace).\n"
-				" -D\n"
-				"    Delete ALL xattrs associated with <file>.\n"
+				" (default)\t"
+				"List names of xattrs\n"
+				" -p <name>\t"
+				"Hexdump of data for given xattr\n"
+				" -o <name>\t"
+				"Output raw data for given xattr\n"
+				" -d <name>\t"
+				"Delete given xattr\n"
+				" -w <name>\t"
+				"Write xattr (data taken from stdin)\n"
+				" -P, -O, -D\t"
+				"Like small letter, but act on ALL xattrs\n"
 				"OPTIONS\n"
-				" -L\n"
-				"    Follow symlinks.\n"
-				" -c <num>\n"
-				"    Show <num> bytes per line in hex output.\n"
+				" -L\t"
+				"Follow symlinks.\n"
+//				" -c <n>\t"
+//				"Show <n> bytes per line in hex output\n"
+				" -C\t"
+				"Fail if xattr exists (create)\n"
+				" -R\t"
+				"Fail if xattr doesn't exist (replace)\n"
 				, argv[0]);
 		return 1;
 	}
+	argv += optind;
 
 	switch (action) {
+		case '\0':
+			if (argc == 1)
+				x(argv[0]);
+			else {
+				printf("%s:\n", argv[0]);
+				x(argv[0]);
+				argv += 1;
+				do {
+					printf("\n%s:\n", argv[0]);
+					x(argv[0]);
+				} while (++argv, --argc);
+			}
+			break;
 		case 'o':
 			if (strcmp("-", attr) != 0) {
 				if (argc == 1)
@@ -211,19 +220,6 @@ usage:
 				} while (++argv, --argc);
 			}
 			break;
-		case '\0':
-			if (argc == 1)
-				x(argv[0]);
-			else {
-				printf("%s:\n", argv[0]);
-				x(argv[0]);
-				argv += 1;
-				do {
-					printf("\n%s:\n", argv[0]);
-					x(argv[0]);
-				} while (++argv, --argc);
-			}
-			break;
 		case 'w': { // write xattr
 			// Read data from stdin
 			// 4096 bytes is max size for all xattrs except resource fork
@@ -267,45 +263,6 @@ usage:
 		case 'D': // delete all XAs
 			do {
 				xD(argv[0]);
-			} while (++argv, --argc);
-			break;
-		case 'e': // xattr exists in ALL files?
-			errno = 0;
-			if (strcmp("-", attr) != 0) {
-				do {
-					getxattr(argv[0], attr, NULL, 0, 0, options);
-					if (errno != 0) {
-						if (errno != ENOATTR) {
-							err(2, "%s", argv[0]);
-						} else {
-							return 1;
-						}
-					}
-				} while (++argv, --argc);
-			} else {
-				size_t n;
-				char **list = readList(&n); // check
-				BOOL hasOne;
-				do {
-					hasOne = 0;
-					for (size_t i = 0; i < n; i++) {
-						getxattr(argv[0], list[i], NULL, 0, 0, options);
-						if (errno == 0) {
-							hasOne = 1;
-							break;
-						} else if (errno != ENOATTR)
-							err(2, "%s", argv[0]);
-					}
-				} while ((++argv, --argc) && hasOne);
-				// fixme: ? leaking each list item
-				free(list);
-				errno = !hasOne;
-			}
-			break;
-		case 'E': // file has any xattrs?
-			do {
-				if (xtotalsize(argv[0]) == 0)
-					return 1;
 			} while (++argv, --argc);
 			break;
 	}
