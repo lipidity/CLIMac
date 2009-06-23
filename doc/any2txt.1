@@ -1,0 +1,45 @@
+.\"Modified from man(1) of FreeBSD, the NetBSD mdoc.template, and mdoc.samples.
+.\"See Also:
+.\"man mdoc.samples for a complete listing of options
+.\"man mdoc for the short list of editing options
+.\"/usr/share/misc/mdoc.template
+.Dd June 14, 2009
+.Os
+.Dt ANY2TXT \&1 "CLIMac Reference Manual"
+.Sh NAME                 \" Section Header - required - don't modify 
+.Nm any2txt
+.Nd convert document to plain text
+.Sh SYNOPSIS             \" Section Header - required - don't modify
+.Nm
+.Ar inputfile
+.Op Ar outputfile
+.Sh DESCRIPTION          \" Section Header - required - don't modify
+.Pp
+The
+.Nm
+tool extracts the text from a range of file types such as HTML, PDF and RTF.
+.\"  On Mac OS X 10.5 and above, iWork (eg. Pages) and Office (eg. Word) documents are also supported.
+.Pp
+.Nm
+attempts to use the standard system APIs to get the text, otherwise (on Mac OS X 10.5 and above) a QuickLook preview is generated from which to extract the text.
+.\".Sh FILES                \" File used or created by the topic of the man page
+.\".Sh EXAMPLES
+.Sh DIAGNOSTICS
+The
+.Nm
+utility exits 0 on success, and \*(Gt0 if an error occurs.
+.\".Sh COMPATIBILITY
+.Sh SEE ALSO 
+.\" List links in ascending order by section, alphabetically within a section.
+.\" Please do not reference files that do not exist without filing a bug report
+.Xr cat 1 ,
+.Xr less 1
+.\" .Sh BUGS              \" Document known, unremedied bugs
+.\" .Sh HISTORY           \" Document history if command behaves in a unique manner
+.Sh AUTHORS
+.Pp
+The
+.Nm
+utility was written by
+.An Sq Vacuous Virtuoso
+.Aq http://lipidity.com Ns .
