@@ -7,13 +7,25 @@
  *
  * Handles multiple image representations (eg. can have multiple images in one tiff file)
  */
-int main (int argc, const char * argv[])
-{
+int main (int argc, char *argv[]) {
 //	These are probably not necessary as they can be done manually in Preview.app, but command-line capability wouldn't hurt.
 // MAY:	use CGImageDestinationSetProperties() to specify background color (if output doesn't handle alpha) & compression type / level
 // MAY:	have option to extract all with suffixes (eg. $(fileicon / | imgconv -a out.png) makes |out-<1-5>.png|) =OR=
 // MAY:	specify which image $(fileicon / | imgconv -e 3 out.png) =OR=
 // MAY:	specify which size image $(fileicon / | imgconv -s 32 out.png)
+	if (argc == 2) {
+		CFArrayRef a = NULL;
+		if (strcmp(argv[1], "-in") == 0)
+			a = CGImageSourceCopyTypeIdentifiers();
+		else if (strcmp(argv[1], "-out") == 0)
+			a = CGImageDestinationCopyTypeIdentifiers();
+		if (a != NULL) {
+			[NSAutoreleasePool new];
+			for (CFIndex i = 0; i < CFArrayGetCount(a); i++)
+				puts([(NSString *)CFArrayGetValueAtIndex(a, i) fileSystemRepresentation]);
+			return 0;
+		}
+	}
 	if (argc != 2 && argc != 3) {
 		fprintf(stderr, "usage:  %s [<src>] <dst>\n", argv[0]);
 		return 1;
