@@ -17,13 +17,14 @@
 .Pp
 The
 .Nm
-tool extracts the text from a range of file types such as HTML, PDF and RTF.
+tool extracts the text from a range of file types such as HTML, PDF, RTF and even Microsoft Word documents.
 .\"  On Mac OS X 10.5 and above, iWork (eg. Pages) and Office (eg. Word) documents are also supported.
 .Pp
+On Mac OS X 10.5 and above,
 .Nm
-attempts to use the standard system APIs to get the text, otherwise (on Mac OS X 10.5 and above) a QuickLook preview is generated from which to extract the text.
+attempts to generate a QuickLook preview from which to extract the text to support an even broader range of file types.
 .Pp
-All output from this command uses the UTF-8 encoding.
+UTF-8 encoding is used for all output.
 .\".Sh FILES                \" File used or created by the topic of the man page
 .\".Sh EXAMPLES
 .Sh DIAGNOSTICS
