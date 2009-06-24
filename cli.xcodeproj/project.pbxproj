@@ -92,6 +92,10 @@
 		9270CFC90FEA6DA40026D4F5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9270CFC80FEA6DA40026D4F5 /* QuartzCore.framework */; };
 		9270D3950FEA6E020026D4F5 /* cifilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9270D3940FEA6E020026D4F5 /* cifilter.m */; };
 		9270F7E00FF21DD000036795 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
+		9270F80A0FF2583900036795 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92ACC0B70FE9C783009E0760 /* Quartz.framework */; };
+		9270F80B0FF2583900036795 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
+		9270F8130FF2587800036795 /* pdfinfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9270F8120FF2587800036795 /* pdfinfo.m */; };
+		9270F8280FF25D2000036795 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92ACC0B70FE9C783009E0760 /* Quartz.framework */; };
 		927326EA0FF0FE370082CE31 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B4CF700FDA69C300F5AC0D /* CoreServices.framework */; };
 		927326FC0FF109880082CE31 /* any2txt.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 927326F10FF1097B0082CE31 /* any2txt.1 */; };
 		927CFB770FEF182B00D7D4DF /* wintransition.c in Sources */ = {isa = PBXBuildFile; fileRef = 927CFB760FEF182B00D7D4DF /* wintransition.c */; };
@@ -512,6 +516,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		9270F80C0FF2583900036795 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = /Users/ankur/share/man/man1;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		927CFB580FEF17F900D7D4DF /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 8;
@@ -647,7 +660,7 @@
 		924E30690FEB9C08004A9EA1 /* trimmit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = trimmit.m; sourceTree = "<group>"; };
 		9250FE730FEDE5AC003A0068 /* cfn */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cfn; sourceTree = BUILT_PRODUCTS_DIR; };
 		9250FE750FEDE5DE003A0068 /* cfn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cfn.m; sourceTree = "<group>"; };
-		925693C60FF2018000976A77 /* pdfsplit */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pdfsplit; sourceTree = BUILT_PRODUCTS_DIR; };
+		925693C60FF2018000976A77 /* pdfextract */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pdfextract; sourceTree = BUILT_PRODUCTS_DIR; };
 		925693D00FF201C000976A77 /* pdfcat */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pdfcat; sourceTree = BUILT_PRODUCTS_DIR; };
 		925693D20FF2027D00976A77 /* pdfcat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pdfcat.m; sourceTree = "<group>"; };
 		925693D30FF2027D00976A77 /* pdfextract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pdfextract.m; sourceTree = "<group>"; };
@@ -663,13 +676,15 @@
 		927089210FEB4A7700835BB3 /* winalpha */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = winalpha; sourceTree = BUILT_PRODUCTS_DIR; };
 		92708A190FEB4B7800835BB3 /* trash.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = trash.1; sourceTree = "<group>"; };
 		92708A220FEB53B600835BB3 /* setapp.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = setapp.1; sourceTree = "<group>"; };
-		92708A4A0FEB5CFB00835BB3 /* shadows */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = shadows; sourceTree = BUILT_PRODUCTS_DIR; };
+		92708A4A0FEB5CFB00835BB3 /* winshadow */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = winshadow; sourceTree = BUILT_PRODUCTS_DIR; };
 		92708A4D0FEB5D4D00835BB3 /* shadows.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = shadows.c; sourceTree = "<group>"; };
 		9270CF290FEA390F0026D4F5 /* beep.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = beep.1; sourceTree = "<group>"; };
 		9270CF3B0FEA4DD80026D4F5 /* dup.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = dup.1; sourceTree = "<group>"; };
 		9270CFC40FEA6D740026D4F5 /* cifilter */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cifilter; sourceTree = BUILT_PRODUCTS_DIR; };
 		9270CFC80FEA6DA40026D4F5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		9270D3940FEA6E020026D4F5 /* cifilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cifilter.m; sourceTree = "<group>"; };
+		9270F8100FF2583900036795 /* pdfinfo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pdfinfo; sourceTree = BUILT_PRODUCTS_DIR; };
+		9270F8120FF2587800036795 /* pdfinfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pdfinfo.m; sourceTree = "<group>"; };
 		927326F10FF1097B0082CE31 /* any2txt.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = any2txt.1; sourceTree = "<group>"; };
 		9275922C0FEB6842008E8091 /* shadows.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = shadows.1; sourceTree = "<group>"; };
 		927CFB5C0FEF17F900D7D4DF /* wintransition */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = wintransition; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -698,7 +713,6 @@
 		92ACC0B70FE9C783009E0760 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
 		92ACC1380FE9DB57009E0760 /* panel */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = panel; sourceTree = BUILT_PRODUCTS_DIR; };
 		92ACC13A0FE9DB76009E0760 /* panel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = panel.m; sourceTree = "<group>"; };
-		92ACC2160FE9E0EA009E0760 /* panel-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "panel-Info.plist"; sourceTree = "<group>"; };
 		92ACC2310FE9E234009E0760 /* win */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = win; sourceTree = BUILT_PRODUCTS_DIR; };
 		92ACC2330FE9E254009E0760 /* win.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = win.c; sourceTree = "<group>"; };
 		92ACC30A0FE9E38D009E0760 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
@@ -868,6 +882,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9270F8090FF2583900036795 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9270F80A0FF2583900036795 /* Quartz.framework in Frameworks */,
+				9270F80B0FF2583900036795 /* AppKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		927CFB570FEF17F900D7D4DF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -964,6 +987,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92ACC13E0FE9DC4F009E0760 /* AppKit.framework in Frameworks */,
+				9270F8280FF25D2000036795 /* Quartz.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1027,6 +1051,7 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				9270F8120FF2587800036795 /* pdfinfo.m */,
 				925693D20FF2027D00976A77 /* pdfcat.m */,
 				925693D30FF2027D00976A77 /* pdfextract.m */,
 				920EC1850FEF4E7300C1AC0C /* process */,
@@ -1082,7 +1107,7 @@
 				92ACC3DB0FE9E5C5009E0760 /* winlevel */,
 				9270CFC40FEA6D740026D4F5 /* cifilter */,
 				927089210FEB4A7700835BB3 /* winalpha */,
-				92708A4A0FEB5CFB00835BB3 /* shadows */,
+				92708A4A0FEB5CFB00835BB3 /* winshadow */,
 				924E30520FEB9BE0004A9EA1 /* trimmit */,
 				9250FE730FEDE5AC003A0068 /* cfn */,
 				929ECF1C0FEE71660085F378 /* imgshadow */,
@@ -1092,8 +1117,9 @@
 				927CFBDA0FEF2B8300D7D4DF /* imgtext */,
 				920EC1990FEF50F000C1AC0C /* any2txt */,
 				920EC1BE0FEF533F00C1AC0C /* alert */,
-				925693C60FF2018000976A77 /* pdfsplit */,
+				925693C60FF2018000976A77 /* pdfextract */,
 				925693D00FF201C000976A77 /* pdfcat */,
+				9270F8100FF2583900036795 /* pdfinfo */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1169,7 +1195,6 @@
 		9270CF830FEA54910026D4F5 /* panel */ = {
 			isa = PBXGroup;
 			children = (
-				92ACC2160FE9E0EA009E0760 /* panel-Info.plist */,
 				92ACC13A0FE9DB76009E0760 /* panel.m */,
 			);
 			name = panel;
@@ -1356,7 +1381,7 @@
 			);
 			name = pdfextract;
 			productName = imgconv;
-			productReference = 925693C60FF2018000976A77 /* pdfsplit */;
+			productReference = 925693C60FF2018000976A77 /* pdfextract */;
 			productType = "com.apple.product-type.tool";
 		};
 		925693C80FF201C000976A77 /* pdfcat */ = {
@@ -1462,9 +1487,9 @@
 			productReference = 927089210FEB4A7700835BB3 /* winalpha */;
 			productType = "com.apple.product-type.tool";
 		};
-		92708A430FEB5CFB00835BB3 /* shadows */ = {
+		92708A430FEB5CFB00835BB3 /* winshadow */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 92708A470FEB5CFB00835BB3 /* Build configuration list for PBXNativeTarget "shadows" */;
+			buildConfigurationList = 92708A470FEB5CFB00835BB3 /* Build configuration list for PBXNativeTarget "winshadow" */;
 			buildPhases = (
 				92708A440FEB5CFB00835BB3 /* Sources */,
 				92708A450FEB5CFB00835BB3 /* Frameworks */,
@@ -1474,9 +1499,9 @@
 			);
 			dependencies = (
 			);
-			name = shadows;
+			name = winshadow;
 			productName = imgconv;
-			productReference = 92708A4A0FEB5CFB00835BB3 /* shadows */;
+			productReference = 92708A4A0FEB5CFB00835BB3 /* winshadow */;
 			productType = "com.apple.product-type.tool";
 		};
 		9270CFBD0FEA6D740026D4F5 /* cifilter */ = {
@@ -1494,6 +1519,23 @@
 			name = cifilter;
 			productName = imgconv;
 			productReference = 9270CFC40FEA6D740026D4F5 /* cifilter */;
+			productType = "com.apple.product-type.tool";
+		};
+		9270F8060FF2583900036795 /* pdfinfo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9270F80D0FF2583900036795 /* Build configuration list for PBXNativeTarget "pdfinfo" */;
+			buildPhases = (
+				9270F8070FF2583900036795 /* Sources */,
+				9270F8090FF2583900036795 /* Frameworks */,
+				9270F80C0FF2583900036795 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = pdfinfo;
+			productName = imgconv;
+			productReference = 9270F8100FF2583900036795 /* pdfinfo */;
 			productType = "com.apple.product-type.tool";
 		};
 		927CFB550FEF17F900D7D4DF /* wintransition */ = {
@@ -1802,12 +1844,12 @@
 				92ACC1310FE9DB57009E0760 /* panel */,
 				925693C80FF201C000976A77 /* pdfcat */,
 				925693BA0FF2018000976A77 /* pdfextract */,
+				9270F8060FF2583900036795 /* pdfinfo */,
 				925C36F20FE7F15F00E9B9E4 /* pid */,
 				929ECF430FEE7E610085F378 /* quit */,
 				927E85F80FDA378B008D6B2B /* readalias */,
 				92B2E0C70FE87694001CAD1E /* setapp */,
 				925C36D20FE7EC5A00E9B9E4 /* seticon */,
-				92708A430FEB5CFB00835BB3 /* shadows */,
 				92ACC0AA0FE9C717009E0760 /* slideshow */,
 				92DFDABE0FD9FE1800F7C0BD /* trash */,
 				924E304B0FEB9BE0004A9EA1 /* trimmit */,
@@ -1815,6 +1857,7 @@
 				92ACC22A0FE9E234009E0760 /* win */,
 				9270891A0FEB4A7700835BB3 /* winalpha */,
 				92ACC3D20FE9E5C5009E0760 /* winlevel */,
+				92708A430FEB5CFB00835BB3 /* winshadow */,
 				927CFB9D0FEF20CC00D7D4DF /* wintransform */,
 				927CFB550FEF17F900D7D4DF /* wintransition */,
 				924311710FD12AAF00148B78 /* xattr */,
@@ -1961,6 +2004,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9270F8070FF2583900036795 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9270F8130FF2587800036795 /* pdfinfo.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		927CFB560FEF17F900D7D4DF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2098,7 +2149,7 @@
 		};
 		92708A640FEB615C00835BB3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 92708A430FEB5CFB00835BB3 /* shadows */;
+			target = 92708A430FEB5CFB00835BB3 /* winshadow */;
 			targetProxy = 92708A630FEB615C00835BB3 /* PBXContainerItemProxy */;
 		};
 		927E86030FDA3792008D6B2B /* PBXTargetDependency */ = {
@@ -2556,6 +2607,20 @@
 			};
 			name = Release;
 		};
+		9270F80E0FF2583900036795 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 92ECA3820FE60214004022DA /* TollFree.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		9270F80F0FF2583900036795 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 92ECA3820FE60214004022DA /* TollFree.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
 		927CFB5A0FEF17F900D7D4DF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2686,24 +2751,12 @@
 		92ACC1360FE9DB57009E0760 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					"panel-Info.plist",
-				);
 			};
 			name = Debug;
 		};
 		92ACC1370FE9DB57009E0760 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				OTHER_LDFLAGS = (
-					"-sectcreate",
-					__TEXT,
-					__info_plist,
-					"panel-Info.plist",
-				);
 			};
 			name = Release;
 		};
@@ -2928,7 +2981,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		92708A470FEB5CFB00835BB3 /* Build configuration list for PBXNativeTarget "shadows" */ = {
+		92708A470FEB5CFB00835BB3 /* Build configuration list for PBXNativeTarget "winshadow" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				92708A480FEB5CFB00835BB3 /* Debug */,
@@ -2942,6 +2995,15 @@
 			buildConfigurations = (
 				9270CFC20FEA6D740026D4F5 /* Debug */,
 				9270CFC30FEA6D740026D4F5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9270F80D0FF2583900036795 /* Build configuration list for PBXNativeTarget "pdfinfo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9270F80E0FF2583900036795 /* Debug */,
+				9270F80F0FF2583900036795 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

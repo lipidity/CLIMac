@@ -10,6 +10,8 @@
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>panel</string>
+	<key>LSUIElement</key>
+	<true/>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 </dict>

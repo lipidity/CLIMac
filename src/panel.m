@@ -1,19 +1,27 @@
 #import <Cocoa/Cocoa.h>
+#import <Quartz/Quartz.h>
+#import "/Users/ankur/src/undocumented-goodness/CoreProcess/CPSPrivate.h"
+
+@implementation NSWindow (p)
+- (BOOL) hidesOnDeactivate { return NO; }
+@end
 
 @interface P : NSObject {} @end
 
 int main(int argc, const char *argv[]) {
+	// disas -- LSSetCurrentApplicationInformation
 	[NSAutoreleasePool new];
-	if (NSApplicationLoad()) {
-		[[NSApplication sharedApplication] setDelegate:[P new]];
-		[NSApp activateIgnoringOtherApps:YES];
-		NSApplicationMain(0, NULL);
-//		[NSApp finishLaunching];
-//		while (1) {
-//			NSEvent *event = [NSApp nextEventMatchingMask:NSAnyEventMask untilDate:[NSDate distantFuture] inMode:NSDefaultRunLoopMode dequeue:YES];
-//			if (event) [NSApp sendEvent:event];
-//		}
-	}
+	[[NSApplication sharedApplication] setDelegate:[P new]];
+//	NSApplicationMain(argc, argv);
+	//	NSLog(@"%d", [self stealKeyFocus]);
+	CPSProcessSerNum psn;
+	CPSGetCurrentProcess(&psn);
+//	TransformProcessType(kCurrentProcess, kProcessTransformToForegroundApplication);
+	CPSEnableForegroundOperation(&psn);
+	CPSSetProcessName(&psn, "Picture Taker");
+	//	CPSSetFrontProcess(&psn);
+	[NSApp activateIgnoringOtherApps:YES];
+	[NSApp run];
 	return 1;
 }
 
@@ -22,13 +30,14 @@ int main(int argc, const char *argv[]) {
 - (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)a {
 	return YES;
 }
-
 - (void) applicationDidFinishLaunching:(NSNotification *)aNotification {
-	NSLog(@"fin");
-	[NSApp activateIgnoringOtherApps:YES];
-	[NSApp orderFrontFontPanel:nil];
-	[NSApp orderFrontColorPanel:nil];
-	[[NSColorPanel sharedColorPanel] orderFront:nil];
+//	[NSApp orderFrontFontPanel:nil];
+//	[NSApp orderFrontColorPanel:nil];
+//	[[NSColorPanel sharedColorPanel] orderFront:nil];
+//	[[IKPictureTaker pictureTaker] center];
+//	[[IKPictureTaker pictureTaker] setLevel: NSFloatingWindowLevel];
+//	[[IKPictureTaker pictureTaker] makeKeyAndOrderFront: nil];
+	[[IKPictureTaker pictureTaker] runModal];
 }
 
 @end
