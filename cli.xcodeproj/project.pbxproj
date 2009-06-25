@@ -1875,6 +1875,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 92ACC1350FE9DB57009E0760 /* Build configuration list for PBXNativeTarget "imgsnap" */;
 			buildPhases = (
+				92732D780FF3A7360015CCAF /* ShellScript */,
 				92ACC1320FE9DB57009E0760 /* Sources */,
 				92ACC1330FE9DB57009E0760 /* Frameworks */,
 				92ACC1340FE9DB57009E0760 /* CopyFiles */,
@@ -2032,6 +2033,22 @@
 
 /* Begin PBXShellScriptBuildPhase section */
 		9271720A0FF3A30900699906 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/src/$(TARGET_NAME)-Info.plist",
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/$(TARGET_NAME)-Info.plist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/zsh;
+			shellScript = "$SED -e 's/${TARGET_NAME}/'${TARGET_NAME}'/' ${SRCROOT}/src/${TARGET_NAME}-Info.plist > ${DERIVED_FILE_DIR}/${TARGET_NAME}-Info.plist >&2\n";
+			showEnvVarsInLog = 0;
+		};
+		92732D780FF3A7360015CCAF /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3034,7 +3051,7 @@
 					"-sectcreate",
 					__TEXT,
 					__info_plist,
-					"src/$(TARGET_NAME)-Info.plist",
+					"$(DERIVED_FILES_DIR)/$(EXECUTABLE_NAME)-Info.plist",
 				);
 			};
 			name = Debug;
@@ -3047,7 +3064,7 @@
 					"-sectcreate",
 					__TEXT,
 					__info_plist,
-					"src/$(TARGET_NAME)-Info.plist",
+					"$(DERIVED_FILES_DIR)/$(EXECUTABLE_NAME)-Info.plist",
 				);
 			};
 			name = Release;
