@@ -9,77 +9,49 @@
 - (id) init: (NSString *)mo : (NSDictionary *)op : (NSArray *)objs;
 @end
 
+static inline BOOL yesOrNo(const char *a) {
+	return (a[0] == 'y' || a[0] == '1');
+}
+
 int main(int argc, char *argv[]) {
 	[NSAutoreleasePool new];
 	struct option longopts[] = {
-		{ "mode", no_argument, NULL, 'm' },
-		{ "wrap-around", no_argument, NULL, 'w' },
-		{ "start-paused", no_argument, NULL, 'p' },
-		{ "start-index", required_argument, NULL, 'i' },
-		{ "pdf-box", required_argument, NULL, 'x' },
-		{ "pdf-display-mode", required_argument, NULL, 'd' },
-		{ "pdf-display-book", no_argument, NULL, 'b' },
+		{ "pdf", no_argument, NULL, 'p' },
+		{ "quick-look", no_argument, NULL, 'q' },
+		{ "images", no_argument, NULL, 'i' },
+		{ "wrap-around", required_argument, NULL, 'w' },
+		{ "start-paused", required_argument, NULL, 'u' },
+		{ "start-index", required_argument, NULL, 's' },
 		{ NULL, 0, NULL, 0 }
 	};
-	NSString *mode = IKSlideshowModePDF;
+	NSString *mode = IKSlideshowModeOther;
 	NSMutableDictionary *opts = [[NSMutableDictionary alloc] init];
 	int c;
-	while ((c = getopt_long(argc, argv, "wpi:x:m:b", longopts, NULL)) != EOF) {
+	while ((c = getopt_long_only(argc, argv, "pqiw", longopts, NULL)) != EOF) {
 		switch (c) {
+			case 'p':
+				mode = IKSlideshowModePDF;
+				break;
+			case 'q':
+				mode = IKSlideshowModeOther;
+				break;
+			case 'i':
+				mode = IKSlideshowModeImages;
+				break;
 			case 'w': {
-				NSNumber *n = [[NSNumber alloc] initWithBool:(![opts objectForKey:IKSlideshowWrapAround])];
+				NSNumber *n = [[NSNumber alloc] initWithBool:yesOrNo(optarg)];
 				[opts setObject:n forKey:IKSlideshowWrapAround];
 				[n release];
 			}	break;
-			case 'p': {
-				NSNumber *n = [[NSNumber alloc] initWithBool:(![opts objectForKey:IKSlideshowStartPaused])];
+			case 'u': {
+				NSNumber *n = [[NSNumber alloc] initWithBool:yesOrNo(optarg)];
 				[opts setObject:n forKey:IKSlideshowStartPaused];
 				[n release];
 			}	break;
-			case 'i': {
+			case 's': {
 				NSNumber *n = [[NSNumber alloc] initWithUnsignedLong:strtoul(optarg, NULL, 0)];
 				[opts setObject:n forKey:IKSlideshowStartIndex];
 				[n release];
-			}	break;
-			case 'x': {
-				const char *a[] = {"media", "crop", "bleed", "trim", "art"};
-				PDFDisplayBox boxType = 0;
-				do {
-					if (strcasecmp(a[boxType], optarg) == 0)
-						break;
-					boxType += 1;
-				} while (boxType < sizeof(a)/sizeof(a[0]));
-				if (boxType < sizeof(a)/sizeof(a[0])) {
-					NSNumber *n = [[NSNumber alloc] initWithInteger:boxType];
-					[opts setObject:n forKey:IKSlideshowPDFDisplayBox];
-					[n release];
-				} else {
-					fprintf(stderr, "Invalid argument '%s' to -x option\nValid options are %s", optarg, a[0]);
-					for (int i = 1; i < sizeof(a)/sizeof(a[0]); i++)
-						fprintf(stderr, ", %s", a[i]);
-					fputc('\n', stderr);
-					return 1;
-				}
-			}	break;
-			case 'm': {
-				const char *a[] = {"single", "single-c", "twoup", "twoup-c"};
-				PDFDisplayMode modeType = 0;
-				do {
-					if (strcasecmp(a[modeType], optarg) == 0)
-						break;
-					modeType += 1;
-				} while (modeType < sizeof(a)/sizeof(a[0]));
-				if (modeType < sizeof(a)/sizeof(a[0])) {
-					NSNumber *n = [[NSNumber alloc] initWithInteger:modeType];
-					[opts setObject:n forKey:IKSlideshowPDFDisplayBox];
-					[n release];
-				} else {
-					fprintf(stderr, "Invalid argument '%s' to -m option\nValid options are %s", optarg, a[0]);
-					for (int i = 1; i < sizeof(a)/sizeof(a[0]); i++)
-						fprintf(stderr, ", %s", a[i]);
-					fputc('\n', stderr);
-					return 1;
-				}
 			}	break;
 			default:
 				break;
@@ -87,26 +59,22 @@ int main(int argc, char *argv[]) {
 	}
 	argc -= optind; argv += optind;
 
+	if (argc == 0)
+		errx(1, "No files to show");
+
 	NSFileManager *fm = [NSFileManager defaultManager];
 	NSMutableArray *files = [[NSMutableArray alloc] initWithCapacity:argc];
-	for (int i = 0; i < argc; i++) {
-		[files addObject:[fm stringWithFileSystemRepresentation:argv[0] length:strlen(argv[0])]];
-	}
-	[IKSlideshow sharedSlideshow];
-	S *s = [[S alloc] init:mode :opts :files];
+	for (int i = 0; i < argc; i++)
+		[files addObject:[fm stringWithFileSystemRepresentation:argv[i] length:strlen(argv[i])]];
+	S *s = [[S allocWithZone:NULL] init:mode :opts :files];
 	[opts release];
 	[mode release];
 	[files release];
 	[[NSApplication sharedApplication] setDelegate:s];
-	[NSApp finishLaunching];
-//	[[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantPast]];
-	while (1) {
-		NSEvent *event = [NSApp nextEventMatchingMask:NSAnyEventMask untilDate:[NSDate distantFuture] inMode:NSDefaultRunLoopMode dequeue:YES];
-		if (event)
-			[NSApp sendEvent:event];
-	}
-//	[NSApp run];
-	return 0;
+	ProcessSerialNumber psn;
+	GetCurrentProcess(&psn);
+	TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+	[NSApp run];
 }
 
 @implementation S
@@ -119,8 +87,9 @@ int main(int argc, char *argv[]) {
 	}
 	return self;
 }
-
+- (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)a { return YES; }
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotification {
+	[NSApp activateIgnoringOtherApps:YES];
 	[[IKSlideshow sharedSlideshow] runSlideshowWithDataSource:self inMode:mode options:opts];
 	[mode release];
 	[opts release];

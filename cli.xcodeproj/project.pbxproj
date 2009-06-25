@@ -17,23 +17,31 @@
 				92DFDACE0FD9FE6100F7C0BD /* PBXTargetDependency */,
 				92ACC21C0FE9E1D1009E0760 /* PBXTargetDependency */,
 				92BFB9470FEA8BBE00FADB84 /* PBXTargetDependency */,
+				928378960FF313F1006E2CD0 /* PBXTargetDependency */,
 				92DFDAD00FD9FE6500F7C0BD /* PBXTargetDependency */,
 				927E86030FDA3792008D6B2B /* PBXTargetDependency */,
 				92DFDAD20FD9FE7600F7C0BD /* PBXTargetDependency */,
 				92DFDAD80FD9FE8200F7C0BD /* PBXTargetDependency */,
 				92F166780FEF5C3000EBC640 /* PBXTargetDependency */,
+				9271704D0FF32F6300699906 /* PBXTargetDependency */,
+				928378A00FF3144A006E2CD0 /* PBXTargetDependency */,
 				92ACC21E0FE9E1E0009E0760 /* PBXTargetDependency */,
+				928378980FF31402006E2CD0 /* PBXTargetDependency */,
+				9283789A0FF31402006E2CD0 /* PBXTargetDependency */,
+				9283789C0FF31402006E2CD0 /* PBXTargetDependency */,
 				92ACC2210FE9E1EF009E0760 /* PBXTargetDependency */,
+				9283789E0FF31434006E2CD0 /* PBXTargetDependency */,
 				92ACC2230FE9E1FE009E0760 /* PBXTargetDependency */,
 				92ACC2250FE9E202009E0760 /* PBXTargetDependency */,
 				92ACC2270FE9E205009E0760 /* PBXTargetDependency */,
-				92708A640FEB615C00835BB3 /* PBXTargetDependency */,
+				9271705C0FF3338A00699906 /* PBXTargetDependency */,
 				92DFDAD60FD9FE8200F7C0BD /* PBXTargetDependency */,
 				92ACC2290FE9E20B009E0760 /* PBXTargetDependency */,
 				92F166800FEF5C5200EBC640 /* PBXTargetDependency */,
 				92ACC3D10FE9E59A009E0760 /* PBXTargetDependency */,
 				92708A3C0FEB5C4C00835BB3 /* PBXTargetDependency */,
 				92BFB9490FEA8BCA00FADB84 /* PBXTargetDependency */,
+				92708A640FEB615C00835BB3 /* PBXTargetDependency */,
 				92F166870FEF5C6800EBC640 /* PBXTargetDependency */,
 				92F166820FEF5C6300EBC640 /* PBXTargetDependency */,
 				92DFDAD40FD9FE8200F7C0BD /* PBXTargetDependency */,
@@ -137,7 +145,7 @@
 		92ACC0B80FE9C783009E0760 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92ACC0B70FE9C783009E0760 /* Quartz.framework */; };
 		92ACC10E0FE9CD1F009E0760 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
 		92ACC10F0FE9CD24009E0760 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
-		92ACC13B0FE9DB76009E0760 /* panel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92ACC13A0FE9DB76009E0760 /* panel.m */; };
+		92ACC13B0FE9DB76009E0760 /* imgsnap.m in Sources */ = {isa = PBXBuildFile; fileRef = 92ACC13A0FE9DB76009E0760 /* imgsnap.m */; };
 		92ACC13E0FE9DC4F009E0760 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
 		92ACC2340FE9E254009E0760 /* win.c in Sources */ = {isa = PBXBuildFile; fileRef = 92ACC2330FE9E254009E0760 /* win.c */; };
 		92ACC30B0FE9E38D009E0760 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92ACC30A0FE9E38D009E0760 /* Carbon.framework */; };
@@ -167,12 +175,68 @@
 			remoteGlobalIDString = 92708A430FEB5CFB00835BB3;
 			remoteInfo = shadows;
 		};
+		9271704C0FF32F6300699906 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 92ACC1310FE9DB57009E0760 /* imgsnap */;
+			remoteInfo = imgsnap;
+		};
+		9271705B0FF3338A00699906 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 92ACC0AA0FE9C717009E0760 /* slideshow */;
+			remoteInfo = slideshow;
+		};
 		927E86020FDA3792008D6B2B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 927E85D40FDA2464008D6B2B;
 			remoteInfo = fileicon;
+		};
+		928378950FF313F1006E2CD0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 925B70A10FF27CBE00030F9C;
+			remoteInfo = displaysleep;
+		};
+		928378970FF31402006E2CD0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 925693C80FF201C000976A77;
+			remoteInfo = pdfcat;
+		};
+		928378990FF31402006E2CD0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 925693BA0FF2018000976A77;
+			remoteInfo = pdfextract;
+		};
+		9283789B0FF31402006E2CD0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9270F8060FF2583900036795;
+			remoteInfo = pdfinfo;
+		};
+		9283789D0FF31434006E2CD0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 929ECF430FEE7E610085F378;
+			remoteInfo = quit;
+		};
+		9283789F0FF3144A006E2CD0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 927CFBD00FEF2B8300D7D4DF;
+			remoteInfo = imgtext;
 		};
 		92ACC21B0FE9E1D1009E0760 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -700,6 +764,7 @@
 		9270D3940FEA6E020026D4F5 /* cifilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cifilter.m; sourceTree = "<group>"; };
 		9270F8100FF2583900036795 /* pdfinfo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pdfinfo; sourceTree = BUILT_PRODUCTS_DIR; };
 		9270F8120FF2587800036795 /* pdfinfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pdfinfo.m; sourceTree = "<group>"; };
+		927170070FF3249800699906 /* imgsnap-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "imgsnap-Info.plist"; sourceTree = "<group>"; };
 		927326F10FF1097B0082CE31 /* any2txt.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = any2txt.1; sourceTree = "<group>"; };
 		9275922C0FEB6842008E8091 /* shadows.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = shadows.1; sourceTree = "<group>"; };
 		927CFB5C0FEF17F900D7D4DF /* wintransition */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = wintransition; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -726,8 +791,8 @@
 		92ACC0B20FE9C717009E0760 /* slideshow */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = slideshow; sourceTree = BUILT_PRODUCTS_DIR; };
 		92ACC0B40FE9C756009E0760 /* slideshow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = slideshow.m; sourceTree = "<group>"; };
 		92ACC0B70FE9C783009E0760 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = /System/Library/Frameworks/Quartz.framework; sourceTree = "<absolute>"; };
-		92ACC1380FE9DB57009E0760 /* panel */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = panel; sourceTree = BUILT_PRODUCTS_DIR; };
-		92ACC13A0FE9DB76009E0760 /* panel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = panel.m; sourceTree = "<group>"; };
+		92ACC1380FE9DB57009E0760 /* imgsnap */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = imgsnap; sourceTree = BUILT_PRODUCTS_DIR; };
+		92ACC13A0FE9DB76009E0760 /* imgsnap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imgsnap.m; sourceTree = "<group>"; };
 		92ACC2310FE9E234009E0760 /* win */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = win; sourceTree = BUILT_PRODUCTS_DIR; };
 		92ACC2330FE9E254009E0760 /* win.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = win.c; sourceTree = "<group>"; };
 		92ACC30A0FE9E38D009E0760 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
@@ -1075,6 +1140,7 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				927170070FF3249800699906 /* imgsnap-Info.plist */,
 				925B71670FF27D7A00030F9C /* displaysleep.c */,
 				9270F8120FF2587800036795 /* pdfinfo.m */,
 				925693D20FF2027D00976A77 /* pdfcat.m */,
@@ -1128,7 +1194,7 @@
 				928F92E90FE8B2600031CEB8 /* beep */,
 				927D16740FE8F3670009ECA3 /* target */,
 				92ACC0B20FE9C717009E0760 /* slideshow */,
-				92ACC1380FE9DB57009E0760 /* panel */,
+				92ACC1380FE9DB57009E0760 /* imgsnap */,
 				92ACC2310FE9E234009E0760 /* win */,
 				92ACC3DB0FE9E5C5009E0760 /* winlevel */,
 				9270CFC40FEA6D740026D4F5 /* cifilter */,
@@ -1222,7 +1288,7 @@
 		9270CF830FEA54910026D4F5 /* panel */ = {
 			isa = PBXGroup;
 			children = (
-				92ACC13A0FE9DB76009E0760 /* panel.m */,
+				92ACC13A0FE9DB76009E0760 /* imgsnap.m */,
 			);
 			name = panel;
 			sourceTree = "<group>";
@@ -1753,9 +1819,9 @@
 			productReference = 92ACC0B20FE9C717009E0760 /* slideshow */;
 			productType = "com.apple.product-type.tool";
 		};
-		92ACC1310FE9DB57009E0760 /* panel */ = {
+		92ACC1310FE9DB57009E0760 /* imgsnap */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 92ACC1350FE9DB57009E0760 /* Build configuration list for PBXNativeTarget "panel" */;
+			buildConfigurationList = 92ACC1350FE9DB57009E0760 /* Build configuration list for PBXNativeTarget "imgsnap" */;
 			buildPhases = (
 				92ACC1320FE9DB57009E0760 /* Sources */,
 				92ACC1330FE9DB57009E0760 /* Frameworks */,
@@ -1765,9 +1831,9 @@
 			);
 			dependencies = (
 			);
-			name = panel;
+			name = imgsnap;
 			productName = imgconv;
-			productReference = 92ACC1380FE9DB57009E0760 /* panel */;
+			productReference = 92ACC1380FE9DB57009E0760 /* imgsnap */;
 			productType = "com.apple.product-type.tool";
 		};
 		92ACC22A0FE9E234009E0760 /* win */ = {
@@ -1886,7 +1952,7 @@
 				929ECF150FEE71660085F378 /* imgshadow */,
 				927CFBD00FEF2B8300D7D4DF /* imgtext */,
 				926ED7ED0FE8A02100FD42D0 /* loginitems */,
-				92ACC1310FE9DB57009E0760 /* panel */,
+				92ACC1310FE9DB57009E0760 /* imgsnap */,
 				925693C80FF201C000976A77 /* pdfcat */,
 				925693BA0FF2018000976A77 /* pdfextract */,
 				9270F8060FF2583900036795 /* pdfinfo */,
@@ -2148,7 +2214,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92ACC13B0FE9DB76009E0760 /* panel.m in Sources */,
+				92ACC13B0FE9DB76009E0760 /* imgsnap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2205,10 +2271,50 @@
 			target = 92708A430FEB5CFB00835BB3 /* winshadow */;
 			targetProxy = 92708A630FEB615C00835BB3 /* PBXContainerItemProxy */;
 		};
+		9271704D0FF32F6300699906 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 92ACC1310FE9DB57009E0760 /* imgsnap */;
+			targetProxy = 9271704C0FF32F6300699906 /* PBXContainerItemProxy */;
+		};
+		9271705C0FF3338A00699906 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 92ACC0AA0FE9C717009E0760 /* slideshow */;
+			targetProxy = 9271705B0FF3338A00699906 /* PBXContainerItemProxy */;
+		};
 		927E86030FDA3792008D6B2B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 927E85D40FDA2464008D6B2B /* fileicon */;
 			targetProxy = 927E86020FDA3792008D6B2B /* PBXContainerItemProxy */;
+		};
+		928378960FF313F1006E2CD0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 925B70A10FF27CBE00030F9C /* displaysleep */;
+			targetProxy = 928378950FF313F1006E2CD0 /* PBXContainerItemProxy */;
+		};
+		928378980FF31402006E2CD0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 925693C80FF201C000976A77 /* pdfcat */;
+			targetProxy = 928378970FF31402006E2CD0 /* PBXContainerItemProxy */;
+		};
+		9283789A0FF31402006E2CD0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 925693BA0FF2018000976A77 /* pdfextract */;
+			targetProxy = 928378990FF31402006E2CD0 /* PBXContainerItemProxy */;
+		};
+		9283789C0FF31402006E2CD0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9270F8060FF2583900036795 /* pdfinfo */;
+			targetProxy = 9283789B0FF31402006E2CD0 /* PBXContainerItemProxy */;
+		};
+		9283789E0FF31434006E2CD0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 929ECF430FEE7E610085F378 /* quit */;
+			targetProxy = 9283789D0FF31434006E2CD0 /* PBXContainerItemProxy */;
+		};
+		928378A00FF3144A006E2CD0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 927CFBD00FEF2B8300D7D4DF /* imgtext */;
+			targetProxy = 9283789F0FF3144A006E2CD0 /* PBXContainerItemProxy */;
 		};
 		92ACC21C0FE9E1D1009E0760 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2815,13 +2921,27 @@
 		};
 		92ACC1360FE9DB57009E0760 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 92ECA3820FE60214004022DA /* TollFree.xcconfig */;
 			buildSettings = {
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					"src/imgsnap-Info.plist",
+				);
 			};
 			name = Debug;
 		};
 		92ACC1370FE9DB57009E0760 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 92ECA3820FE60214004022DA /* TollFree.xcconfig */;
 			buildSettings = {
+				OTHER_LDFLAGS = (
+					"-sectcreate",
+					__TEXT,
+					__info_plist,
+					"src/imgsnap-Info.plist",
+				);
 			};
 			name = Release;
 		};
@@ -3172,7 +3292,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		92ACC1350FE9DB57009E0760 /* Build configuration list for PBXNativeTarget "panel" */ = {
+		92ACC1350FE9DB57009E0760 /* Build configuration list for PBXNativeTarget "imgsnap" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				92ACC1360FE9DB57009E0760 /* Debug */,
