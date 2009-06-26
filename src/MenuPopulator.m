@@ -1,14 +1,14 @@
 #import "MenuPopulator.h"
 
-void populateApplicationMenu(NSMenu *menu);
-void populateDebugMenu(NSMenu *menu);
-void populateEditMenu(NSMenu *menu);
-void populateFileMenu(NSMenu *menu);
-void populateFindMenu(NSMenu *menu);
-void populateHelpMenu(NSMenu *menu);
-void populateSpellingMenu(NSMenu *menu);
-void populateViewMenu(NSMenu *menu);
-void populateWindowMenu(NSMenu *menu);
+static void populateApplicationMenu(NSMenu *menu);
+static void populateDebugMenu(NSMenu *menu);
+static void populateEditMenu(NSMenu *menu);
+static void populateFileMenu(NSMenu *menu);
+static void populateFindMenu(NSMenu *menu);
+static void populateHelpMenu(NSMenu *menu);
+static void populateSpellingMenu(NSMenu *menu);
+static void populateViewMenu(NSMenu *menu);
+static void populateWindowMenu(NSMenu *menu);
 
 void populateMainMenu(void) {
 	NSMenu * mainMenu = [[[NSMenu alloc] initWithTitle:@"MainMenu"] autorelease];
@@ -59,7 +59,7 @@ void populateMainMenu(void) {
 	[NSApp setMainMenu:mainMenu];
 }
 
-void populateApplicationMenu(NSMenu *menu) {
+static void populateApplicationMenu(NSMenu *menu) {
 	NSString * applicationName = [[NSApp delegate] appName];
 	NSMenuItem * item;
 	
@@ -109,11 +109,11 @@ void populateApplicationMenu(NSMenu *menu) {
 	[item setTarget:NSApp];
 }
 
-void populateDebugMenu(NSMenu *menu) {
+static void populateDebugMenu(NSMenu *menu) {
 	// TODO
 }
 
-void populateEditMenu(NSMenu *menu) {
+static void populateEditMenu(NSMenu *menu) {
 	NSMenuItem * item;
 	
 	item = [menu addItemWithTitle:NSLocalizedString(@"Undo", nil)
@@ -168,7 +168,7 @@ void populateEditMenu(NSMenu *menu) {
 	[menu setSubmenu:spellingMenu forItem:item];
 }
 
-void populateFileMenu(NSMenu *menu) {
+static void populateFileMenu(NSMenu *menu) {
 	NSMenuItem * item;
 	
 	item = [menu addItemWithTitle:NSLocalizedString(@"New", nil)
@@ -219,7 +219,7 @@ void populateFileMenu(NSMenu *menu) {
 					keyEquivalent:@"p"];
 }
 
-void populateFindMenu(NSMenu *menu) {
+static void populateFindMenu(NSMenu *menu) {
 	NSMenuItem * item;
 	
 	item = [menu addItemWithTitle:NSLocalizedString(@"Find...", nil)
@@ -247,7 +247,7 @@ void populateFindMenu(NSMenu *menu) {
 					keyEquivalent:@"j"];
 }
 
-void populateHelpMenu(NSMenu *menu) {
+static void populateHelpMenu(NSMenu *menu) {
 	NSMenuItem * item;
 	
 	item = [menu addItemWithTitle:[NSString stringWithFormat:@"%@ %@", [[NSApp delegate] appName], NSLocalizedString(@"Help", nil)]
@@ -256,7 +256,7 @@ void populateHelpMenu(NSMenu *menu) {
 	[item setTarget:NSApp];
 }
 
-void populateSpellingMenu(NSMenu *menu) {
+static void populateSpellingMenu(NSMenu *menu) {
 	NSMenuItem * item;
 	
 	item = [menu addItemWithTitle:NSLocalizedString(@"Spelling...", nil)
@@ -272,11 +272,11 @@ void populateSpellingMenu(NSMenu *menu) {
 					keyEquivalent:@""];
 }
 
-void populateViewMenu(NSMenu *menu) {
+static void populateViewMenu(NSMenu *menu) {
 	// TODO
 }
 
-void populateWindowMenu(NSMenu *menu) {
+static void populateWindowMenu(NSMenu *menu) {
 	NSMenuItem * item;
 	
 	item = [menu addItemWithTitle:NSLocalizedString(@"Minimize", nil)

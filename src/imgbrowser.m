@@ -42,19 +42,22 @@ static inline BOOL yesOrNo(const char *a) { return (a[0] == 'y' || a[0] == '1');
 
 int main(int argc, char *argv[]) {
 	[NSAutoreleasePool new];
+	NSFileManager *fm = [NSFileManager defaultManager];
 
+	NSString *initPath;
 	if (argc == 1) {
+		initPath = NSHomeDirectory();
 		fputs("Select desired files in browser then press Cmd-S (File->Select)\n", stderr);
-	}
-	if (argc != 2) {
-		fprintf(stderr, "usage:  %s <dir>\n", argv[0]);
+	} else if (argc != 2) {
+		fprintf(stderr, "usage:  %s [<dir>]\n", argv[0]);
+		return 1;
+	} else {
+		initPath = [fm stringWithFileSystemRepresentation:argv[1] length:strlen(argv[1])];
 	}
 
 	S *s = [[S allocWithZone:NULL] init];
 	s->items = [[NSMutableArray alloc] init];
 	s->his = [[NSMutableArray alloc] init];
-	NSFileManager *fm = [NSFileManager defaultManager];
-	NSString *initPath = [fm stringWithFileSystemRepresentation:argv[1] length:strlen(argv[1])];
 	[s addFromDir:([initPath isAbsolutePath] ? initPath : [[fm currentDirectoryPath] stringByAppendingPathComponent:initPath])];
 	[[NSApplication sharedApplication] setDelegate:s];
 
@@ -110,14 +113,14 @@ int main(int argc, char *argv[]) {
 	[b setAnimates:YES];
 	[b setCellsHaveTitle:YES];
 //	[b setAllowsMultipleSelection:YES];
-	NSWindow *win = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 500, 500) styleMask: (NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask) backing:NSBackingStoreBuffered defer:NO];
+	NSWindow *win = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 920, 720) styleMask: (NSTitledWindowMask | NSClosableWindowMask | NSMiniaturizableWindowMask | NSResizableWindowMask) backing:NSBackingStoreBuffered defer:NO];
 	[sc setDocumentView:b];
 	[b release];
 	[win setContentView:sc];
 	[sc release];
 	[b reloadData];
 	[win center];
-	[win setFrameAutosaveName:@"br"];
+	[win setFrameAutosaveName:@"b"];
 	[win makeKeyAndOrderFront:nil];
 	[NSApp activateIgnoringOtherApps:YES];
 //	[b performSelector:@selector(testAnimationPerformances) withObject:b afterDelay:100.0];
