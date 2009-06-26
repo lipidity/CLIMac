@@ -1,6 +1,6 @@
 #import <sys/sysctl.h>
 #import <ApplicationServices/ApplicationServices.h>
-#import "CGS/CGSInternal/CGSInternal.h"
+#import "CGSInternal/CGSInternal.h"
 
 int main(int argc, const char *argv[]) {
 	const char *levels[] = {"Base", "Minimum", "Desktop", "Backstop", "Normal", "Floating", "TornOffMenu", "Dock", "MainMenu", "Status", "ModalPanel", "PopUpMenu", "Dragging", "ScreenSaver", "Maximum", "Overlay", "Help", "Utility", "DesktopIcon", "Cursor", "AssistiveTechHigh"};

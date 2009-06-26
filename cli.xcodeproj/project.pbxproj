@@ -21,10 +21,12 @@
 				92DFDAD00FD9FE6500F7C0BD /* PBXTargetDependency */,
 				927E86030FDA3792008D6B2B /* PBXTargetDependency */,
 				92DFDAD20FD9FE7600F7C0BD /* PBXTargetDependency */,
+				92A0FFDF0FF4EDF100CF326A /* PBXTargetDependency */,
 				92DFDAD80FD9FE8200F7C0BD /* PBXTargetDependency */,
 				92F166780FEF5C3000EBC640 /* PBXTargetDependency */,
 				9271704D0FF32F6300699906 /* PBXTargetDependency */,
 				928378A00FF3144A006E2CD0 /* PBXTargetDependency */,
+				92A0FFE10FF4EDF100CF326A /* PBXTargetDependency */,
 				92ACC21E0FE9E1E0009E0760 /* PBXTargetDependency */,
 				928378980FF31402006E2CD0 /* PBXTargetDependency */,
 				9283789A0FF31402006E2CD0 /* PBXTargetDependency */,
@@ -108,7 +110,6 @@
 		9270F8130FF2587800036795 /* pdfinfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9270F8120FF2587800036795 /* pdfinfo.m */; };
 		9270F8280FF25D2000036795 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92ACC0B70FE9C783009E0760 /* Quartz.framework */; };
 		927170D80FF3349200699906 /* imgbrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 927170D60FF3348E00699906 /* imgbrowser.m */; };
-		927171610FF381EF00699906 /* MenuPopulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 927171600FF381EF00699906 /* MenuPopulator.m */; };
 		927171F00FF3953300699906 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92ACC0B70FE9C783009E0760 /* Quartz.framework */; };
 		927171F10FF3953400699906 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
 		927326EA0FF0FE370082CE31 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B4CF700FDA69C300F5AC0D /* CoreServices.framework */; };
@@ -128,7 +129,6 @@
 		92832D090FF08B2D00D513E3 /* setapp.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 92708A220FEB53B600835BB3 /* setapp.1 */; };
 		92832D100FF0910100D513E3 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92ACC0B70FE9C783009E0760 /* Quartz.framework */; };
 		92832D180FF0975D00D513E3 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92832D170FF0975D00D513E3 /* QuickLook.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		928352CA0FF43D3500428899 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92ACC0B70FE9C783009E0760 /* Quartz.framework */; };
 		928352CB0FF43D3500428899 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
 		928352D30FF43D7600428899 /* imgview.m in Sources */ = {isa = PBXBuildFile; fileRef = 927170D70FF3348E00699906 /* imgview.m */; };
 		928EEC100FE3A49000B5953C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
@@ -143,7 +143,7 @@
 		928EEC2A0FE3A5A800B5953C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		928F92EC0FE8B2780031CEB8 /* beep.m in Sources */ = {isa = PBXBuildFile; fileRef = 928F92DF0FE8B2590031CEB8 /* beep.m */; };
 		928F92ED0FE8B2790031CEB8 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
-		929DAD9E0FF457A4004D4287 /* MenuPopulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 927171600FF381EF00699906 /* MenuPopulator.m */; };
+		929DAE160FF46930004D4287 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92ACC0B70FE9C783009E0760 /* Quartz.framework */; };
 		929ECF1F0FEE71A70085F378 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
 		929ECF200FEE71A70085F378 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		929ECF220FEE71CB0085F378 /* imgshadow.m in Sources */ = {isa = PBXBuildFile; fileRef = 929ECF210FEE71CB0085F378 /* imgshadow.m */; };
@@ -162,6 +162,7 @@
 		92B2E0D60FE87743001CAD1E /* setapp.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B2E0D50FE87743001CAD1E /* setapp.m */; };
 		92B2E0F10FE87FCC001CAD1E /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
 		92B2E0F20FE87FD1001CAD1E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
+		92B474A50FF5083800FBD9C8 /* winalpha.c in Sources */ = {isa = PBXBuildFile; fileRef = 92ACC3DD0FE9E5FE009E0760 /* winalpha.c */; };
 		92B4CF710FDA69C300F5AC0D /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B4CF6F0FDA69C300F5AC0D /* CoreFoundation.framework */; };
 		92B4CF720FDA69C300F5AC0D /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B4CF700FDA69C300F5AC0D /* CoreServices.framework */; };
 		92DFDABC0FD9FE1400F7C0BD /* dup.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DFDABA0FD9FE1400F7C0BD /* dup.m */; };
@@ -245,6 +246,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 927CFBD00FEF2B8300D7D4DF;
 			remoteInfo = imgtext;
+		};
+		92A0FFDE0FF4EDF100CF326A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 927170C90FF3344800699906;
+			remoteInfo = imgbrowser;
+		};
+		92A0FFE00FF4EDF100CF326A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 928352C40FF43D3500428899;
+			remoteInfo = imgview;
 		};
 		92ACC21B0FE9E1D1009E0760 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -774,6 +789,12 @@
 		925C36DF0FE7EC9000E9B9E4 /* seticon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = seticon.m; sourceTree = "<group>"; };
 		925C36FC0FE7F15F00E9B9E4 /* pid */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pid; sourceTree = BUILT_PRODUCTS_DIR; };
 		925C37030FE7F2A300E9B9E4 /* pid.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pid.c; sourceTree = "<group>"; };
+		926CE93C0FF4A146001E10F4 /* imgview.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = imgview.xib; sourceTree = "<group>"; };
+		926CE9860FF4BDC5001E10F4 /* imgbrowser-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "imgbrowser-Info.plist"; sourceTree = "<group>"; };
+		926CE9870FF4BDC5001E10F4 /* imgbrowser.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = imgbrowser.xib; sourceTree = "<group>"; };
+		926CE9880FF4BDC5001E10F4 /* imgsnap-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "imgsnap-Info.plist"; sourceTree = "<group>"; };
+		926CE9890FF4BDC5001E10F4 /* imgsnap.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = imgsnap.xib; sourceTree = "<group>"; };
+		926CE98A0FF4BDC5001E10F4 /* imgview-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "imgview-Info.plist"; sourceTree = "<group>"; };
 		926ED7F60FE8A02100FD42D0 /* loginitems */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = loginitems; sourceTree = BUILT_PRODUCTS_DIR; };
 		926ED7FB0FE8A0DC00FD42D0 /* loginitems.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = loginitems.c; sourceTree = "<group>"; };
 		927050870FD91990003074F2 /* imgconv */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = imgconv; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -790,13 +811,9 @@
 		9270D3940FEA6E020026D4F5 /* cifilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cifilter.m; sourceTree = "<group>"; };
 		9270F8100FF2583900036795 /* pdfinfo */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pdfinfo; sourceTree = BUILT_PRODUCTS_DIR; };
 		9270F8120FF2587800036795 /* pdfinfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pdfinfo.m; sourceTree = "<group>"; };
-		927170070FF3249800699906 /* imgsnap-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "imgsnap-Info.plist"; sourceTree = "<group>"; };
 		927170D40FF3344800699906 /* imgbrowser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = imgbrowser; sourceTree = BUILT_PRODUCTS_DIR; };
 		927170D60FF3348E00699906 /* imgbrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imgbrowser.m; sourceTree = "<group>"; };
 		927170D70FF3348E00699906 /* imgview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imgview.m; sourceTree = "<group>"; };
-		927171600FF381EF00699906 /* MenuPopulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuPopulator.m; sourceTree = "<group>"; };
-		9271716C0FF383E800699906 /* MenuPopulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuPopulator.h; sourceTree = "<group>"; };
-		927171830FF38C0B00699906 /* imgbrowser-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "imgbrowser-Info.plist"; sourceTree = "<group>"; };
 		927326F10FF1097B0082CE31 /* any2txt.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = any2txt.1; sourceTree = "<group>"; };
 		9275922C0FEB6842008E8091 /* shadows.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = shadows.1; sourceTree = "<group>"; };
 		927CFB5C0FEF17F900D7D4DF /* wintransition */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = wintransition; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1081,8 +1098,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				928352CA0FF43D3500428899 /* Quartz.framework in Frameworks */,
 				928352CB0FF43D3500428899 /* AppKit.framework in Frameworks */,
+				929DAE160FF46930004D4287 /* Quartz.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1181,6 +1198,7 @@
 			children = (
 				08FB7795FE84155DC02AAC07 /* Source */,
 				C6859EA2029092E104C91782 /* Documentation */,
+				926CE93B0FF4A0F2001E10F4 /* Resources */,
 				928BE6BD0F973B5B00E2E886 /* Shared */,
 				08FB779DFE84155DC02AAC07 /* External Frameworks and Libraries */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
@@ -1191,10 +1209,8 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				927171830FF38C0B00699906 /* imgbrowser-Info.plist */,
 				927170D60FF3348E00699906 /* imgbrowser.m */,
 				927170D70FF3348E00699906 /* imgview.m */,
-				927170070FF3249800699906 /* imgsnap-Info.plist */,
 				925B71670FF27D7A00030F9C /* displaysleep.c */,
 				9270F8120FF2587800036795 /* pdfinfo.m */,
 				925693D20FF2027D00976A77 /* pdfcat.m */,
@@ -1207,8 +1223,6 @@
 				920EC1830FEF4E1100C1AC0C /* CGS */,
 				928F92DF0FE8B2590031CEB8 /* beep.m */,
 				9250FE750FEDE5DE003A0068 /* cfn.m */,
-				927171600FF381EF00699906 /* MenuPopulator.m */,
-				9271716C0FF383E800699906 /* MenuPopulator.h */,
 			);
 			name = Source;
 			path = src;
@@ -1343,6 +1357,21 @@
 			name = goosh;
 			sourceTree = "<group>";
 		};
+		926CE93B0FF4A0F2001E10F4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				926CE9860FF4BDC5001E10F4 /* imgbrowser-Info.plist */,
+				926CE9870FF4BDC5001E10F4 /* imgbrowser.xib */,
+				926CE9880FF4BDC5001E10F4 /* imgsnap-Info.plist */,
+				926CE9890FF4BDC5001E10F4 /* imgsnap.xib */,
+				926CE98A0FF4BDC5001E10F4 /* imgview-Info.plist */,
+				926CE93C0FF4A146001E10F4 /* imgview.xib */,
+			);
+			includeInIndex = 0;
+			name = Resources;
+			path = etc;
+			sourceTree = "<group>";
+		};
 		9270CF830FEA54910026D4F5 /* panel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1373,6 +1402,7 @@
 				92708A190FEB4B7800835BB3 /* trash.1 */,
 				9256AF360FE7DBFE00585BBB /* xattr.1 */,
 			);
+			includeInIndex = 0;
 			name = Documentation;
 			path = doc;
 			sourceTree = "<group>";
@@ -2081,14 +2111,18 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/src/$(TARGET_NAME)-Info.plist",
+				"$(SRCROOT)/etc/$(TARGET_NAME).xib",
+				"$(SRCROOT)/etc/$(TARGET_NAME)-Info.plist",
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/$(TARGET_NAME)-Info.plist",
+				"$(BUILD_DIR)/etc/$(TARGET_NAME)/Info.plist",
+				"$(BUILD_DIR)/etc/$(TARGET_NAME)/main.menu",
+				"$(BUILD_DIR)/etc/$(TARGET_NAME)/menu.h",
+				"$(BUILD_DIR)/etc/$(TARGET_NAME)/main.xib",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "$SED -e 's/${TARGET_NAME}/'${TARGET_NAME}'/' ${SRCROOT}/src/${TARGET_NAME}-Info.plist > ${DERIVED_FILE_DIR}/${TARGET_NAME}-Info.plist >&2\n";
+			shellScript = "mkdir -p ${BUILD_DIR}/etc/${TARGET_NAME}\nOUT=${BUILD_DIR}/etc/${TARGET_NAME}\n\n# Pseudo macro replacement in Info.plist files\n$SED -e 's/${TARGET_NAME}/'${TARGET_NAME}'/' ${SRCROOT}/etc/${TARGET_NAME}-Info.plist > ${OUT}/Info.plist\n\n# Compile xib and extract just the main menu\nibtool ${SRCROOT}/etc/${TARGET_NAME}.xib --compile ${OUT}/main.xib\n/Users/ankur/Work/LilApps/Menu/build/Release/ExtractMenu.app/Contents/MacOS/ExtractMenu -NSOpen ${OUT}/main.xib\n\n{\n\techo '#define _g_menu_len '$(( `wc -c < ${OUT}/main.menu` ))'U'\n\techo -n 'unsigned char _g_menu[_g_menu_len]'\n#\techo -n ' __attribute__ ((section (\"__TEXT,__menu\")))'\n\techo ' = {';\n\txxd -i < ${OUT}/main.menu\n\techo '};'\n} > ${OUT}/menu.h\n";
 			showEnvVarsInLog = 0;
 		};
 		92732D780FF3A7360015CCAF /* ShellScript */ = {
@@ -2097,30 +2131,38 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/src/$(TARGET_NAME)-Info.plist",
+				"$(SRCROOT)/etc/$(TARGET_NAME).xib",
+				"$(SRCROOT)/etc/$(TARGET_NAME)-Info.plist",
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/$(TARGET_NAME)-Info.plist",
+				"$(BUILD_DIR)/etc/$(TARGET_NAME)/Info.plist",
+				"$(BUILD_DIR)/etc/$(TARGET_NAME)/main.menu",
+				"$(BUILD_DIR)/etc/$(TARGET_NAME)/menu.h",
+				"$(BUILD_DIR)/etc/$(TARGET_NAME)/main.xib",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "$SED -e 's/${TARGET_NAME}/'${TARGET_NAME}'/' ${SRCROOT}/src/${TARGET_NAME}-Info.plist > ${DERIVED_FILE_DIR}/${TARGET_NAME}-Info.plist >&2\n";
+			shellScript = "mkdir -p ${BUILD_DIR}/etc/${TARGET_NAME}\nOUT=${BUILD_DIR}/etc/${TARGET_NAME}\n\n# Pseudo macro replacement in Info.plist files\n$SED -e 's/${TARGET_NAME}/'${TARGET_NAME}'/' ${SRCROOT}/etc/${TARGET_NAME}-Info.plist > ${OUT}/Info.plist\n\n# Compile xib and extract just the main menu\nibtool ${SRCROOT}/etc/${TARGET_NAME}.xib --compile ${OUT}/main.xib\n/Users/ankur/Work/LilApps/Menu/build/Release/ExtractMenu.app/Contents/MacOS/ExtractMenu -NSOpen ${OUT}/main.xib\n\n{\n\techo '#define _g_menu_len '$(( `wc -c < ${OUT}/main.menu` ))'U'\n\techo -n 'unsigned char _g_menu[_g_menu_len]'\n#\techo -n ' __attribute__ ((section (\"__TEXT,__menu\")))'\n\techo ' = {';\n\txxd -i < ${OUT}/main.menu\n\techo '};'\n} > ${OUT}/menu.h\n";
 			showEnvVarsInLog = 0;
 		};
 		928352C50FF43D3500428899 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/src/$(TARGET_NAME)-Info.plist",
+				"$(SRCROOT)/etc/$(TARGET_NAME)-Info.plist",
+				"$(SRCROOT)/etc/$(TARGET_NAME).xib",
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/$(TARGET_NAME)-Info.plist",
+				"$(BUILD_DIR)/etc/$(TARGET_NAME)/Info.plist",
+				"$(BUILD_DIR)/etc/$(TARGET_NAME)/main.menu",
+				"$(BUILD_DIR)/etc/$(TARGET_NAME)/menu.h",
+				"$(BUILD_DIR)/etc/$(TARGET_NAME)/main.xib",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "$SED -e 's/${TARGET_NAME}/'${TARGET_NAME}'/' ${SRCROOT}/src/${TARGET_NAME}-Info.plist > ${DERIVED_FILE_DIR}/${TARGET_NAME}-Info.plist >&2\n";
+			shellScript = "mkdir -p ${BUILD_DIR}/etc/${TARGET_NAME}\nOUT=${BUILD_DIR}/etc/${TARGET_NAME}\n\n# Pseudo macro replacement in Info.plist files\n$SED -e 's/${TARGET_NAME}/'${TARGET_NAME}'/' ${SRCROOT}/etc/${TARGET_NAME}-Info.plist > ${OUT}/Info.plist\n\n# Compile xib\nibtool ${SRCROOT}/etc/${TARGET_NAME}.xib --compile ${OUT}/main.xib\n# Only keep main menu\n/Users/ankur/Work/LilApps/Menu/build/Release/ExtractMenu.app/Contents/MacOS/ExtractMenu -NSOpen ${OUT}/main.xib\n\n{\n\techo '#define _g_menu_len '$(( `wc -c < ${OUT}/main.menu` ))'U'\n\techo -n 'unsigned char _g_menu[_g_menu_len]'\n#\techo -n ' __attribute__ ((section (\"__TEXT,__menu\")))'\n\techo ' = {';\n\txxd -i < ${OUT}/main.menu\n\techo '};'\n} > ${OUT}/menu.h\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2252,6 +2294,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92B474A50FF5083800FBD9C8 /* winalpha.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2284,7 +2327,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				927170D80FF3349200699906 /* imgbrowser.m in Sources */,
-				927171610FF381EF00699906 /* MenuPopulator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2340,7 +2382,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				928352D30FF43D7600428899 /* imgview.m in Sources */,
-				929DAD9E0FF457A4004D4287 /* MenuPopulator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2481,6 +2522,16 @@
 			isa = PBXTargetDependency;
 			target = 927CFBD00FEF2B8300D7D4DF /* imgtext */;
 			targetProxy = 9283789F0FF3144A006E2CD0 /* PBXContainerItemProxy */;
+		};
+		92A0FFDF0FF4EDF100CF326A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 927170C90FF3344800699906 /* imgbrowser */;
+			targetProxy = 92A0FFDE0FF4EDF100CF326A /* PBXContainerItemProxy */;
+		};
+		92A0FFE10FF4EDF100CF326A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 928352C40FF43D3500428899 /* imgview */;
+			targetProxy = 92A0FFE00FF4EDF100CF326A /* PBXContainerItemProxy */;
 		};
 		92ACC21C0FE9E1D1009E0760 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2966,7 +3017,7 @@
 					"-sectcreate",
 					__TEXT,
 					__info_plist,
-					"$(DERIVED_FILES_DIR)/$(EXECUTABLE_NAME)-Info.plist",
+					"$(BUILD_DIR)/etc/$(TARGET_NAME)/Info.plist",
 				);
 			};
 			name = Debug;
@@ -2979,7 +3030,7 @@
 					"-sectcreate",
 					__TEXT,
 					__info_plist,
-					"$(DERIVED_FILES_DIR)/$(EXECUTABLE_NAME)-Info.plist",
+					"$(BUILD_DIR)/etc/$(TARGET_NAME)/Info.plist",
 				);
 			};
 			name = Release;
@@ -3067,7 +3118,7 @@
 					"-sectcreate",
 					__TEXT,
 					__info_plist,
-					"$(DERIVED_FILES_DIR)/$(EXECUTABLE_NAME)-Info.plist",
+					"$(BUILD_DIR)/etc/$(TARGET_NAME)/Info.plist",
 				);
 			};
 			name = Debug;
@@ -3080,7 +3131,7 @@
 					"-sectcreate",
 					__TEXT,
 					__info_plist,
-					"$(DERIVED_FILES_DIR)/$(EXECUTABLE_NAME)-Info.plist",
+					"$(BUILD_DIR)/etc/$(TARGET_NAME)/Info.plist",
 				);
 			};
 			name = Release;
@@ -3145,7 +3196,7 @@
 					"-sectcreate",
 					__TEXT,
 					__info_plist,
-					"$(DERIVED_FILES_DIR)/$(EXECUTABLE_NAME)-Info.plist",
+					"$(BUILD_DIR)/etc/$(TARGET_NAME)/Info.plist",
 				);
 			};
 			name = Debug;
@@ -3158,7 +3209,7 @@
 					"-sectcreate",
 					__TEXT,
 					__info_plist,
-					"$(DERIVED_FILES_DIR)/$(EXECUTABLE_NAME)-Info.plist",
+					"$(BUILD_DIR)/etc/$(TARGET_NAME)/Info.plist",
 				);
 			};
 			name = Release;

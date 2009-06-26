@@ -1,15 +1,16 @@
 #import <Cocoa/Cocoa.h>
 #import <Quartz/Quartz.h>
+#import "../build/etc/imgsnap/menu.h"
 // disas -- LSSetCurrentApplicationInformation (to maybe make us UIElement after activating.
 // will have to over-ride some NSPanel methods to allow other panels (eg font / color panels) to be shown properly and not hide on deactivate
 
 @interface P : NSObject { @public NSURL *o; } @end
 
 int main(int argc, const char *argv[]) {
-	[NSAutoreleasePool new];
-	int i = 1;
+	NSAutoreleasePool *pool = [NSAutoreleasePool new];
 	P *p = [[P allocWithZone:NULL] init];
 	NSURL *input = nil;
+	int i = 1;
 	while (i < argc) {
 		if (strcmp("-o", argv[i]) != 0) {
 			if (input != nil)
@@ -28,6 +29,7 @@ int main(int argc, const char *argv[]) {
 	}
 	if (p->o == nil && isatty(STDOUT_FILENO))
 		errx(1, "Refusing to dump TIFF data to a Terminal");
+	[[NSApplication sharedApplication] setDelegate:p];
 	IKPictureTaker *pic = [IKPictureTaker pictureTaker];
 	if (input) {
 		NSImage *img = [[NSImage alloc] initWithContentsOfURL:input];
@@ -40,10 +42,13 @@ int main(int argc, const char *argv[]) {
 		CFRelease(input);
 	}
 	[pic setLevel:NSFloatingWindowLevel];
-	[[NSApplication sharedApplication] setDelegate:p];
 	ProcessSerialNumber psn;
 	GetCurrentProcess(&psn);
 	TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+	NSMenu *n = [NSUnarchiver unarchiveObjectWithData:[NSData dataWithBytesNoCopy:_g_menu length:_g_menu_len freeWhenDone:NO]];
+	[NSApp setMainMenu:n];
+	[pool release];
+	[NSAutoreleasePool new];
 	[NSApp run];
 //	NSApplicationMain(argc, argv);
 usage:
@@ -52,12 +57,11 @@ usage:
 }
 
 @implementation P
-
 - (void) applicationDidFinishLaunching:(NSNotification *)aNotification {
-//	SetFrontProcess(&psn);
 	[NSApp activateIgnoringOtherApps:YES];
 	IKPictureTaker *pic = [IKPictureTaker pictureTaker];
-	if ([pic runModal] == NSOKButton) {
+	NSUInteger returnCode = [pic runModal];
+	if (returnCode == NSOKButton) {
 		NSData *tiff = [[pic outputImage] TIFFRepresentation];
 		if (tiff) {
 			if (o != nil) {
@@ -75,6 +79,5 @@ usage:
 	}
 	exit(0);
 }
-//- (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)a { return YES; }
-
+- (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)a { return YES; }
 @end
