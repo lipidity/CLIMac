@@ -33,8 +33,8 @@ int main(int argc, char *argv[]) {
 	[[NSApplication sharedApplication] setDelegate:s];
 
 	ProcessSerialNumber psn;
-	GetCurrentProcess(&psn);
-	TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+	if (!(GetCurrentProcess(&psn) == noErr && TransformProcessType(&psn, kProcessTransformToForegroundApplication) == noErr))
+		warnx("Forced to run in background");
 
 	NSMenu *n = [NSUnarchiver unarchiveObjectWithData:[NSData dataWithBytesNoCopy:_g_menu length:_g_menu_len freeWhenDone:NO]];
 	[NSApp setMainMenu:n];
@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
 	[img setSize:NSMakeSize(512.0f,512.0f)];
 	[NSApp setApplicationIconImage:img];
 	[pool release];
-	[NSAutoreleasePool new];
+
 	[NSApp run];
 }
 

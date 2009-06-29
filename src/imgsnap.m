@@ -43,14 +43,14 @@ int main(int argc, const char *argv[]) {
 	}
 	[pic setLevel:NSFloatingWindowLevel];
 	ProcessSerialNumber psn;
-	GetCurrentProcess(&psn);
-	TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+	if (!(GetCurrentProcess(&psn) == noErr && TransformProcessType(&psn, kProcessTransformToForegroundApplication) == noErr))
+		warnx("Forced to run in background");
 	NSMenu *n = [NSUnarchiver unarchiveObjectWithData:[NSData dataWithBytesNoCopy:_g_menu length:_g_menu_len freeWhenDone:NO]];
 	[NSApp setMainMenu:n];
 	[pool release];
-	[NSAutoreleasePool new];
+
 	[NSApp run];
-//	NSApplicationMain(argc, argv);
+
 usage:
 	fprintf(stderr, "usage:  %s [<input>] [-o <output>]\n", argv[0]);
 	return 1;

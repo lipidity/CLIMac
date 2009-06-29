@@ -17,8 +17,8 @@ int main(int argc, char *argv[]) {
 	[[NSApplication sharedApplication] setDelegate:s];
 
 	ProcessSerialNumber psn;
-	GetCurrentProcess(&psn);
-	TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+	if (!(GetCurrentProcess(&psn) == noErr && TransformProcessType(&psn, kProcessTransformToForegroundApplication) == noErr))
+		warnx("Forced to run in background");
 
 	NSMenu *n = [NSUnarchiver unarchiveObjectWithData:[NSData dataWithBytesNoCopy:_g_menu length:_g_menu_len freeWhenDone:NO]];
 //	NSMutableArray *a = [NSMutableArray array];
@@ -33,7 +33,6 @@ int main(int argc, char *argv[]) {
 
 	[pool release];
 
-	[NSAutoreleasePool new];
 	[NSApp run];
 }
 

@@ -70,9 +70,6 @@
 		924E306A0FEB9C08004A9EA1 /* trimmit.m in Sources */ = {isa = PBXBuildFile; fileRef = 924E30690FEB9C08004A9EA1 /* trimmit.m */; };
 		924E306F0FEBB063004A9EA1 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
 		924E30700FEBB065004A9EA1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
-		9250FE760FEDE5DE003A0068 /* cfn.m in Sources */ = {isa = PBXBuildFile; fileRef = 9250FE750FEDE5DE003A0068 /* cfn.m */; };
-		9250FE770FEDE5EA003A0068 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
-		9250FE780FEDE5F2003A0068 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		925693B40FF2017300976A77 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
 		925693B50FF2017300976A77 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928EEC120FE3A4A300B5953C /* ApplicationServices.framework */; };
 		925693B60FF2017300976A77 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B4CF6F0FDA69C300F5AC0D /* CoreFoundation.framework */; };
@@ -439,15 +436,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
-		9250FE6F0FEDE5AC003A0068 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 8;
-			dstPath = /Users/ankur/share/man/man1;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
 		925693C20FF2018000976A77 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 8;
@@ -775,8 +763,6 @@
 		924A9B620FE4F4920098AC53 /* uti.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = uti.c; sourceTree = "<group>"; };
 		924E30520FEB9BE0004A9EA1 /* trimmit */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = trimmit; sourceTree = BUILT_PRODUCTS_DIR; };
 		924E30690FEB9C08004A9EA1 /* trimmit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = trimmit.m; sourceTree = "<group>"; };
-		9250FE730FEDE5AC003A0068 /* cfn */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cfn; sourceTree = BUILT_PRODUCTS_DIR; };
-		9250FE750FEDE5DE003A0068 /* cfn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cfn.m; sourceTree = "<group>"; };
 		925693C60FF2018000976A77 /* pdfextract */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pdfextract; sourceTree = BUILT_PRODUCTS_DIR; };
 		925693D00FF201C000976A77 /* pdfcat */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pdfcat; sourceTree = BUILT_PRODUCTS_DIR; };
 		925693D20FF2027D00976A77 /* pdfcat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pdfcat.m; sourceTree = "<group>"; };
@@ -923,15 +909,6 @@
 			files = (
 				924E306F0FEBB063004A9EA1 /* AppKit.framework in Frameworks */,
 				924E30700FEBB065004A9EA1 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9250FE6E0FEDE5AC003A0068 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9250FE770FEDE5EA003A0068 /* AppKit.framework in Frameworks */,
-				9250FE780FEDE5F2003A0068 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1222,7 +1199,6 @@
 				9270CF830FEA54910026D4F5 /* panel */,
 				920EC1830FEF4E1100C1AC0C /* CGS */,
 				928F92DF0FE8B2590031CEB8 /* beep.m */,
-				9250FE750FEDE5DE003A0068 /* cfn.m */,
 			);
 			name = Source;
 			path = src;
@@ -1271,7 +1247,6 @@
 				927089210FEB4A7700835BB3 /* winalpha */,
 				92708A4A0FEB5CFB00835BB3 /* winshadow */,
 				924E30520FEB9BE0004A9EA1 /* trimmit */,
-				9250FE730FEDE5AC003A0068 /* cfn */,
 				929ECF1C0FEE71660085F378 /* imgshadow */,
 				929ECF4A0FEE7E610085F378 /* quit */,
 				927CFB5C0FEF17F900D7D4DF /* wintransition */,
@@ -1529,23 +1504,6 @@
 			name = trimmit;
 			productName = imgconv;
 			productReference = 924E30520FEB9BE0004A9EA1 /* trimmit */;
-			productType = "com.apple.product-type.tool";
-		};
-		9250FE6C0FEDE5AC003A0068 /* cfn */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9250FE700FEDE5AC003A0068 /* Build configuration list for PBXNativeTarget "cfn" */;
-			buildPhases = (
-				9250FE6D0FEDE5AC003A0068 /* Sources */,
-				9250FE6E0FEDE5AC003A0068 /* Frameworks */,
-				9250FE6F0FEDE5AC003A0068 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = cfn;
-			productName = imgconv;
-			productReference = 9250FE730FEDE5AC003A0068 /* cfn */;
 			productType = "com.apple.product-type.tool";
 		};
 		925693BA0FF2018000976A77 /* pdfextract */ = {
@@ -2067,7 +2025,6 @@
 				920EC18F0FEF50F000C1AC0C /* any2txt */,
 				8DD76F960486AA7600D96B5E /* app */,
 				928F92E00FE8B2600031CEB8 /* beep */,
-				9250FE6C0FEDE5AC003A0068 /* cfn */,
 				9270CFBD0FEA6D740026D4F5 /* cifilter */,
 				925B70A10FF27CBE00030F9C /* displaysleep */,
 				92DFDAB10FD9FDC900F7C0BD /* dup */,
@@ -2223,14 +2180,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				924E306A0FEB9C08004A9EA1 /* trimmit.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9250FE6D0FEDE5AC003A0068 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9250FE760FEDE5DE003A0068 /* cfn.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2788,12 +2737,14 @@
 		};
 		920EC1BC0FEF533F00C1AC0C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 92ECA3820FE60214004022DA /* TollFree.xcconfig */;
 			buildSettings = {
 			};
 			name = Debug;
 		};
 		920EC1BD0FEF533F00C1AC0C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 92ECA3820FE60214004022DA /* TollFree.xcconfig */;
 			buildSettings = {
 			};
 			name = Release;
@@ -2847,18 +2798,6 @@
 		924E30510FEB9BE0004A9EA1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 92ECA3820FE60214004022DA /* TollFree.xcconfig */;
-			buildSettings = {
-			};
-			name = Release;
-		};
-		9250FE710FEDE5AC003A0068 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-			};
-			name = Debug;
-		};
-		9250FE720FEDE5AC003A0068 /* Release */ = {
-			isa = XCBuildConfiguration;
 			buildSettings = {
 			};
 			name = Release;
@@ -3359,15 +3298,6 @@
 			buildConfigurations = (
 				924E30500FEB9BE0004A9EA1 /* Debug */,
 				924E30510FEB9BE0004A9EA1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9250FE700FEDE5AC003A0068 /* Build configuration list for PBXNativeTarget "cfn" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9250FE710FEDE5AC003A0068 /* Debug */,
-				9250FE720FEDE5AC003A0068 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

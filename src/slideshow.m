@@ -6,7 +6,6 @@
 	NSDictionary *opts;
 	NSArray *items;
 }
-- (id) init: (NSString *)mo : (NSDictionary *)op : (NSArray *)objs;
 @end
 
 static inline BOOL yesOrNo(const char *a) {
@@ -14,7 +13,7 @@ static inline BOOL yesOrNo(const char *a) {
 }
 
 int main(int argc, char *argv[]) {
-	[NSAutoreleasePool new];
+	NSAutoreleasePool *pool = [NSAutoreleasePool new];
 	struct option longopts[] = {
 		{ "pdf", no_argument, NULL, 'p' },
 		{ "quick-look", no_argument, NULL, 'q' },
@@ -66,27 +65,21 @@ int main(int argc, char *argv[]) {
 	NSMutableArray *files = [[NSMutableArray alloc] initWithCapacity:argc];
 	for (int i = 0; i < argc; i++)
 		[files addObject:[fm stringWithFileSystemRepresentation:argv[i] length:strlen(argv[i])]];
-	S *s = [[S allocWithZone:NULL] init:mode :opts :files];
-	[opts release];
-	[mode release];
-	[files release];
+	S *s = [[S allocWithZone:NULL] init];
+	((struct {@defs(S)} *)s)->mode = mode;
+	((struct {@defs(S)} *)s)->opts=opts;
+	((struct {@defs(S)} *)s)->items = files;
 	[[NSApplication sharedApplication] setDelegate:s];
+
 	ProcessSerialNumber psn;
-	GetCurrentProcess(&psn);
-	TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+	if (!(GetCurrentProcess(&psn) == noErr && TransformProcessType(&psn, kProcessTransformToForegroundApplication) == noErr))
+		warnx("Forced to run in background");
+
+	[pool release];
 	[NSApp run];
 }
 
 @implementation S
-
-- (id) init: (NSString *)mo : (NSDictionary *)op : (NSArray *)objs {
-	if ((self = [super init]) != nil) {
-		mode = [mo copy];
-		opts = [op copy];
-		items = [objs copy];
-	}
-	return self;
-}
 - (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)a { return YES; }
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotification {
 	[NSApp activateIgnoringOtherApps:YES];

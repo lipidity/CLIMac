@@ -1,78 +1,148 @@
 #import <Cocoa/Cocoa.h>
 
-@interface S : NSObject {} @end
+#define HELP_NOT_WORKING 1
+
+@interface S : NSObject {
+#ifndef HELP_NOT_WORKING
+	id help;
+#endif
+	NSAlert *a;
+} @end
+
+// Message should be just typed without an option flag
 
 int main(int argc, char *argv[]) {
-	[NSAutoreleasePool new];
-	[[NSApplication sharedApplication] setDelegate:[S new]];
-	[NSApp finishLaunching];
-	while (1) {
-		NSEvent *e = [NSApp nextEventMatchingMask:NSAnyEventMask untilDate:[NSDate distantFuture] inMode:NSDefaultRunLoopMode dequeue:YES];
-		if (e)
-			[NSApp sendEvent:e];
-	}
-#if 0
+	NSAutoreleasePool *pool = [NSAutoreleasePool new];
 	const struct option longopts[] = {
-		{ "help", no_argument, NULL, 'h' },
-		{ "volume", required_argument, NULL, 'v' },
-		{ "loop", no_argument, NULL, 'l' },
+		{ "style", required_argument, NULL, 's' },
+#ifndef HELP_NOT_WORKING
+		{ "help-file", required_argument, NULL, 'h' },
+#endif
+		{ "message", required_argument, NULL, 'm' },
+		{ "information", required_argument, NULL, 'i' },
+		{ "icon", required_argument, NULL, 'b' },
+		{ "supression-button", no_argument, NULL, 'p' },
 		{ NULL, 0, NULL, 0 }
 	};
-	BOOL setV = 0;
-	BOOL loop = NO;
-	NSString *whichSnd = nil;
-	float volume = 1.0f;
+	S *s = [S new];
+	[[NSApplication sharedApplication] setDelegate:s];
 	int c;
-	NSAutoreleasePool *pool = [NSAutoreleasePool new];
-	while ((c = getopt_long_only(argc, argv, "v:lh", longopts, NULL)) != EOF) {
+	NSAlert *alert = [NSAlert new];
+	while ((c = getopt_long(argc, (char **)argv, "s:m:i:b:p", longopts, NULL)) != EOF) { // #ifndef HELP_NOT_WORKING "h:" #endif
 		switch (c) {
-			case 'v': {
-				setV = 1;
-				volume = strtof(optarg, NULL);
-			}	break;
-			case 'l': {
-				loop ^= 1;
-			}	break;
-			case 'h':
+			case 's': {
+				const char *styles[] = {"warn", "info", "critical"};
+				for (size_t i = 0; i < sizeof(styles)/sizeof(styles[0]); i++) {
+					if (strncasecmp(optarg, styles[i], strlen(styles[i])) == 0) {
+						[alert setAlertStyle:i];
+						break;
+					}
+				}
+			}
+				break;
+#ifndef HELP_NOT_WORKING
+			case 'h': {
+				[alert setShowsHelp:YES];
+				if (optarg[0] == '@') {
+					((struct {@defs(S)} *)s)->help = (NSURL *)CFURLCreateFromFileSystemRepresentation(NULL, (UInt8 *) optarg + 1, strlen(optarg + 1), false);
+				} else if (optarg[0] == '<') {
+					CFStringRef file = CFStringCreateWithFileSystemRepresentation(NULL, optarg + 1);
+					if (file != NULL) {
+						NSStringEncoding enc; NSError *error;
+						((struct {@defs(S)} *)s)->help = [[NSString alloc] initWithContentsOfFile:(NSString *)file usedEncoding:&enc error:&error];
+						CFRelease(file);
+					}
+				} else if (optarg[0] == '+') {
+					CFStringRef anchor = CFStringCreateWithFileSystemRepresentation(NULL, optarg + 1);
+					if (anchor != NULL) {
+						[alert setHelpAnchor:(NSString *)anchor];
+						CFRelease(anchor);
+					}
+				} else if (optarg[0] == '-' && optarg[1] == '\0') {
+					((struct {@defs(S)} *)s)->help = [[NSString alloc] initWithData:[[NSFileHandle fileHandleWithStandardInput] readDataToEndOfFile] encoding:NSUTF8StringEncoding];
+				} else {
+					((struct {@defs(S)} *)s)->help = (NSString *)CFStringCreateWithFileSystemRepresentation(NULL, optarg);
+				}
+			}
+				break;
+#endif
+			case 'm': {
+				CFStringRef msg = CFStringCreateWithFileSystemRepresentation(NULL, optarg);
+				if (msg != NULL) {
+					[alert setMessageText:(NSString *)msg];
+					CFRelease(msg);
+				}
+			}
+				break;
+			case 'i': {
+				CFStringRef msg = CFStringCreateWithFileSystemRepresentation(NULL, optarg);
+				if (msg != NULL) {
+					[alert setInformativeText:(NSString *)msg];
+					CFRelease(msg);
+				}
+			}
+				break;
+			case 'b': {
+				CFStringRef msg = CFStringCreateWithFileSystemRepresentation(NULL, optarg);
+				if (msg != NULL) {
+					if (![(NSString *)msg isAbsolutePath]) {
+						NSString *absPath = [[[NSFileManager defaultManager] currentDirectoryPath] stringByAppendingPathComponent:(NSString *)msg];
+						CFRelease(msg);
+						msg = CFRetain(absPath);
+					}
+					NSImage *img = [NSImage imageNamed:(NSString *)msg];
+					if (img == nil)
+						img = [[[NSImage alloc] initWithContentsOfFile:(NSString *)msg] autorelease];
+					if (img == nil)
+						img = [[NSWorkspace sharedWorkspace] iconForFile:(NSString *)msg];
+					[alert setIcon:img];
+					CFRelease(msg);
+				}
+			}
+				break;
+			case 'p':
+				[alert setShowsSuppressionButton:YES];
+				break;
 			default:
-usage:
-				fprintf(stderr, "usage:  %s [-l] [-s <sound>] [-v <volume>]\n", argv[0]);
-				return c != 'h';
+				fprintf(stderr, "usage:  %s [-m message] [-i info] [-h help] [-b icon] [-s style] buttons ...\n", argv[0]);
+				return 1;
 		}
 	}
-	argc -= optind; argv += optind;
-	if (argc == 1) {
-		whichSnd = [[NSFileManager defaultManager] stringWithFileSystemRepresentation:argv[0] length:strlen(argv[0])];
-	} else if (argc != 0) {
-		goto usage;
+	argv += optind; argc -= optind;
+	for (int i = 0; i < argc; i++) {
+		CFStringRef msg = CFStringCreateWithFileSystemRepresentation(NULL, argv[i]);
+		if (msg != NULL) {
+			[alert addButtonWithTitle:(NSString *)msg];
+			CFRelease(msg);
+		}
 	}
-	NSArray *keys = [[NSArray alloc] initWithObjects:@"com.apple.sound.beep.sound", @"com.apple.sound.beep.volume", nil];
-	NSDictionary *dict = (NSDictionary *)CFPreferencesCopyMultiple((CFArrayRef)keys, CFSTR("com.apple.systemsound"), kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
-	if (whichSnd == nil)
-		whichSnd = [dict objectForKey:@"com.apple.sound.beep.sound"];
-	if (!setV) {
-		id num = [dict objectForKey:@"com.apple.sound.beep.volume"];
-		if (num)
-			volume = [num floatValue];
-	}
-	NSSound *sound = [NSSound soundNamed:whichSnd] ? : [[NSSound alloc] initWithContentsOfFile:whichSnd byReference:YES];
+	((struct {@defs(S)} *)s)->a = alert;
+	ProcessSerialNumber psn;
+	if (!(GetCurrentProcess(&psn) == noErr && TransformProcessType(&psn, kProcessTransformToForegroundApplication) == noErr))
+		warnx("Forced to run in background");
 	[pool release];
-	if (sound != nil) {
-		[sound setVolume:volume];
-		[sound setLoops:loop];
-		[sound setDelegate:[[S allocWithZone:NULL] init]];
-		[sound play];
-		[[NSRunLoop currentRunLoop] run];
-	}
-#endif
+
+	[NSApp run];
 	return 1;
 }
 
 @implementation S
 - (void) applicationDidFinishLaunching:(NSNotification *)aNotification {
 	[NSApp activateIgnoringOtherApps:YES];
-	NSAlert *a = [NSAlert alertWithMessageText:@"hello" defaultButton:@"OK" alternateButton:@"alt" otherButton:@"other" informativeTextWithFormat:@"info"];
-	[a runModal];
-	exit(0);
+	NSInteger ret = [a runModal];
+	if ([[a suppressionButton] state] == NSOnState)
+		fputs("suppress", stdout);
+	exit(ret ? ret - 1000 : 0);
 }
+#ifndef HELP_NOT_WORKING
+- (BOOL)alertShowHelp:(NSAlert *)alert {
+	if ([help isKindOfClass:[NSString class]])
+		puts([help fileSystemRepresentation]);
+	else if ([help isKindOfClass:[NSURL class]])
+		[[NSWorkspace sharedWorkspace] openURL:help];
+	else
+		return NO;
+	return YES;
+}
+#endif
 @end
