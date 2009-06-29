@@ -45,13 +45,34 @@ int main(int argc, char *argv[]) {
 	[b setDoubleClickOpensImageEditPanel:YES];
 	if ([b respondsToSelector:@selector(setAnimates:)])
 		[b setAnimates:YES];
+	[b setAutoresizes:YES];
 	[b setCurrentToolMode:IKToolModeMove];
-	NSURL *url = [NSURL fileURLWithPath:[[[NSProcessInfo processInfo] arguments] lastObject]];
-	[b setImageWithURL:url];
-	[b zoomImageToFit:nil];
-	if (![[NSFileManager defaultManager] fileExistsAtPath:[url path]] || ![b image])
+	NSString *path = [[[NSProcessInfo processInfo] arguments] lastObject];
+	if (![path isEqualToString:@"-"]) {
+		NSURL *url = [NSURL fileURLWithPath:path];
+		[b setImageWithURL:url];
+		[win setTitleWithRepresentedFilename:[url path]];
+	} else {
+		NSDictionary *mImageProperties = nil;
+		CGImageRef image = NULL;
+		CGImageSourceRef isr = CGImageSourceCreateWithData((CFDataRef)[[NSFileHandle fileHandleWithStandardInput] readDataToEndOfFile], NULL);
+		if (isr) {
+			image = CGImageSourceCreateImageAtIndex(isr, 0, NULL);
+			if (image)
+				mImageProperties = (NSDictionary*)CGImageSourceCopyPropertiesAtIndex(isr, 0, (CFDictionaryRef)mImageProperties);
+			CFRelease(isr);
+		}
+		if (image) {
+			[b setImage:image imageProperties:mImageProperties];
+			CGImageRelease(image);
+			[mImageProperties release];
+		}
+	}
+	if (![b image])
 		errx(1, "Invalid image");
-	[win setTitleWithRepresentedFilename:[url path]];
+	NSSize size = [b imageSize];
+	if (NSContainsRect(NSMakeRect(0.0f, 0.0f, size.width, size.height), [b bounds]))
+		[b zoomImageToFit:nil];
 	[win center];
 	[win setFrameAutosaveName:@"v"];
 	[win makeKeyAndOrderFront:nil];
@@ -62,15 +83,26 @@ int main(int argc, char *argv[]) {
 @end
 
 @implementation IKImageView (i)
+- (NSInteger)mode {
+	NSString *cur = [self currentToolMode];
+	const all = ((NSString *[]){IKToolModeMove, IKToolModeSelect, IKToolModeCrop, IKToolModeRotate, IKToolModeAnnotate});
+	for (int i = 0; i < sizeof(all)/sizeof(all[0]); i++)
+		if ([all[i] isEqualToString:cur])
+			return i;
+	return -1;
+}
 -(void)setMode:(id)sender {
 	[self setCurrentToolMode:((NSString *[]){IKToolModeMove, IKToolModeSelect, IKToolModeCrop, IKToolModeRotate, IKToolModeAnnotate})[[sender tag]]];
 }
 -(void)magnifyWithEvent:(NSEvent *)anEvent {
 	float new = [self zoomFactor] + ([anEvent deltaZ] / 100.0f);
 	if (new <= 1e-10f) new = 1e-10f;
+//	[self setImageZoomFactor:new centerPoint:[self convertPoint:[anEvent locationInWindow] fromView:nil]];
 	[self setZoomFactor:new];
 }
 -(void)rotateWithEvent:(NSEvent *)anEvent {
-	self.rotationAngle += ([anEvent rotation] * (float)M_PI / 180.0f);
+	float new = ([anEvent rotation] * (float)M_PI / 180.0f);
+	self.rotationAngle += new;
+//	[self setRotationAngle:new centerPoint:[self convertPoint:[anEvent locationInWindow] fromView:nil]];
 }
 @end

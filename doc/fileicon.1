@@ -4,29 +4,32 @@
 .\"man mdoc for the short list of editing options
 .\"/usr/share/misc/mdoc.template
 .Dd June 14, 2009
-.Os
-.Dt ANY2TXT \&1 "CLIMac Reference Manual"
+.Os "Mac OS X"
+.Dt FILEICON \&1 "CLIMac Reference Manual"
 .Sh NAME                 \" Section Header - required - don't modify 
-.Nm any2txt
-.Nd convert document to plain text
+.Nm fileicon
+.Nd get icon image for file
 .Sh SYNOPSIS             \" Section Header - required - don't modify
 .Nm
-.Ar inputfile
-.Op Ar outputfile
+.Ar
+.Op Fl o Ar out.tiff
+.Nm
+.Fl t Ar type
+.Op Fl o Ar out.tiff
 .Sh DESCRIPTION          \" Section Header - required - don't modify
 .Pp
 The
 .Nm
-tool extracts the text from a range of file types such as HTML, PDF, RTF and even Microsoft Word documents.
-.\"  On Mac OS X 10.5 and above, iWork (eg. Pages) and Office (eg. Word) documents are also supported.
+utility outputs in TIFF format the icon for the specified file or file type.
 .Pp
-On Mac OS X 10.5 and above,
-.Nm
-attempts to generate a QuickLook preview from which the text is extracted.
-.Pp
-UTF-8 encoding is used for all output.
+Omit the
+.Fl o
+option when piping the image to the standard output
+.Pq see Sx EXAMPLES .
 .\".Sh FILES                \" File used or created by the topic of the man page
-.\".Sh EXAMPLES
+.Sh EXAMPLES
+.Dl fileicon / -o hd.tiff
+.Dl fileicon -t pdf | imgconv pdficon.png
 .Sh DIAGNOSTICS
 The
 .Nm
@@ -35,8 +38,9 @@ utility exits 0 on success, and \*(Gt0 if an error occurs.
 .Sh SEE ALSO 
 .\" List links in ascending order by section, alphabetically within a section.
 .\" Please do not reference files that do not exist without filing a bug report
-.Xr cat 1 ,
-.Xr less 1
+.Xr imgbrowser 1 ,
+.Xr imgconv 1 ,
+.Xr seticon 1
 .\" .Sh BUGS              \" Document known, unremedied bugs
 .\" .Sh HISTORY           \" Document history if command behaves in a unique manner
 .Sh AUTHORS
