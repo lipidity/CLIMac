@@ -45,6 +45,7 @@
 				92ACC3D10FE9E59A009E0760 /* PBXTargetDependency */,
 				92708A3C0FEB5C4C00835BB3 /* PBXTargetDependency */,
 				92BFB9490FEA8BCA00FADB84 /* PBXTargetDependency */,
+				929BE4140FFB3E210055CAD3 /* PBXTargetDependency */,
 				92708A640FEB615C00835BB3 /* PBXTargetDependency */,
 				92F166870FEF5C6800EBC640 /* PBXTargetDependency */,
 				92F166820FEF5C6300EBC640 /* PBXTargetDependency */,
@@ -146,6 +147,8 @@
 		928EEC2A0FE3A5A800B5953C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		928F92EC0FE8B2780031CEB8 /* beep.m in Sources */ = {isa = PBXBuildFile; fileRef = 928F92DF0FE8B2590031CEB8 /* beep.m */; };
 		928F92ED0FE8B2790031CEB8 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
+		929BE3D20FFB3AB70055CAD3 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928EEC120FE3A4A300B5953C /* ApplicationServices.framework */; };
+		929BE3FF0FFB3B940055CAD3 /* winmove.c in Sources */ = {isa = PBXBuildFile; fileRef = 92ACC3DF0FE9E5FE009E0760 /* winmove.c */; };
 		929DAE160FF46930004D4287 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92ACC0B70FE9C783009E0760 /* Quartz.framework */; };
 		929ECF1F0FEE71A70085F378 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
 		929ECF200FEE71A70085F378 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
@@ -256,6 +259,13 @@
 			remoteGlobalIDString = 927CFBD00FEF2B8300D7D4DF;
 			remoteInfo = imgtext;
 		};
+		929BE4130FFB3E210055CAD3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 929BE3CE0FFB3AB70055CAD3 /* winmove */;
+			remoteInfo = winmove;
+		};
 		92A0FFDE0FF4EDF100CF326A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
@@ -274,7 +284,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 9280A58C0FF98FE300893C5A /* ql */;
+			remoteGlobalIDString = 9280A58C0FF98FE300893C5A;
 			remoteInfo = ql;
 		};
 		92ACC21B0FE9E1D1009E0760 /* PBXContainerItemProxy */ = {
@@ -714,6 +724,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		929BE3D30FFB3AB70055CAD3 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = /Users/ankur/share/man/man1;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		929ECF180FEE71660085F378 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 8;
@@ -869,12 +888,13 @@
 		928EEC120FE3A4A300B5953C /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		928F92DF0FE8B2590031CEB8 /* beep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = beep.m; sourceTree = "<group>"; };
 		928F92E90FE8B2600031CEB8 /* beep */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = beep; sourceTree = BUILT_PRODUCTS_DIR; };
+		929BE3D70FFB3AB70055CAD3 /* winmove */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = winmove; sourceTree = BUILT_PRODUCTS_DIR; };
 		929ECF1C0FEE71660085F378 /* imgshadow */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = imgshadow; sourceTree = BUILT_PRODUCTS_DIR; };
 		929ECF210FEE71CB0085F378 /* imgshadow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imgshadow.m; sourceTree = "<group>"; };
 		929ECF4A0FEE7E610085F378 /* quit */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = quit; sourceTree = BUILT_PRODUCTS_DIR; };
 		929ECF4C0FEE7E930085F378 /* quit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = quit.c; sourceTree = "<group>"; };
 		92A4825A0FF873E90027FCF1 /* fileicon.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = fileicon.1; sourceTree = "<group>"; };
-		92A850930FFB265500957102 /* target copy */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "target copy"; sourceTree = BUILT_PRODUCTS_DIR; };
+		92A850930FFB265500957102 /* dict */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dict; sourceTree = BUILT_PRODUCTS_DIR; };
 		92A850950FFB269C00957102 /* dict.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dict.c; sourceTree = "<group>"; };
 		92ACC0B20FE9C717009E0760 /* slideshow */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = slideshow; sourceTree = BUILT_PRODUCTS_DIR; };
 		92ACC0B40FE9C756009E0760 /* slideshow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = slideshow.m; sourceTree = "<group>"; };
@@ -1152,6 +1172,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		929BE3D10FFB3AB70055CAD3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				929BE3D20FFB3AB70055CAD3 /* ApplicationServices.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		929ECF170FEE71660085F378 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1335,7 +1363,8 @@
 				927170D40FF3344800699906 /* imgbrowser */,
 				928352D00FF43D3500428899 /* imgview */,
 				9280A59A0FF98FE300893C5A /* ql */,
-				92A850930FFB265500957102 /* target copy */,
+				92A850930FFB265500957102 /* dict */,
+				929BE3D70FFB3AB70055CAD3 /* winmove */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1945,6 +1974,23 @@
 			productReference = 928F92E90FE8B2600031CEB8 /* beep */;
 			productType = "com.apple.product-type.tool";
 		};
+		929BE3CE0FFB3AB70055CAD3 /* winmove */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 929BE3D40FFB3AB70055CAD3 /* Build configuration list for PBXNativeTarget "winmove" */;
+			buildPhases = (
+				929BE3CF0FFB3AB70055CAD3 /* Sources */,
+				929BE3D10FFB3AB70055CAD3 /* Frameworks */,
+				929BE3D30FFB3AB70055CAD3 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = winmove;
+			productName = imgconv;
+			productReference = 929BE3D70FFB3AB70055CAD3 /* winmove */;
+			productType = "com.apple.product-type.tool";
+		};
 		929ECF150FEE71660085F378 /* imgshadow */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 929ECF190FEE71660085F378 /* Build configuration list for PBXNativeTarget "imgshadow" */;
@@ -1993,7 +2039,7 @@
 			);
 			name = dict;
 			productName = imgconv;
-			productReference = 92A850930FFB265500957102 /* target copy */;
+			productReference = 92A850930FFB265500957102 /* dict */;
 			productType = "com.apple.product-type.tool";
 		};
 		92ACC0AA0FE9C717009E0760 /* slideshow */ = {
@@ -2166,6 +2212,7 @@
 				92ACC22A0FE9E234009E0760 /* win */,
 				9270891A0FEB4A7700835BB3 /* winalpha */,
 				92ACC3D20FE9E5C5009E0760 /* winlevel */,
+				929BE3CE0FFB3AB70055CAD3 /* winmove */,
 				92708A430FEB5CFB00835BB3 /* winshadow */,
 				927CFB9D0FEF20CC00D7D4DF /* wintransform */,
 				927CFB550FEF17F900D7D4DF /* wintransition */,
@@ -2464,6 +2511,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		929BE3CF0FFB3AB70055CAD3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				929BE3FF0FFB3B940055CAD3 /* winmove.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		929ECF160FEE71660085F378 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2601,6 +2656,11 @@
 			isa = PBXTargetDependency;
 			target = 927CFBD00FEF2B8300D7D4DF /* imgtext */;
 			targetProxy = 9283789F0FF3144A006E2CD0 /* PBXContainerItemProxy */;
+		};
+		929BE4140FFB3E210055CAD3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 929BE3CE0FFB3AB70055CAD3 /* winmove */;
+			targetProxy = 929BE4130FFB3E210055CAD3 /* PBXContainerItemProxy */;
 		};
 		92A0FFDF0FF4EDF100CF326A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3243,6 +3303,18 @@
 			};
 			name = Release;
 		};
+		929BE3D50FFB3AB70055CAD3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		929BE3D60FFB3AB70055CAD3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
 		929ECF1A0FEE71660085F378 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 92ECA3820FE60214004022DA /* TollFree.xcconfig */;
@@ -3653,6 +3725,15 @@
 			buildConfigurations = (
 				928F92E70FE8B2600031CEB8 /* Debug */,
 				928F92E80FE8B2600031CEB8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		929BE3D40FFB3AB70055CAD3 /* Build configuration list for PBXNativeTarget "winmove" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				929BE3D50FFB3AB70055CAD3 /* Debug */,
+				929BE3D60FFB3AB70055CAD3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

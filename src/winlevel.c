@@ -22,10 +22,8 @@ usage:
 		size_t len = 0;
 		struct kinfo_proc *r = NULL;
 		int name[] = { CTL_KERN, KERN_PROC, KERN_PROC_ALL, 0 };
-		if (sysctl((int *)name, 3, NULL, &len, NULL, 0) || ((r = malloc(len)) == NULL) || sysctl((int *)name, 3, r, &len, NULL, 0)) {
-			perror(NULL);
-			return errno;
-		}
+		if (sysctl(name, 3, NULL, &len, NULL, 0) || ((r = malloc(len)) == NULL) || sysctl(name, 3, r, &len, NULL, 0))
+			err(1, NULL);
 		size_t c = len / sizeof(struct kinfo_proc);
 		struct kinfo_proc *k = r;
 		while (c--) {
