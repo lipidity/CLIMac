@@ -72,7 +72,7 @@ int main (int argc, char *argv[]) {
 			errx(1, "Not writing empty document");
 
 		if (oURL == NULL && isatty(STDOUT_FILENO))
-			errx(1, "Refusing to dump pdf data to a Terminal");
+			errx(1, "Refusing to dump pdf data to a terminal");
 
 		NSData *data;
 		if ((oURL != NULL && [pdf writeToURL:(NSURL *)oURL]) || ((data = [pdf dataRepresentation]) && fwrite([data bytes], [data length], 1, stdout) == 1))

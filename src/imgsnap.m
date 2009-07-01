@@ -28,7 +28,7 @@ int main(int argc, const char *argv[]) {
 		i += 1;
 	}
 	if (p->o == nil && isatty(STDOUT_FILENO))
-		errx(1, "Refusing to dump TIFF data to a Terminal");
+		errx(1, "Refusing to dump TIFF data to a terminal");
 	[[NSApplication sharedApplication] setDelegate:p];
 	IKPictureTaker *pic = [IKPictureTaker pictureTaker];
 	if (input) {

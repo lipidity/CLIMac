@@ -45,7 +45,7 @@ int main(int argc, const char *argv[]) {
 			goto usage;
 		// Don't dump data to a Terminal
 		if ((oURL == NULL) && isatty(STDOUT_FILENO))
-			goto usage;
+			errx(1, "Refusing to dump TIFF data to a terminal");
 
 		NSImage *img = useType ?  [ws iconForFileType:[args objectAtIndex:0u]] : [ws iconForFiles:args];
 
