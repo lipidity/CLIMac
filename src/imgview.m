@@ -49,6 +49,8 @@ int main(int argc, char *argv[]) {
 	[b setCurrentToolMode:IKToolModeMove];
 	NSString *path = [[[NSProcessInfo processInfo] arguments] lastObject];
 	if (![path isEqualToString:@"-"]) {
+		if (![[NSFileManager defaultManager] fileExistsAtPath:path])
+			errc(1, ENOENT, NULL);
 		NSURL *url = [NSURL fileURLWithPath:path];
 		[b setImageWithURL:url];
 		[win setTitleWithRepresentedFilename:[url path]];
@@ -66,10 +68,10 @@ int main(int argc, char *argv[]) {
 			[b setImage:image imageProperties:mImageProperties];
 			CGImageRelease(image);
 			[mImageProperties release];
+		} else {
+			errx(1, "Invalid image");
 		}
 	}
-	if (![b image])
-		errx(1, "Invalid image");
 	NSSize size = [b imageSize];
 	if (NSContainsRect(NSMakeRect(0.0f, 0.0f, size.width, size.height), [b bounds]))
 		[b zoomImageToFit:nil];
@@ -83,16 +85,11 @@ int main(int argc, char *argv[]) {
 @end
 
 @implementation IKImageView (i)
-- (NSInteger)mode {
-	NSString *cur = [self currentToolMode];
-	const all = ((NSString *[]){IKToolModeMove, IKToolModeSelect, IKToolModeCrop, IKToolModeRotate, IKToolModeAnnotate});
-	for (int i = 0; i < sizeof(all)/sizeof(all[0]); i++)
-		if ([all[i] isEqualToString:cur])
-			return i;
-	return -1;
-}
 -(void)setMode:(id)sender {
 	[self setCurrentToolMode:((NSString *[]){IKToolModeMove, IKToolModeSelect, IKToolModeCrop, IKToolModeRotate, IKToolModeAnnotate})[[sender tag]]];
+	for (NSMenuItem *item in [[sender menu] itemArray])
+		[item setState:NSOffState];
+	[sender setState:NSOnState];
 }
 -(void)magnifyWithEvent:(NSEvent *)anEvent {
 	float new = [self zoomFactor] + ([anEvent deltaZ] / 100.0f);
