@@ -12,7 +12,17 @@
 	#import <Cocoa/Cocoa.h>
 #else
 	#import <CoreFoundation/CoreFoundation.h>
+	#import <ApplicationServices/ApplicationServices.h>
 	typedef signed char BOOL;
 	#define YES (BOOL)1
 	#define NO (BOOL)0
 #endif
+
+#define EIF(cond, error) (__builtin_expect((cond), 0) ? (error) : (void)0)
+
+CG_INLINE void *xmalloc(size_t n) {
+	void *r;
+	if ((r = malloc(n)) == NULL)
+		err(1, NULL);
+	return r;
+}
