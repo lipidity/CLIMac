@@ -20,7 +20,7 @@
 
 #define EIF(cond, error) (__builtin_expect((cond), 0) ? (error) : (void)0)
 
-CG_INLINE void *xmalloc(size_t n) {
+__attribute__((malloc)) CG_INLINE void *xmalloc(size_t n) {
 	void *r;
 	if ((r = malloc(n)) == NULL)
 		err(1, NULL);

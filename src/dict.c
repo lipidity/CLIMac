@@ -81,7 +81,7 @@ int main(int argc, char *argv[]) {
 				if (url != NULL) {
 					DCSDictionaryRef dict = DCSDictionaryCreate(url);
 					CFRelease(url);
-					EIF(dict == NULL, errx(1, "Not a dictionary"));
+					EIF (dict == NULL, errx(1, "Not a dictionary"));
 					printCFStr(DCSDictionaryGetName(dict));
 					CFRelease(dict);
 					return 0;
@@ -94,7 +94,7 @@ int main(int argc, char *argv[]) {
 					if (url != NULL) {
 						DCSDictionaryRef dict = DCSDictionaryCreate(url);
 						CFRelease(url);
-						EIF(dict == NULL, errx(1, "Not a dictionary"));
+						EIF (dict == NULL, errx(1, "Not a dictionary"));
 						printCFStr(DCSDictionaryGetShortName(dict));
 						CFRelease(dict);
 						return 0;
@@ -102,38 +102,34 @@ int main(int argc, char *argv[]) {
 				}
 				break;	
 		}
-#if 0
-	CFStringRef word = CFStringCreateWithFileSystemRepresentation(NULL, argv[1]);
-	CFRange range = CFRangeMake(0, CFStringGetLength(word));
-
-#ifdef XML_DATA
-	const UInt8 dict[] = "/Library/Dictionaries/New Oxford American Dictionary.dictionary";
-	CFURLRef url = CFURLCreateFromFileSystemRepresentation(NULL, dict, strlen((const char *)dict), false);
-	CFTypeRef dictionary = DCSDictionaryCreate(url);
-	CFArrayRef records =  DCSCopyRecordsForSearchString(dictionary, word, 0, 0);
-	if (records) // MUST: only print one definition unless specified otherwise?
-		CFArrayApplyFunction(records, CFRangeMake(0, CFArrayGetCount(records)), &a, NULL);
-	else
-		warnx("No records in New Oxford Am");
-#endif
-	
-	CFStringRef def = DCSCopyTextDefinition(NULL, word, range);
-	if (def != NULL) {
-		char buffer[PATH_MAX];
-		if (CFStringGetFileSystemRepresentation(def, buffer, PATH_MAX)) {
-			fputs(buffer, stdout);
-			return 0;
-		}
-	}
-#endif
 	fprintf(stderr, "usage:  %s\n", argv[0]);
 	return 1;
 }
 
+#if 0
+CFStringRef word = CFStringCreateWithFileSystemRepresentation(NULL, argv[1]);
+CFRange range = CFRangeMake(0, CFStringGetLength(word));
 
+#ifdef XML_DATA
+const UInt8 dict[] = "/Library/Dictionaries/New Oxford American Dictionary.dictionary";
+CFURLRef url = CFURLCreateFromFileSystemRepresentation(NULL, dict, strlen((const char *)dict), false);
+CFTypeRef dictionary = DCSDictionaryCreate(url);
+CFArrayRef records =  DCSCopyRecordsForSearchString(dictionary, word, 0, 0);
+if (records) // MUST: only print one definition unless specified otherwise?
+CFArrayApplyFunction(records, CFRangeMake(0, CFArrayGetCount(records)), &a, NULL);
+else
+warnx("No records in New Oxford Am");
+#endif
 
-
-
+CFStringRef def = DCSCopyTextDefinition(NULL, word, range);
+if (def != NULL) {
+	char buffer[PATH_MAX];
+	if (CFStringGetFileSystemRepresentation(def, buffer, PATH_MAX)) {
+		fputs(buffer, stdout);
+		return 0;
+	}
+}
+#endif
 
 
 // requires Carbon; anyway, can open dict:// URL instead
