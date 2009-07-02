@@ -5,37 +5,25 @@
 .\"/usr/share/misc/mdoc.template
 .Dd June 14, 2009
 .Os "Mac OS X"
-.Dt FILEICON \&1 "CLIMac Reference Manual"
+.Dt DUP \&1 "CLIMac Reference Manual"
 .Sh NAME                 \" Section Header - required - don't modify 
-.Nm fileicon
-.Nd get icon image for file
+.Nm dup
+.Nd duplicate files
 .Sh SYNOPSIS             \" Section Header - required - don't modify
 .Nm
 .Ar
-.Op Fl o Ar out.tiff
-.Nm
-.Fl t Ar type
-.Op Fl o Ar out.tiff
 .Sh DESCRIPTION          \" Section Header - required - don't modify
 .Pp
 The
 .Nm
-utility outputs in TIFF format the icon for the specified file or file type.
+utility creates a copy of the specified files or folders in their parent directory. A suffix
+.Pq eg. Qq " copy"
+is added to the end of the new
+.No file Ap s name .
+.Pp
+Symlinks are never followed.
 .\".Sh FILES                \" File used or created by the topic of the man page
-.Sh EXAMPLES
-.Pp
-Write the icon for the
-.Pa /Users
-directory to the file
-.Pa hd.tiff :
-.Pp
-.Dl fileicon /Users -o hd.tiff
-.Pp
-Use
-.Xr imgconv 1
-to convert the image to a format other than TIFF. In this case, the icon for PDF documents is written in PNG format:
-.Pp
-.Dl fileicon -t `uti -e pdf` | imgconv pdficon.png
+.\".Sh EXAMPLES
 .Sh DIAGNOSTICS
 The
 .Nm
@@ -44,8 +32,8 @@ utility exits 0 on success, and \*(Gt0 if an error occurs.
 .Sh SEE ALSO 
 .\" List links in ascending order by section, alphabetically within a section.
 .\" Please do not reference files that do not exist without filing a bug report
-.Xr imgconv 1 ,
-.Xr seticon 1
+.Xr cp 1 ,
+.Xr mv 1
 .\" .Sh BUGS              \" Document known, unremedied bugs
 .\" .Sh HISTORY           \" Document history if command behaves in a unique manner
 .Sh AUTHORS

@@ -7,7 +7,7 @@
 .Os "Mac OS X"
 .Dt SHADOWS \&1 "CLIMac Reference Manual"
 .Sh NAME                 \" Section Header - required - don't modify 
-.Nm shadows
+.Nm winshadow
 .\" The following lines are read in generating the apropos(man -k) database. Use only key
 .\" words here as the database is built based on the words here and in the .ND line.
 .Nd modify window shadows
@@ -30,7 +30,7 @@ set
 In the first synopsis form, the
 .Nm
 utility prints information about the shadows of the specified windows. Windows are specified by window numbers which can be determined by the
-.Xr wid 1
+.Xr win 1
 command. If no options are specified, all available information is printed, otherwise the following flags determine what is printed:
 .Bl -tag -width "4n" -offset indent -compact
 .It Fl s
@@ -79,7 +79,7 @@ uses undocumented functions to accomplish its work.
 .Sh SEE ALSO
 .\" List links in ascending order by section, alphabetically within a section.
 .\" Please do not reference files that do not exist without filing a bug report
-.Xr wid 1
+.Xr win 1
 .Sh AUTHORS
 .Pp
 The

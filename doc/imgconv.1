@@ -1,0 +1,57 @@
+.Dd June 14, 2009
+.Os "Mac OS X"
+.Dt IMGCONV \&1 "CLIMac Reference Manual"
+.Sh NAME
+.Nm imgconv
+.Nd Convert images to different formats
+.Sh SYNOPSIS
+.Nm
+.Bq Fl in | out
+.Nm
+.Op Ar input
+.Ar output
+.Sh DESCRIPTION
+.Pp
+In the first synopsis form,
+.Fl in
+lists the image formats supported for reading (input), and
+.Fl out
+lists the image formats supported for writing (output).
+.Pp
+In the second synopsis form,
+.Nm
+reads from the image at
+.Ar input
+.Pq or from the standard input if omitted
+and writes it to
+.Ar output .
+The image format to use is determined by the file extension of
+.Ar output
+.Pq eg. So .png Sc for Portable Network Graphics , So .pdf Sc for Portable Document Format .
+.\" .Sh IMPLEMENTATION NOTES
+.\".Sh FILES                \" File used or created by the topic of the man page
+.Sh EXAMPLES
+Convert
+.Pa icon.tiff
+to a PNG image and write it to
+.Pa icon.png :
+.Dl imgconv icon.tiff icon.png
+.Sh DIAGNOSTICS
+The
+.Nm
+utility exits 0 on success, and \*(Gt0 if an error occurs.
+.\".Sh COMPATIBILITY
+.\".Sh SEE ALSO 
+.\".Xr cp 1 ,
+.\".Xr mv 1
+.\" .Sh HISTORY
+.Sh AUTHORS
+.Pp
+The
+.Nm
+utility was written by
+.An Sq Vacuous Virtuoso
+.Aq http://lipidity.com
+.Sh BUGS
+.Pp
+There should be an option to specify the format of the output image (the lack of this option also precludes dumping output to stdout).

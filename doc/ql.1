@@ -5,31 +5,46 @@
 .\"/usr/share/misc/mdoc.template
 .Dd June 14, 2009
 .Os "Mac OS X"
-.Dt FILEICON \&1 "CLIMac Reference Manual"
+.Dt QL \&1 "CLIMac Reference Manual"
 .Sh NAME                 \" Section Header - required - don't modify 
-.Nm fileicon
-.Nd get icon image for file
+.Nm ql
+.Nd Generate Quick Look thumbnail or preview
 .Sh SYNOPSIS             \" Section Header - required - don't modify
 .Nm
-.Ar
-.Op Fl o Ar out.tiff
+.Fl p
+.Ar file
+.Op Fl o Ar out
 .Nm
-.Fl t Ar type
+.Fl t
+.Op Fl w Ar width Fl h Ar height
+.Op Fl s Ar scale
 .Op Fl o Ar out.tiff
 .Sh DESCRIPTION          \" Section Header - required - don't modify
 .Pp
-The
-.Nm
-utility outputs in TIFF format the icon for the specified file or file type.
+In the first synopsis form, generates a QuickLook preview of the given file. The type of the generated preview as a UTI (eg. public.html) is printed. In the second synopsis form, generates a thumbnail image in TIFF format.
 .Pp
-Omit the
-.Fl o
-option when piping the image to the standard output
-.Pq see Sx EXAMPLES .
+Note that not all files can be previewed with Quick Look -- this is dependent on what Quick Look generators you have installed.
 .\".Sh FILES                \" File used or created by the topic of the man page
 .Sh EXAMPLES
-.Dl fileicon / -o hd.tiff
-.Dl fileicon -t pdf | imgconv pdficon.png
+.Ss Thumbnail
+.Pp
+Generate a 512 pixel high and 512 pixel wide thumbnail of the file at
+.Pa /usr/include/libc.h
+and save the image as
+.Pa libc.tiff :
+.Pp
+.Dl ql -t /usr/include/libc.h -h 512 -w 512 -o libc.tiff
+.Pp
+As above, but pipe to
+.Xr imgconv 1
+to generate a PNG image:
+.Pp
+.Dl ql -t /usr/include/libc.h -h 512 -w 512 | imgconv libc.png
+.Ss Preview
+.Pp
+Generate a preview of the specified file. The preview can be an image, audio, PDF, HTML or other text format.
+.Pp
+.Dl ql -p ~/Documents/WWDC.key -o output
 .Sh DIAGNOSTICS
 The
 .Nm
@@ -38,9 +53,8 @@ utility exits 0 on success, and \*(Gt0 if an error occurs.
 .Sh SEE ALSO 
 .\" List links in ascending order by section, alphabetically within a section.
 .\" Please do not reference files that do not exist without filing a bug report
-.Xr imgbrowser 1 ,
 .Xr imgconv 1 ,
-.Xr seticon 1
+.Xr qlmanage 1
 .\" .Sh BUGS              \" Document known, unremedied bugs
 .\" .Sh HISTORY           \" Document history if command behaves in a unique manner
 .Sh AUTHORS
