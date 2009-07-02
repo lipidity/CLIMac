@@ -9,7 +9,7 @@ int main(int argc, char *argv[]) {
 	NSAutoreleasePool *pool = [NSAutoreleasePool new];
 
 	if (argc != 2) {
-		fprintf(stderr, "usage:  %s [<image>]\n", argv[0]);
+		fprintf(stderr, "usage:  %s <image>\n", argv[0]);
 		return 1;
 	}
 

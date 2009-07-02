@@ -877,6 +877,7 @@
 		927AA0810FFCC3BD00B08314 /* alert.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = alert.1; sourceTree = "<group>"; };
 		927AA0820FFCC3BD00B08314 /* ql.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = ql.1; sourceTree = "<group>"; };
 		927AA0A10FFCD93B00B08314 /* imgconv.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = imgconv.1; sourceTree = "<group>"; };
+		927AA0AA0FFCDFD600B08314 /* imgview.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = imgview.1; sourceTree = "<group>"; };
 		927CFB5C0FEF17F900D7D4DF /* wintransition */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = wintransition; sourceTree = BUILT_PRODUCTS_DIR; };
 		927CFB760FEF182B00D7D4DF /* wintransition.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = wintransition.c; sourceTree = "<group>"; };
 		927CFBA40FEF20CC00D7D4DF /* wintransform */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = wintransform; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1481,13 +1482,14 @@
 		C6859EA2029092E104C91782 /* Documentation */ = {
 			isa = PBXGroup;
 			children = (
-				927AA0A10FFCD93B00B08314 /* imgconv.1 */,
+				927AA0AA0FFCDFD600B08314 /* imgview.1 */,
 				927AA0810FFCC3BD00B08314 /* alert.1 */,
 				927326F10FF1097B0082CE31 /* any2txt.1 */,
 				C6859EA3029092ED04C91782 /* app.1 */,
 				9270CF290FEA390F0026D4F5 /* beep.1 */,
 				9270CF3B0FEA4DD80026D4F5 /* dup.1 */,
 				92A4825A0FF873E90027FCF1 /* fileicon.1 */,
+				927AA0A10FFCD93B00B08314 /* imgconv.1 */,
 				92832D040FF087E500D513E3 /* pid.1 */,
 				927AA0820FFCC3BD00B08314 /* ql.1 */,
 				92708A220FEB53B600835BB3 /* setapp.1 */,

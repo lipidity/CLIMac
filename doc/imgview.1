@@ -1,0 +1,47 @@
+.Dd June 14, 2009
+.Os "Mac OS X"
+.Dt IMGVIEW \&1 "CLIMac Reference Manual"
+.Sh NAME
+.Nm imgview
+.Nd View and edit images
+.Sh SYNOPSIS
+.Nm
+.Ar file
+.Sh DESCRIPTION
+.Pp
+The
+.Nm
+utility displays the image at
+.Ar file .
+Pass
+.Sq -
+to read the image from the standard input.
+.Pp
+.Nm
+runs as a foreground application; it has a menu bar (allowing zooming, dragging, etc. of the image) and Dock icon.
+.\" .Sh IMPLEMENTATION NOTES
+.\".Sh FILES                \" File used or created by the topic of the man page
+.\".Sh EXAMPLES
+.Sh DIAGNOSTICS
+The
+.Nm
+utility exits 0 on success, and \*(Gt0 if an error occurs.
+.\".Sh COMPATIBILITY
+.\".Sh SEE ALSO 
+.\".Xr cp 1 ,
+.\".Xr mv 1
+.\" .Sh HISTORY
+.Sh AUTHORS
+.Pp
+The
+.Nm
+utility was written by
+.An Sq Vacuous Virtuoso
+.Aq http://lipidity.com
+.Sh BUGS
+.Bl -item -compact
+.It
+Multi-touch gesture support is not perfect.
+.It
+Currently you cannot save changes you make to the image.
+.El
