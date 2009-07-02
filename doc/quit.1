@@ -1,0 +1,42 @@
+.Dd June 14, 2009
+.Os "Mac OS X"
+.Dt QUIT \&1 "CLIMac Reference Manual"
+.Sh NAME
+.Nm quit
+.Nd quit and relaunch applications
+.Sh SYNOPSIS
+.Nm
+.Op Fl relaunch
+.Ar pid ...
+.Sh DESCRIPTION
+.Pp
+The
+.Nm
+utility quits the application that has the Process ID number of
+.Ar pid .
+If the
+.Fl relaunch
+flag was specified, the application is launched again after it has quit.
+.Pp
+Running this command on an application effects normal quitting behaviour
+.Pq unlike sending the KILL signal, which does not give the application a chance to perform cleanup operations .
+The application may need user interaction, for example if there are unsaved files, and may even decide to ignore the quit request.
+.\" .Sh IMPLEMENTATION NOTES
+.\".Sh FILES                \" File used or created by the topic of the man page
+.\".Sh EXAMPLES
+.Sh DIAGNOSTICS
+The
+.Nm
+utility exits 0 on success, and \*(Gt0 if an error occurs.
+.\".Sh COMPATIBILITY
+.Sh SEE ALSO
+.Xr pid 1
+.\" .Sh HISTORY
+.Sh AUTHORS
+.Pp
+The
+.Nm
+utility was written by
+.An Sq Vacuous Virtuoso
+.Aq http://lipidity.com
+.\" .Sh BUGS
