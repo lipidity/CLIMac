@@ -9,8 +9,7 @@ int main (int argc, const char * argv[]) {
 		struct kinfo_proc *r = NULL;
 
 		int name[] = { CTL_KERN, KERN_PROC, KERN_PROC_ALL, 0 };
-		if (sysctl(name, 3, NULL, &len, NULL, 0) || ((r = malloc(len)) == NULL) || sysctl(name, 3, r, &len, NULL, 0))
-			err(2, NULL);
+		EIF (sysctl(name, 3, NULL, &len, NULL, 0) || ((r = malloc(len)) == NULL) || sysctl(name, 3, r, &len, NULL, 0), err(2, NULL));
 
 		size_t c = len / sizeof(struct kinfo_proc);
 

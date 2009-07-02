@@ -31,7 +31,7 @@ int main (int argc, const char * argv[]) {
 		int c;
 		CFStringRef arg = NULL;
 		char action = 0;
-		BOOL listAll = NO;
+		bool listAll = 0;
 		Boolean (*fn)(CFStringRef, CFStringRef) = &UTTypeConformsTo;
 		while ((c = getopt_long(argc, (char **)argv, "lm:O:e:i:b:d:c:q:", longopts, NULL)) != EOF) {
 			switch (c) {

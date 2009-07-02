@@ -14,7 +14,7 @@ usage:
 		return 1;
 	}
 	CGPoint p = CGPointZero;
-	BOOL xset = 0, yset = 0;
+	bool xset = 0, yset = 0;
 	int i;
 	while ((i = getopt(argc, argv, "x:y:")) != EOF) {
 		if (i == 'x') {

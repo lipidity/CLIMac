@@ -2,7 +2,7 @@
 
 int main (int argc, const char * argv[]) {
 	if (argc > 1) {
-		int relaunch = (strcmp(argv[1], "-relaunch") == 0);
+		bool relaunch = (strcmp(argv[1], "-relaunch") == 0);
 		if (relaunch) {
 			argc -= 1; argv += 1;
 			if (argc == 1)

@@ -4,17 +4,10 @@
 #import <err.h>
 #import <errno.h>
 #import <getopt.h>
+#import <stdbool.h>
 #import <stdio.h>
 #import <stdlib.h>
 #import <string.h>
-
-static inline void *xmalloc(size_t n);
-static inline void *xmalloc(size_t n) {
-	void *r;
-	if ((r = malloc(n)) == NULL)
-		err(1, NULL);
-	return r;
-}
 
 static int options = XATTR_NOFOLLOW;
 static long gCols = 16;
@@ -416,7 +409,7 @@ static char **readList(size_t *size) {
 		size_t len = 0;
 		dattr = fgetln(stdin, &len);
 		if (dattr != NULL) {
-			BOOL newln = (dattr[len - 1] == '\n');
+			bool newln = (dattr[len - 1] == '\n');
 			if ((len > 1) || !newln) {
 				list[n] = xmalloc(len + !newln);
 				memcpy(list[n], dattr, len - newln);

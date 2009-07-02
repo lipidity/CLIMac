@@ -3,8 +3,8 @@
 
 int main(int argc, char *argv[]) {
 	if (argc > 1) {
-		BOOL skipN = 0;
-		BOOL recurse = 0;
+		bool skipN = 0;
+		bool recurse = 0;
 
 		int c = 0;
 		while ((c = getopt(argc, argv, "fn")) != EOF) {
