@@ -57,7 +57,7 @@ int main (int argc, char *argv[]) {
 					errx(1, "Invalid range");
 				}
 				case 'o':
-					if (oURL != NULL)
+					if (oURL == NULL)
 						oURL = CFURLCreateFromFileSystemRepresentation(NULL, (UInt8 *)optarg, strlen(optarg), false);
 					else
 						errx(1, "Only one -output option allowed");
