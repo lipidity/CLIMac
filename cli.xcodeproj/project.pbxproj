@@ -928,6 +928,7 @@
 		92B2E11D0FE88E82001CAD1E /* loginitems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = loginitems.m; sourceTree = "<group>"; };
 		92B4CF6F0FDA69C300F5AC0D /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
 		92B4CF700FDA69C300F5AC0D /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
+		92DF6CB91000C7CB00A8EFAF /* pdfcat.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = pdfcat.1; sourceTree = "<group>"; };
 		92DFDAB80FD9FDC900F7C0BD /* dup */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dup; sourceTree = BUILT_PRODUCTS_DIR; };
 		92DFDABA0FD9FE1400F7C0BD /* dup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dup.m; sourceTree = "<group>"; };
 		92DFDABB0FD9FE1400F7C0BD /* trash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = trash.c; sourceTree = "<group>"; };
@@ -1487,6 +1488,7 @@
 		C6859EA2029092E104C91782 /* Documentation */ = {
 			isa = PBXGroup;
 			children = (
+				92DF6CB91000C7CB00A8EFAF /* pdfcat.1 */,
 				927AA0810FFCC3BD00B08314 /* alert.1 */,
 				927326F10FF1097B0082CE31 /* any2txt.1 */,
 				C6859EA3029092ED04C91782 /* app.1 */,
@@ -2856,6 +2858,11 @@
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "$(HOME)/bin";
+				OTHER_CFLAGS = (
+					"-fno-non-lvalue-assign",
+					"-fstrict-aliasing",
+					"-freorder-blocks",
+				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -2877,7 +2884,6 @@
 					"-Wdisabled-optimization",
 					"-Wno-missing-field-initializers",
 					"-Wno-unused-parameter",
-					"-fno-non-lvalue-assign",
 				);
 			};
 			name = Debug;
@@ -2916,6 +2922,11 @@
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = "$(HOME)/bin";
+				OTHER_CFLAGS = (
+					"-fno-non-lvalue-assign",
+					"-fstrict-aliasing",
+					"-freorder-blocks",
+				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WARNING_CFLAGS = (
@@ -2936,7 +2947,6 @@
 					"-Wdisabled-optimization",
 					"-Wno-missing-field-initializers",
 					"-Wno-unused-parameter",
-					"-fno-non-lvalue-assign",
 				);
 			};
 			name = Release;
