@@ -53,13 +53,17 @@ int main(int argc, char *argv[]) {
 				[n release];
 			}	break;
 			default:
+				goto usage;
 				break;
 		}
 	}
-	argc -= optind; argv += optind;
-
-	if (argc == 0)
-		errx(1, "No files to show");
+	argc -= optind;
+	if (argc == 0) {
+		warnx("No files to show");
+usage:
+		fprintf(stderr, "usage:  %s [-p | -q | -i] <file>...\n", argv[0]);
+	}
+	argv += optind;
 
 	NSFileManager *fm = [NSFileManager defaultManager];
 	NSMutableArray *files = [[NSMutableArray alloc] initWithCapacity:argc];

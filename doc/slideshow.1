@@ -1,0 +1,43 @@
+.Dd June 14, 2009
+.Os "Mac OS X"
+.Dt SLIDESHOW \&1 "CLIMac Reference Manual"
+.Sh NAME
+.Nm slideshow
+.Nd run a full-screen slideshow
+.Sh SYNOPSIS
+.Nm
+.Op Fl p \*(Ba q \*(Ba i
+.Ar
+.Sh DESCRIPTION
+.Pp
+The
+.Nm
+utility runs a full-screen slideshow using the given files in one of three modes:
+.Bl -ohang
+.It Fl p Ns / Ns Fl -pdf
+.D1 Read a PDF document in full screen mode .
+.It Fl q Ns / Ns Fl -quick-look
+.D1 View Quick Look information for the given files . This is the default .
+.It Fl i Ns / Ns Fl -images
+.D1 View a slideshow of images .
+.El
+.\" .Sh IMPLEMENTATION NOTES
+.\".Sh FILES                \" File used or created by the topic of the man page
+.\".Sh EXAMPLES
+.Sh DIAGNOSTICS
+The
+.Nm
+utility exits 0 on success, and \*(Gt0 if an error occurs.
+.\".Sh COMPATIBILITY
+.\".Sh SEE ALSO 
+.\".Xr cp 1 ,
+.\".Xr mv 1
+.\" .Sh HISTORY
+.Sh AUTHORS
+.Pp
+The
+.Nm
+utility was written by
+.An Sq Vacuous Virtuoso
+.Aq http://lipidity.com
+.\" .Sh BUGS

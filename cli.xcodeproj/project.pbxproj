@@ -884,6 +884,7 @@
 		927170D70FF3348E00699906 /* imgview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imgview.m; sourceTree = "<group>"; };
 		9271EB161001CC2300B05493 /* loginitems.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = loginitems.1; sourceTree = "<group>"; };
 		9271EB261001D16E00B05493 /* readalias.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = readalias.1; sourceTree = "<group>"; };
+		9271EB441001D5D000B05493 /* slideshow.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = slideshow.1; sourceTree = "<group>"; };
 		927326F10FF1097B0082CE31 /* any2txt.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = any2txt.1; sourceTree = "<group>"; };
 		9275922C0FEB6842008E8091 /* winshadow.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = winshadow.1; sourceTree = "<group>"; };
 		927AA0810FFCC3BD00B08314 /* alert.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = alert.1; sourceTree = "<group>"; };
@@ -1497,6 +1498,7 @@
 		C6859EA2029092E104C91782 /* Documentation */ = {
 			isa = PBXGroup;
 			children = (
+				9271EB441001D5D000B05493 /* slideshow.1 */,
 				927AA0810FFCC3BD00B08314 /* alert.1 */,
 				927326F10FF1097B0082CE31 /* any2txt.1 */,
 				C6859EA3029092ED04C91782 /* app.1 */,
