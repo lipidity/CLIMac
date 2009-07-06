@@ -21,8 +21,7 @@ int main(int argc, char *argv[]) {
 		}
 
 		int numPrinted = 0;
-		c = optind;
-		while (c < argc) {
+		for (c = optind; c < argc; c++) {
 			CFURLRef url = CFURLCreateFromFileSystemRepresentation(NULL, (const UInt8 *)argv[c], strlen(argv[c]), false);
 			if (url != NULL) {
 				FSRef ref;
@@ -33,9 +32,7 @@ int main(int argc, char *argv[]) {
 						CFStringRef pathString = CFURLCopyFileSystemPath(resolved, kCFURLPOSIXPathStyle);
 						if (pathString != NULL) {
 							CFIndex maxlen = CFStringGetMaximumSizeOfFileSystemRepresentation(pathString);
-							char *path = malloc(maxlen);
-							if (path == NULL)
-								err(1, NULL);
+							char *path = xmalloc(maxlen);
 							CFStringGetFileSystemRepresentation(pathString, path, maxlen);
 							fputs(path, stdout);
 							numPrinted += 1;
@@ -49,7 +46,6 @@ int main(int argc, char *argv[]) {
 				}
 				CFRelease(url);
 			}
-			c += 1;
 		}
 		return !(numPrinted == (argc - optind));
 	} else {

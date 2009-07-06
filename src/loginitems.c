@@ -27,11 +27,12 @@ kLSSharedFileListItemHidden
 #endif
 
 int main(int argc, char *argv[]) {
+	bool retval = 0;
 	const struct option longopts[] = {
-		{ "add", no_argument, NULL, 'a' },
-		{ "delete", no_argument, NULL, 'd' },
-		{ "clear", no_argument, NULL, 'D' },
 		{ "list", no_argument, NULL, 'l' },
+		{ "add", no_argument, NULL, 'a' },
+		{ "remove", no_argument, NULL, 'r' },
+		{ "remove-all", no_argument, NULL, 'R' },
 		{ NULL, 0, NULL, 0 }
 	};
 	LSSharedFileListRef list = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
@@ -39,7 +40,7 @@ int main(int argc, char *argv[]) {
 		errx(1, "Couldn't retrieve list");
 	UInt32 seed;
 	CFArrayRef all = LSSharedFileListCopySnapshot(list, &seed);
-	int c = getopt_long(argc, argv, "adrDl", longopts, NULL);
+	int c = getopt_long_only(argc, argv, "larR", longopts, NULL);
 	if (argc == optind) {
 		if (c == 'l') {
 			for (CFIndex i = 0; i < CFArrayGetCount(all); i++) {
@@ -48,15 +49,17 @@ int main(int argc, char *argv[]) {
 					UInt8 buffer[PATH_MAX];
 					if (CFURLGetFileSystemRepresentation(itemURL, true, buffer, PATH_MAX))
 						puts((char *)buffer);
-					// else?
+					else
+						retval = 1;
 					CFRelease(itemURL);
 				}
 			}
-			return 0;
-		} else if (c == 'D') {
+			return retval;
+		} else if (c == 'R') {
 			return LSSharedFileListRemoveAllItems(list) == noErr;
 		}
 	} else if (optind < argc) {
+		// SHOULD: '-' for stdin like xattr
 		int j = optind;
 		do {
 			struct stat st = {0};
@@ -66,9 +69,9 @@ int main(int argc, char *argv[]) {
 				case 'a':
 					LSSharedFileListInsertItemURL(list, kLSSharedFileListItemLast, NULL, NULL, arg, NULL, NULL);
 					break;
-				case 'r':
-				case 'd': {
-					for (CFIndex i = 0; i < CFArrayGetCount(all); i++) {
+				case 'r': {
+					CFIndex allCount = CFArrayGetCount(all);
+					for (CFIndex i = 0; i < allCount; i++) {
 						CFURLRef itemURL = NULL;
 						LSSharedFileListItemRef item = (LSSharedFileListItemRef)CFArrayGetValueAtIndex(all, i);
 						if (LSSharedFileListItemResolve(item, 0, &itemURL, NULL) == noErr) {
@@ -81,6 +84,8 @@ int main(int argc, char *argv[]) {
 							CFRelease(itemURL);
 						}
 					}
+					if (i == allCount)
+						warnx("%s: No such item", argv[j]);
 				} break;
 				default:
 					goto usage;
@@ -91,8 +96,8 @@ int main(int argc, char *argv[]) {
 	}
 	CFRelease(all);
 usage:
-	fprintf(stderr, "usage:  %s -l\n\t%s [-a | -d] <item>\n\t%s -D\n", argv[0], argv[0], argv[0]);
-	return 1;
+	fprintf(stderr, "usage:  %s -l\n\t%s [-a | -r] <item>\n\t%s -R\n", argv[0], argv[0], argv[0]);
+	return retval;
 }
 #if 0
 LSSharedFileListInsertItemURL

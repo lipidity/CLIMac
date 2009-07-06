@@ -1,0 +1,46 @@
+.Dd June 14, 2009
+.Os "Mac OS X"
+.Dt READALIAS \&1 "CLIMac Reference Manual"
+.Sh NAME
+.Nm readalias
+.Nd resolve target of Finder alias
+.Sh SYNOPSIS
+.Nm
+.Op Fl fn
+.Ar
+.Sh DESCRIPTION
+.Pp
+The
+.Nm
+utility when invoked with the path of a Finder alias as its argument resolves the alias and prints the path to the target file. If
+.Nm
+is invoked with an argument other than the pathname of a Finder alias, it exits with a non-zero exit code without printing anything.
+.Pp
+The following options are available:
+.Bl -tag -width 4n
+.It Fl f
+Resolve all aliases in a chain
+.Pq for example , an alias file that refers to an alias file and so on ,
+stopping only when the target file is reached.
+.It Fl n
+Do not print a trailing newline character.
+.El
+.\" .Sh IMPLEMENTATION NOTES
+.\".Sh FILES                \" File used or created by the topic of the man page
+.\".Sh EXAMPLES
+.Sh DIAGNOSTICS
+The
+.Nm
+utility exits 0 on success, and \*(Gt0 if an error occurs.
+.\".Sh COMPATIBILITY
+.Sh SEE ALSO 
+.Xr readlink 1
+.\" .Sh HISTORY
+.Sh AUTHORS
+.Pp
+The
+.Nm
+utility was written by
+.An Sq Vacuous Virtuoso
+.Aq http://lipidity.com
+.\" .Sh BUGS

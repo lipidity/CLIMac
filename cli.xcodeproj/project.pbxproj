@@ -112,6 +112,8 @@
 		927170D80FF3349200699906 /* imgbrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 927170D60FF3348E00699906 /* imgbrowser.m */; };
 		927171F00FF3953300699906 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92ACC0B70FE9C783009E0760 /* Quartz.framework */; };
 		927171F10FF3953400699906 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
+		9271EB251001D13D00B05493 /* loginitems.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9271EB161001CC2300B05493 /* loginitems.1 */; };
+		9271EB411001D57300B05493 /* readalias.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9271EB261001D16E00B05493 /* readalias.1 */; };
 		927326EA0FF0FE370082CE31 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B4CF700FDA69C300F5AC0D /* CoreServices.framework */; };
 		927326FC0FF109880082CE31 /* any2txt.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 927326F10FF1097B0082CE31 /* any2txt.1 */; };
 		9277465E0FF9EAA20056FA78 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
@@ -180,6 +182,7 @@
 		92B474A50FF5083800FBD9C8 /* winalpha.c in Sources */ = {isa = PBXBuildFile; fileRef = 92ACC3DD0FE9E5FE009E0760 /* winalpha.c */; };
 		92B4CF710FDA69C300F5AC0D /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B4CF6F0FDA69C300F5AC0D /* CoreFoundation.framework */; };
 		92B4CF720FDA69C300F5AC0D /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B4CF700FDA69C300F5AC0D /* CoreServices.framework */; };
+		92DF6CBB1000C92A00A8EFAF /* pdfcat.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 92DF6CB91000C7CB00A8EFAF /* pdfcat.1 */; };
 		92DFDABC0FD9FE1400F7C0BD /* dup.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DFDABA0FD9FE1400F7C0BD /* dup.m */; };
 		92DFDAC10FD9FE1800F7C0BD /* trash.c in Sources */ = {isa = PBXBuildFile; fileRef = 92DFDABB0FD9FE1400F7C0BD /* trash.c */; };
 		92FF24240FF8EA2900A7B039 /* seticon.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 92FF24230FF8EA2200A7B039 /* seticon.1 */; };
@@ -493,6 +496,7 @@
 			dstPath = /Users/ankur/share/man/man1;
 			dstSubfolderSpec = 0;
 			files = (
+				92DF6CBB1000C92A00A8EFAF /* pdfcat.1 in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
@@ -561,6 +565,7 @@
 			dstPath = /Users/ankur/share/man/man1;
 			dstSubfolderSpec = 0;
 			files = (
+				9271EB411001D57300B05493 /* readalias.1 in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
@@ -618,6 +623,7 @@
 			dstPath = /Users/ankur/share/man/man1;
 			dstSubfolderSpec = 0;
 			files = (
+				9271EB251001D13D00B05493 /* loginitems.1 in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
@@ -876,6 +882,8 @@
 		927170D40FF3344800699906 /* imgbrowser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = imgbrowser; sourceTree = BUILT_PRODUCTS_DIR; };
 		927170D60FF3348E00699906 /* imgbrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imgbrowser.m; sourceTree = "<group>"; };
 		927170D70FF3348E00699906 /* imgview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imgview.m; sourceTree = "<group>"; };
+		9271EB161001CC2300B05493 /* loginitems.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = loginitems.1; sourceTree = "<group>"; };
+		9271EB261001D16E00B05493 /* readalias.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = readalias.1; sourceTree = "<group>"; };
 		927326F10FF1097B0082CE31 /* any2txt.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = any2txt.1; sourceTree = "<group>"; };
 		9275922C0FEB6842008E8091 /* winshadow.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = winshadow.1; sourceTree = "<group>"; };
 		927AA0810FFCC3BD00B08314 /* alert.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = alert.1; sourceTree = "<group>"; };
@@ -929,6 +937,7 @@
 		92B4CF6F0FDA69C300F5AC0D /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
 		92B4CF700FDA69C300F5AC0D /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		92DF6CB91000C7CB00A8EFAF /* pdfcat.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = pdfcat.1; sourceTree = "<group>"; };
+		92DF6CC11000CA0200A8EFAF /* pdfinfo.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = pdfinfo.1; sourceTree = "<group>"; };
 		92DFDAB80FD9FDC900F7C0BD /* dup */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dup; sourceTree = BUILT_PRODUCTS_DIR; };
 		92DFDABA0FD9FE1400F7C0BD /* dup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dup.m; sourceTree = "<group>"; };
 		92DFDABB0FD9FE1400F7C0BD /* trash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = trash.c; sourceTree = "<group>"; };
@@ -1488,7 +1497,6 @@
 		C6859EA2029092E104C91782 /* Documentation */ = {
 			isa = PBXGroup;
 			children = (
-				92DF6CB91000C7CB00A8EFAF /* pdfcat.1 */,
 				927AA0810FFCC3BD00B08314 /* alert.1 */,
 				927326F10FF1097B0082CE31 /* any2txt.1 */,
 				C6859EA3029092ED04C91782 /* app.1 */,
@@ -1497,9 +1505,13 @@
 				92A4825A0FF873E90027FCF1 /* fileicon.1 */,
 				927AA0A10FFCD93B00B08314 /* imgconv.1 */,
 				927AA0AA0FFCDFD600B08314 /* imgview.1 */,
+				9271EB161001CC2300B05493 /* loginitems.1 */,
+				92DF6CB91000C7CB00A8EFAF /* pdfcat.1 */,
+				92DF6CC11000CA0200A8EFAF /* pdfinfo.1 */,
 				92832D040FF087E500D513E3 /* pid.1 */,
 				927AA0E70FFCE6C300B08314 /* quit.1 */,
 				927AA0820FFCC3BD00B08314 /* ql.1 */,
+				9271EB261001D16E00B05493 /* readalias.1 */,
 				92708A220FEB53B600835BB3 /* setapp.1 */,
 				92FF24230FF8EA2200A7B039 /* seticon.1 */,
 				9275922C0FEB6842008E8091 /* winshadow.1 */,

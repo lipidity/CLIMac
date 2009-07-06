@@ -1,0 +1,54 @@
+.Dd June 14, 2009
+.Os "Mac OS X"
+.Dt LOGINITEMS \&1 "CLIMac Reference Manual"
+.Sh NAME
+.Nm loginitems
+.Nd list and edit login items
+.Sh SYNOPSIS
+.Nm
+.Fl l
+.Nm
+.Fl a Ar item ...
+.Nm
+.Fl r Ar item ...
+.Nm
+.Fl R
+.Sh DESCRIPTION
+.Pp
+The
+.Nm
+utility displays and edits the list of items
+.Pq usually paths to files or applications
+that are to be opened when the current user logs in (in a GUI login session).
+.Pp
+The options are as follows:
+.Bl -ohang
+.It Fl l Ns / Ns Fl -list
+.D1 List all login items .
+.It Fl a Ns / Ns Fl -add Ar item ...
+.D1 Add Ar item No to the login items list .
+.It Fl r Ns / Ns Fl -remove Ar item ...
+.D1 Remove Ar item No from the login items list .
+.It Fl R Ns / Ns Fl -clear
+.D1 Remove everything from the login items list .
+.El
+.\" .Sh IMPLEMENTATION NOTES
+.\".Sh FILES                \" File used or created by the topic of the man page
+.\".Sh EXAMPLES
+.Sh DIAGNOSTICS
+The
+.Nm
+utility exits 0 on success, and \*(Gt0 if an error occurs.
+.\".Sh COMPATIBILITY
+.\".Sh SEE ALSO 
+.\".Xr cp 1 ,
+.\".Xr mv 1
+.\" .Sh HISTORY
+.Sh AUTHORS
+.Pp
+The
+.Nm
+utility was written by
+.An Sq Vacuous Virtuoso
+.Aq http://lipidity.com
+.\" .Sh BUGS
