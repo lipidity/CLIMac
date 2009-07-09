@@ -24,3 +24,9 @@ __attribute__((malloc)) CG_INLINE void *xmalloc(size_t n) {
 		err(1, NULL);
 	return r;
 }
+__attribute__((malloc)) CG_INLINE void *xrealloc(void *ptr, size_t n) {
+	void *r;
+	if ((r = realloc(ptr, n)) == NULL)
+		err(1, NULL);
+	return r;
+}
