@@ -305,7 +305,7 @@ int main(int argc, char *argv[]) {
 			if (nml_len == 0) // MUST: check if overflow is caught
 				errx(1, "Input too big");
 			nml = xrealloc(nml, nml_len);
-			lastReadCount = fread(nml, 1u, 4096u, stdin);
+			lastReadCount = fread(nml + (nml_len - 4096u), 1u, 4096u, stdin);
 		}
 		EIF (ferror_unlocked(stdin), errx(1, "Read error"));
 		if (nml_len != 0u)
