@@ -89,7 +89,7 @@ int main (int argc, char *argv[]) {
 			}
 		}
 		if (action == 0)
-			errx(1, "One of -preview of -thumbnail must be specified");
+			errx(1, "One of -preview or -thumbnail must be specified");
 		if (oURL == nil && isatty(STDOUT_FILENO))
 			errx(1, "Refusing to dump data to a terminal");
 		argc -= optind;
@@ -105,8 +105,13 @@ int main (int argc, char *argv[]) {
 			if (action == 'p') {
 				QLPreviewRef ql = QLPreviewCreate(NULL, item, NULL);
 				tiff = (NSData *)QLPreviewCopyData(ql);
-				if (tiff != nil)
+				if (tiff != nil) {
 					fprintf(stderr, "Generated Preview: %s\n", [(NSString *)QLPreviewGetPreviewType(ql) fileSystemRepresentation]);
+					NSDictionary *props = (NSDictionary *)QLPreviewCopyProperties(ql);
+					NSUInteger numAttachments = [[props objectForKey:@"Attachments"] count];
+					if (numAttachments != 0)
+						fprintf(stderr, "%u attachments\n", numAttachments);
+				}
 			} else {
 				NSMutableDictionary *opts = [NSMutableDictionary dictionary];
 				if (scale)

@@ -134,6 +134,7 @@
 		927E85DF0FDA24C4008D6B2B /* fileicon.m in Sources */ = {isa = PBXBuildFile; fileRef = 927E85DE0FDA24C4008D6B2B /* fileicon.m */; };
 		927E86110FDA37CE008D6B2B /* readalias.c in Sources */ = {isa = PBXBuildFile; fileRef = 927E86100FDA37CE008D6B2B /* readalias.c */; };
 		9280045310357753007441CF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
+		928004B2103586C3007441CF /* html-tokenize.m in Sources */ = {isa = PBXBuildFile; fileRef = 928004B1103586C3007441CF /* html-tokenize.m */; };
 		9280A5900FF98FE300893C5A /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
 		9280A5930FF98FE300893C5A /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92832D170FF0975D00D513E3 /* QuickLook.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		9280A5B20FF9905400893C5A /* ql.m in Sources */ = {isa = PBXBuildFile; fileRef = 9280A5B10FF9905000893C5A /* ql.m */; };
@@ -234,7 +235,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 92C8EA311034FB4600048FC7 /* normalize */;
+			remoteGlobalIDString = 92C8EA311034FB4600048FC7;
 			remoteInfo = normalize;
 		};
 		928378950FF313F1006E2CD0 /* PBXContainerItemProxy */ = {
@@ -942,6 +943,8 @@
 		927E85DE0FDA24C4008D6B2B /* fileicon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fileicon.m; sourceTree = "<group>"; };
 		927E86000FDA378B008D6B2B /* readalias */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = readalias; sourceTree = BUILT_PRODUCTS_DIR; };
 		927E86100FDA37CE008D6B2B /* readalias.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = readalias.c; sourceTree = "<group>"; };
+		928004B0103586C3007441CF /* html-tokenize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "html-tokenize.h"; sourceTree = "<group>"; };
+		928004B1103586C3007441CF /* html-tokenize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "html-tokenize.m"; sourceTree = "<group>"; };
 		9280A59A0FF98FE300893C5A /* ql */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ql; sourceTree = BUILT_PRODUCTS_DIR; };
 		9280A5B10FF9905000893C5A /* ql.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ql.m; sourceTree = "<group>"; };
 		92832D040FF087E500D513E3 /* pid.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = pid.1; sourceTree = "<group>"; };
@@ -1397,6 +1400,8 @@
 				928F92DF0FE8B2590031CEB8 /* beep.m */,
 				92A850950FFB269C00957102 /* dict.c */,
 				92C8EA4A1034FBF900048FC7 /* normalize.m */,
+				928004B0103586C3007441CF /* html-tokenize.h */,
+				928004B1103586C3007441CF /* html-tokenize.m */,
 			);
 			name = Source;
 			path = src;
@@ -2687,6 +2692,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9297C66E1033ADAF001D2390 /* html5.c in Sources */,
+				928004B2103586C3007441CF /* html-tokenize.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
