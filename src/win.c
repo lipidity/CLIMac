@@ -17,20 +17,20 @@ CG_EXTERN CGError CGSSetWindowAutofillColor(CGSConnectionID cid, CGSWindowID wid
 
 CGEventRef p(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *r);
 CGEventRef p(CGEventTapProxy proxy, CGEventType type, CGEventRef event, void *r) {
-	int myWid = *(int*)r, lastwid = *((int*)r+1), widO, cidO, c = CGSMainConnectionID();
+	int myWid = *(int*)r, widO = 0, cidO = 0, c = CGSMainConnectionID();
 	CGPoint myPoint = CGEventGetLocation(event), oP;
 	CGSFindWindowByGeometry(c, 0, 1, 0, &myPoint, &oP, &widO, &cidO);
 	if(type == kCGEventLeftMouseDown) {
 		CGSOrderWindow(c, myWid, kCGSOrderOut, 0);
 		return NULL;
-	} else if(lastwid != widO && cidO != c) {
+	} else if(*((int*)r+1) != widO && cidO != c) {
 		CGRect t; CGSRegionObj g;
 		CGSGetScreenRectForWindow(c, widO, &t);
 		CGSNewRegionWithRect(&t, &g);
 		CGSSetWindowShape(c, myWid, 0.0f, 0.0f, g);
 		CGSReleaseRegion(g);
 		CGSOrderWindow(c, myWid, kCGSOrderAbove, widO);
-		lastwid = widO;
+		*((int*)r+1) = widO;
 	} else if(type == kCGEventKeyUp) {
 		if(CGEventGetIntegerValueField(event, kCGKeyboardEventKeycode) == 53)
 			CFRunLoopStop(CFRunLoopGetCurrent());
@@ -88,7 +88,7 @@ int main (int argc, const char * argv[]) {
 		int i = -1;
 		while(++i < u) {
 			CFTypeRef t = NULL;
-			CGSGetWindowProperty(c, l[i] , CFSTR("kCGSWindowTitle"), &t);
+			CGSGetWindowProperty(c, l[i], CFSTR("kCGSWindowTitle"), &t);
 			if(!(t && CFStringGetLength(t))) t = CFSTR("-");
 
 			CGSConnectionID o;

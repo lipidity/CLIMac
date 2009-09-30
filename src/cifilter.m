@@ -1,6 +1,23 @@
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
 
+#ifndef CGFLOAT_DEFINED // for 10.4
+#if defined(__LP64__) && __LP64__
+# define CGFLOAT_TYPE double
+# define CGFLOAT_IS_DOUBLE 1
+# define CGFLOAT_MIN DBL_MIN
+# define CGFLOAT_MAX DBL_MAX
+#else /* !defined(__LP64__) || !__LP64__ */
+# define CGFLOAT_TYPE float
+# define CGFLOAT_IS_DOUBLE 0
+# define CGFLOAT_MIN FLT_MIN
+# define CGFLOAT_MAX FLT_MAX
+#endif /* !defined(__LP64__) || !__LP64__ */
+
+typedef CGFLOAT_TYPE CGFloat;
+#define CGFLOAT_DEFINED 1
+#endif
+
 // todo: -f <path> to read lines from file
 // todo: -e '...' to specify individual lines
 // todo: able to read image from stdin
@@ -66,8 +83,10 @@ int main(int argc, char *argv[]) {
 			[l setString:[l substringToIndex:w.location]];
 			CFStringTrimWhitespace((CFMutableStringRef)l);
 		}
-		if (![l length])
+		if (![l length]) {
+			[subpool release];
 			continue;
+		}
 		CIFilter *newFilter = [CIFilter filterWithName:l] ? : [CIFilter filterWithName:[@"CI" stringByAppendingString:l]];
 		if (newFilter != nil) {
 			currentFilter = newFilter;
@@ -242,14 +261,16 @@ parse: ;
 		[(NSFileHandle *)[NSFileHandle fileHandleWithStandardOutput] writeData:dataOut];
 	} else {
 		NSString *path = (NSString *)CFStringCreateWithFileSystemRepresentation(NULL, argv[2]);
-		if (![[path pathExtension] isEqualToString:@"tif"] && ![[path pathExtension] isEqualToString:@"tiff"])
-			path = [path stringByAppendingPathExtension:@"tiff"];
+		if (![[path pathExtension] isEqualToString:@"tif"] && ![[path pathExtension] isEqualToString:@"tiff"]) {
+			NSString *tmp = path;
+			path = [[tmp stringByAppendingPathExtension:@"tiff"] retain];
+			[tmp release];
+		}
 		if (![dataOut writeToFile:path atomically:0]) {
 			errx(2, "Could not write image to '%s'\n", argv[2]);
 		}
 		[path release];
 	}
-	[dataOut release];
 	[pool release];
     return 0;
 }

@@ -77,7 +77,7 @@ int main(int argc, char *argv[]) {
 
 		int i = 0;
 		do {
-			CGSWindowID w = strtol(argv[i], NULL, 10); // check
+			CGSWindowID w = (CGSWindowID)strtol(argv[i], NULL, 10); // check
 			CGAffineTransform transform; // init
 			CGSGetWindowTransform(cid, w, &transform);
 			CGSSetWindowTransform(cid, w, CGAffineTransformConcat(transform, t));

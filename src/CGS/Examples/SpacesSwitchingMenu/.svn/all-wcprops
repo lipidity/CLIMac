@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/CGSInternal/!svn/ver/21/trunk/Examples/SpacesSwitchingMenu
+END
+main.m
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/CGSInternal/!svn/ver/19/trunk/Examples/SpacesSwitchingMenu/main.m
+END
+Info.plist
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/CGSInternal/!svn/ver/19/trunk/Examples/SpacesSwitchingMenu/Info.plist
+END
+Controller.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/CGSInternal/!svn/ver/20/trunk/Examples/SpacesSwitchingMenu/Controller.h
+END
+SpacesSwitchingMenu_Prefix.pch
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/CGSInternal/!svn/ver/19/trunk/Examples/SpacesSwitchingMenu/SpacesSwitchingMenu_Prefix.pch
+END
+Controller.m
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/CGSInternal/!svn/ver/21/trunk/Examples/SpacesSwitchingMenu/Controller.m
+END

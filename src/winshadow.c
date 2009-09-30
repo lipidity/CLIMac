@@ -53,14 +53,14 @@ usage:
 				case 'y':
 					sh.y = (int)strtol(optarg, NULL, 10); setit.y = 1; break;
 				case 'f':
-					sh.f = (int)strtol(optarg, NULL, 10); setit.f = 1; break;
+					sh.f = (unsigned int)strtoul(optarg, NULL, 10); setit.f = 1; break;
 				default: goto usage;
 			}
 		}
 		argv += optind; argc -= optind;
 		if(!argc)
 			goto usage;
-		int cid = CGSMainConnectionID();
+		CGSConnectionID cid = CGSMainConnectionID();
 
 		size_t len = 0;
 		struct kinfo_proc *r = NULL;
@@ -78,7 +78,7 @@ usage:
 		CGSSetUniversalOwner(cid);
 		c = 0;
 		while(c < argc) {
-			int wid = (int)strtol(argv[c++], NULL, 10);
+			CGSWindowID wid = (CGSWindowID)strtol(argv[c++], NULL, 10);
 			float sd, dd; int xd, yd; unsigned int fd;
 			CGSGetWindowShadowAndRimParameters(cid, wid, &sd, &dd, &xd, &yd, &fd);
 			if(setit.s) sd = sh.s;

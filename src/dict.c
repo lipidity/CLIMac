@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
 					EIF (all == NULL, errx(1, "Unable to get available dictionaries"));
 					CFIndex num = CFSetGetCount(all);
 					DCSDictionaryRef *r = xmalloc(sizeof(DCSDictionaryRef) * num);
-					CFSetGetValues(all, r);
+					CFSetGetValues(all, (const void **)r);
 					for (CFIndex i = 0; i < num; i++)
 						printDictURL(r[i]);
 					free(r);

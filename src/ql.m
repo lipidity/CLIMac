@@ -110,7 +110,7 @@ int main (int argc, char *argv[]) {
 					NSDictionary *props = (NSDictionary *)QLPreviewCopyProperties(ql);
 					NSUInteger numAttachments = [[props objectForKey:@"Attachments"] count];
 					if (numAttachments != 0)
-						fprintf(stderr, "%u attachments\n", numAttachments);
+						fprintf(stderr, "%lu attachments\n", numAttachments);
 				}
 			} else {
 				NSMutableDictionary *opts = [NSMutableDictionary dictionary];

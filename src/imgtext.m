@@ -14,12 +14,13 @@ int main (int argc, char *argv[]) {
 				[img lockFocus];
 				[str drawAtPoint:NSZeroPoint];
 				[img unlockFocus];
+				[str release];
 				NSData *data = [img TIFFRepresentationUsingCompression:NSTIFFCompressionLZW factor:0.0f];
+				[img release];
 				if (argc == 3) {
 					CFStringRef outPath = CFStringCreateWithFileSystemRepresentation(NULL, argv[2]);
 					if (outPath && [data writeToFile:(NSString *)outPath atomically:NO]) {
 						CFRelease(outPath);
-						[img release];
 						return 0;
 					}
 				} else {

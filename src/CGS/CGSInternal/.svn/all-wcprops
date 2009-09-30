@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/CGSInternal/!svn/ver/24/trunk/CGSInternal
+END
+CGSWorkspace.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/CGSInternal/!svn/ver/19/trunk/CGSInternal/CGSWorkspace.h
+END
+CGSConnection.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/CGSInternal/!svn/ver/7/trunk/CGSInternal/CGSConnection.h
+END
+CGSCIFilter.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/CGSInternal/!svn/ver/7/trunk/CGSInternal/CGSCIFilter.h
+END
+CGSWindow.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/CGSInternal/!svn/ver/19/trunk/CGSInternal/CGSWindow.h
+END
+CGSNotifications.h
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/CGSInternal/!svn/ver/19/trunk/CGSInternal/CGSNotifications.h
+END
+CGSInternal.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/CGSInternal/!svn/ver/19/trunk/CGSInternal/CGSInternal.h
+END
+CGSCursor.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/CGSInternal/!svn/ver/7/trunk/CGSInternal/CGSCursor.h
+END
+CGSTransitions.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/CGSInternal/!svn/ver/17/trunk/CGSInternal/CGSTransitions.h
+END
+CGSRegion.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/CGSInternal/!svn/ver/15/trunk/CGSInternal/CGSRegion.h
+END
+CGSSession.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/CGSInternal/!svn/ver/7/trunk/CGSInternal/CGSSession.h
+END
+CGSDebug.h
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/CGSInternal/!svn/ver/7/trunk/CGSInternal/CGSDebug.h
+END
+CGSHotKeys.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/CGSInternal/!svn/ver/24/trunk/CGSInternal/CGSHotKeys.h
+END
+CGSAccessibility.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/CGSInternal/!svn/ver/7/trunk/CGSInternal/CGSAccessibility.h
+END
+CGSDisplays.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/CGSInternal/!svn/ver/13/trunk/CGSInternal/CGSDisplays.h
+END
+CarbonHelpers.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/CGSInternal/!svn/ver/7/trunk/CGSInternal/CarbonHelpers.h
+END
+CGSMisc.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/CGSInternal/!svn/ver/7/trunk/CGSInternal/CGSMisc.h
+END

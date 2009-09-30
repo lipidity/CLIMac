@@ -137,7 +137,7 @@ int main(int argc, const char * argv[]) {
 					}
 					if (str == NULL) {
 						CFURLRef outURL = NULL;
-						CFStringRef tag = UTTypeCopyPreferredTagWithClass((CFStringRef)arg, kUTTagClassMIMEType);
+						CFStringRef tag = UTTypeCopyPreferredTagWithClass((CFStringRef)arg, kUTTagClassMIMEType); // leak
 						if (tag) {
 							LSCopyApplicationForMIMEType(tag, kLSRolesAll, &outURL);
 							if (outURL != NULL) {

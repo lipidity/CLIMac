@@ -56,12 +56,12 @@ usage:
 			}
 		}
 		for (int i = 3; i < argc; i++) {
-			if (CGSSetWindowLevel(cid, strtol(argv[i], NULL, 10), level) != noErr)
+			if (CGSSetWindowLevel(cid, (CGSWindowID)strtol(argv[i], NULL, 10), level) != noErr)
 				warnx("%d: failed", argv[i]);
 		}
 	} else {
 		for (int j = 1; j < argc; j++) {
-			CGSGetWindowLevel(cid, strtol(argv[j], NULL, 10), &level);
+			CGSGetWindowLevel(cid, (CGSWindowID)strtol(argv[j], NULL, 10), &level);
 			unsigned int i = 0;
 			do { // todo: option to just print number
 				if (level == CGWindowLevelForKey(i)) {

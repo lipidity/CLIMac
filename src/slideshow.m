@@ -1,7 +1,12 @@
 #import <Cocoa/Cocoa.h>
 #import <Quartz/Quartz.h>
 
-@interface S : NSObject <IKSlideshowDataSource> {
+@interface S : NSObject <IKSlideshowDataSource
+#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_6
+, NSApplicationDelegate
+#endif
+> {
+@public
 	NSString *mode;
 	NSDictionary *opts;
 	NSArray *items;
@@ -70,9 +75,9 @@ usage:
 	for (int i = 0; i < argc; i++)
 		[files addObject:[fm stringWithFileSystemRepresentation:argv[i] length:strlen(argv[i])]];
 	S *s = [[S allocWithZone:NULL] init];
-	((struct {@defs(S)} *)s)->mode = mode;
-	((struct {@defs(S)} *)s)->opts=opts;
-	((struct {@defs(S)} *)s)->items = files;
+	s->mode = mode;
+	s->opts=opts;
+	s->items = files;
 	[[NSApplication sharedApplication] setDelegate:s];
 
 	ProcessSerialNumber psn;

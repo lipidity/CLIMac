@@ -4,7 +4,11 @@
 
 @interface IKImageBrowserView (IKPrivate) - (void)setCellsHaveTitle:(BOOL)a; @end
 @interface I : NSObject { @public NSString *u, *t; } @end
-@interface S : NSObject { IKImageBrowserView *b; NSUInteger x; @public NSMutableArray *items; NSMutableArray *his; }
+@interface S : NSObject
+#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_6
+<NSApplicationDelegate>
+#endif
+{ IKImageBrowserView *b; NSUInteger x; @public NSMutableArray *items; NSMutableArray *his; }
 -(void)addFromDir:(NSString*)path; -(void)addFromDir:(NSString*)path :(BOOL)upd;
 - (void)up:(id)sender; - (void)down:(id)sender; - (void)goBack:(id)sender; - (void)goForward:(id)sender;
 @end

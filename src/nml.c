@@ -275,7 +275,7 @@ int main(int argc, char *argv[]) {
 					EIF (sizeof(off_t) > sizeof(size_t) && st.st_size > SIZE_MAX, errx(1, "Input file too big"));
 					nml_len = (size_t) st.st_size;
 					nml = mmap(NULL, nml_len, PROT_READ, MAP_FILE|MAP_PRIVATE, fd, 0);
-					EIF ((int)nml == -1, err(1, "%s", optarg));
+					EIF (nml == MAP_FAILED, err(1, "%s", optarg));
 				}
 				break;
 			case 'o':

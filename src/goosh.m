@@ -134,7 +134,7 @@ sitesearch:
 		if(url)
 			[[NSWorkspace sharedWorkspace] openURL:url];
 	} else if([x hasPrefix:@"u"] || [x hasPrefix:@"j"]) {
-		unsigned r = [lastQuery rangeOfString:@"&start="].location;
+		NSUInteger r = [lastQuery rangeOfString:@"&start="].location;
 		if(r != NSNotFound) {
 			NSString *tmp = lastQuery;
 			lastQuery = [[tmp substringToIndex:r] retain];
@@ -159,7 +159,7 @@ char *regularPrompt(EditLine *e) {
 	return (char*)defaultPrompt;
 }
 static char *currentNestings = NULL;
-static int currentNestingsLength = 0;
+static size_t currentNestingsLength = 0;
 static char *currentPrompt = NULL;
 
 char *nestedPrompt(EditLine *e) {
@@ -190,7 +190,7 @@ char *findNestings(char *prevNestings, const char *line) {
 
 	// if there were any previous nestings, copy them over and free the old nesting string
 	char *nestChar;
-	unsigned int nestLen;
+	size_t nestLen;
 	if (prevNestings) {
 		nestLen = strlen(prevNestings);
 		strncpy(nestings, prevNestings, nestLen);

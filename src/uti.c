@@ -11,7 +11,7 @@ static inline void pS(CFStringRef str) {
 	free(buffer);
 }
 
-int main (int argc, const char * argv[]) {
+int main (int argc, char *argv[]) {
 	if (argc > 1) {
 		// TODO: UTTypeCopyPreferredTagWithClass and UTTypeConformsTo and UTTypeEqual
 		// SHOULD: allow -c on -lmOe
@@ -33,7 +33,7 @@ int main (int argc, const char * argv[]) {
 		char action = 0;
 		bool listAll = 0;
 		Boolean (*fn)(CFStringRef, CFStringRef) = &UTTypeConformsTo;
-		while ((c = getopt_long(argc, (char **)argv, "lm:O:e:i:b:d:c:q:", longopts, NULL)) != EOF) {
+		while ((c = getopt_long(argc, argv, "lm:O:e:i:b:d:c:q:", longopts, NULL)) != EOF) {
 			switch (c) {
 				case 'q':
 					fn = &UTTypeEqual; // fall through

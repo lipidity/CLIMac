@@ -7,10 +7,11 @@ int main (int argc, char *argv[]) {
 		CFURLRef url = CFURLCreateFromFileSystemRepresentation(NULL, (UInt8 *)argv[1], strlen(argv[1]), false);
 		PDFDocument *pdf;
 		if ((pdf = [[PDFDocument alloc] initWithURL:(NSURL *)url]) != nil) {
-			printf("Pages:\t%u\n", [pdf pageCount]);
+			printf("Pages:\t%lu\n", [pdf pageCount]);
 			if ([pdf isEncrypted])
 				printf("Encrypted (%socked)\n", ([pdf isLocked]) ? "L" : "Unl");
 			NSDictionary *d = [pdf documentAttributes];
+			// FIXME: USE NSEnumerator here for 10.4
 			for (NSString *key in d)
 				printf("%s:\t%s\n", [key fileSystemRepresentation], [[[d objectForKey:key] description] fileSystemRepresentation]);
 			return 0;

@@ -1,21 +1,26 @@
 #import <Cocoa/Cocoa.h>
 
-#define HELP_NOT_WORKING 1
+#define ENABLE_HELP 1
 
-@interface S : NSObject {
-#ifndef HELP_NOT_WORKING
+@interface S : NSObject
+#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_6
+<NSApplicationDelegate, NSAlertDelegate>
+#endif
+{
+@public
+#if ENABLE_HELP
 	id help;
 #endif
 	NSAlert *a;
 } @end
 
-// Message should be just typed without an option flag
+// TODO: Take message from stdin if not specified
 
 int main(int argc, char *argv[]) {
 	NSAutoreleasePool *pool = [NSAutoreleasePool new];
 	const struct option longopts[] = {
 		{ "style", required_argument, NULL, 's' },
-#ifndef HELP_NOT_WORKING
+#if ENABLE_HELP
 		{ "help-file", required_argument, NULL, 'h' },
 #endif
 		{ "message", required_argument, NULL, 'm' },
@@ -28,7 +33,7 @@ int main(int argc, char *argv[]) {
 	[[NSApplication sharedApplication] setDelegate:s];
 	int c;
 	NSAlert *alert = [NSAlert new];
-	while ((c = getopt_long(argc, (char **)argv, "s:m:i:b:p", longopts, NULL)) != EOF) { // #ifndef HELP_NOT_WORKING "h:" #endif
+	while ((c = getopt_long(argc, (char **)argv, "s:m:i:b:ph:", longopts, NULL)) != EOF) { // #if ENABLE_HELP "h:" #endif
 		switch (c) {
 			case 's': {
 				const char *styles[] = {"warn", "info", "critical"};
@@ -40,16 +45,16 @@ int main(int argc, char *argv[]) {
 				}
 			}
 				break;
-#ifndef HELP_NOT_WORKING
+#if ENABLE_HELP
 			case 'h': {
 				[alert setShowsHelp:YES];
 				if (optarg[0] == '@') {
-					((struct {@defs(S)} *)s)->help = (NSURL *)CFURLCreateFromFileSystemRepresentation(NULL, (UInt8 *) optarg + 1, strlen(optarg + 1), false);
+					s->help = (NSURL *)CFURLCreateFromFileSystemRepresentation(NULL, (UInt8 *) optarg + 1, strlen(optarg + 1), false);
 				} else if (optarg[0] == '<') {
 					CFStringRef file = CFStringCreateWithFileSystemRepresentation(NULL, optarg + 1);
 					if (file != NULL) {
 						NSStringEncoding enc; NSError *error;
-						((struct {@defs(S)} *)s)->help = [[NSString alloc] initWithContentsOfFile:(NSString *)file usedEncoding:&enc error:&error];
+						s->help = [[NSString alloc] initWithContentsOfFile:(NSString *)file usedEncoding:&enc error:&error];
 						CFRelease(file);
 					}
 				} else if (optarg[0] == '+') {
@@ -59,9 +64,9 @@ int main(int argc, char *argv[]) {
 						CFRelease(anchor);
 					}
 				} else if (optarg[0] == '-' && optarg[1] == '\0') {
-					((struct {@defs(S)} *)s)->help = [[NSString alloc] initWithData:[[NSFileHandle fileHandleWithStandardInput] readDataToEndOfFile] encoding:NSUTF8StringEncoding];
+					s->help = [[NSString alloc] initWithData:[[NSFileHandle fileHandleWithStandardInput] readDataToEndOfFile] encoding:NSUTF8StringEncoding];
 				} else {
-					((struct {@defs(S)} *)s)->help = (NSString *)CFStringCreateWithFileSystemRepresentation(NULL, optarg);
+					s->help = (NSString *)CFStringCreateWithFileSystemRepresentation(NULL, optarg);
 				}
 			}
 				break;
@@ -116,7 +121,7 @@ int main(int argc, char *argv[]) {
 			CFRelease(msg);
 		}
 	}
-	((struct {@defs(S)} *)s)->a = alert;
+	s->a = alert;
 	ProcessSerialNumber psn;
 	if (!(GetCurrentProcess(&psn) == noErr && TransformProcessType(&psn, kProcessTransformToForegroundApplication) == noErr))
 		warnx("Forced to run in background");
@@ -132,10 +137,11 @@ int main(int argc, char *argv[]) {
 	NSInteger ret = [a runModal];
 	if ([[a suppressionButton] state] == NSOnState)
 		fputs("suppress", stdout);
-	exit(ret ? ret - 1000 : 0);
+	exit((int)(ret ? ret - 1000 : 0));
 }
-#ifndef HELP_NOT_WORKING
-- (BOOL)alertShowHelp:(NSAlert *)alert {
+#if ENABLE_HELP
+- (BOOL) alertShowHelp:(NSAlert *)alert {
+	NSLog(@"HELP!");
 	if ([help isKindOfClass:[NSString class]])
 		puts([help fileSystemRepresentation]);
 	else if ([help isKindOfClass:[NSURL class]])

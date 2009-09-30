@@ -3,7 +3,11 @@
 #import "../build/etc/imgview/menu.h"
 
 @interface IKImageView (IKPrivate) - (void) setAnimates:(BOOL)a; @end
-@interface S : NSObject {} @end
+@interface S : NSObject
+#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_6
+<NSApplicationDelegate>
+#endif
+{} @end
 
 int main(int argc, char *argv[]) {
 	NSAutoreleasePool *pool = [NSAutoreleasePool new];
@@ -92,7 +96,7 @@ int main(int argc, char *argv[]) {
 	[sender setState:NSOnState];
 }
 -(void)magnifyWithEvent:(NSEvent *)anEvent {
-	float new = [self zoomFactor] + ([anEvent deltaZ] / 100.0f);
+	CGFloat new = [self zoomFactor] + ([anEvent deltaZ] / 100.0f);
 	if (new <= 1e-10f) new = 1e-10f;
 //	[self setImageZoomFactor:new centerPoint:[self convertPoint:[anEvent locationInWindow] fromView:nil]];
 	[self setZoomFactor:new];

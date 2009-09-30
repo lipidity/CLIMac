@@ -46,7 +46,7 @@ usage:
 				break;
 			}
 			case 'o': {
-				unsigned int i = strtoul(optarg, NULL, 10);
+				unsigned int i = (unsigned int)strtoul(optarg, NULL, 10);
 				if (i != 0) {
 					spec.options ^= (1<<i);
 				} else {
@@ -85,7 +85,7 @@ usage:
 		CGSGetSystemBackgroundWindow(CGSMainConnectionID(), CGSMainDisplayID(), &backgroundWID);
 		int i = 0;
 		do {
-			CGSWindowID w = strtol(argv[i], NULL, 10);
+			CGSWindowID w = (CGSWindowID)strtol(argv[i], NULL, 10);
 			CGSTransitionID transition = 0;
 			CGSConnectionID cid = CGSMainConnectionID();
 			if (w == backgroundWID || w == 0) {

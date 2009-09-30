@@ -46,7 +46,7 @@ usage:
 	i = 0;
 	if (argc)
 		while (i < argc) {
-			CGSWindowID w = strtol(argv[i++], NULL, 10);
+			CGSWindowID w = (CGSWindowID)strtol(argv[i++], NULL, 10);
 			CGRect rect;
 			if (CGSGetWindowBounds(cid, w, &rect) == noErr) {
 				if (!xset) p.x = rect.origin.x;

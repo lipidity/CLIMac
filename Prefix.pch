@@ -30,3 +30,30 @@ __attribute__((malloc)) CG_INLINE void *xrealloc(void *ptr, size_t n) {
 		err(1, NULL);
 	return r;
 }
+
+#ifndef MAC_OS_X_VERSION_10_6
+#define MAC_OS_X_VERSION_10_6 1060
+#endif
+#ifndef MAC_OS_X_VERSION_10_5
+#define MAC_OS_X_VERSION_10_5 1050
+#endif
+
+#define SDK_TIGER (MAC_OS_X_VERSION_MIN_REQUIRED == MAC_OS_X_VERSION_10_4)
+#define SDK_LEO (MAC_OS_X_VERSION_MIN_REQUIRED == MAC_OS_X_VERSION_10_5)
+#define SDK_SNOWY (MAC_OS_X_VERSION_MIN_REQUIRED == MAC_OS_X_VERSION_10_6)
+
+#define NS_BUILD_32_LIKE_64 1
+
+#ifndef NSINTEGER_DEFINED
+#if __LP64__ || NS_BUILD_32_LIKE_64
+typedef long NSInteger;
+typedef unsigned long NSUInteger;
+#else
+typedef int NSInteger;
+typedef unsigned int NSUInteger;
+#endif
+#define NSIntegerMax    LONG_MAX
+#define NSIntegerMin    LONG_MIN
+#define NSUIntegerMax   ULONG_MAX
+#define NSINTEGER_DEFINED 1
+#endif

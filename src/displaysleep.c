@@ -1,4 +1,6 @@
+// this should be moved to target 'power'?
 #import <IOKit/IOKitLib.h>
+// INTEL ONLY OR >=10.5 ONLY?
 #if 1
 int main (int argc, char *argv[]) {
 	io_registry_entry_t io = IORegistryEntryFromPath(kIOMasterPortDefault, kIOServicePlane ":/IOResources/IODisplayWrangler");

@@ -1,6 +1,8 @@
 #import <Cocoa/Cocoa.h>
 #import <Quartz/Quartz.h>
+#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_5
 #import <QuickLook/QuickLook.h>
+#endif
 
 typedef void *QLPreviewRef;
 extern QLPreviewRef QLPreviewCreate(void *unknownNULL, CFTypeRef item, CFDictionaryRef options);
@@ -9,7 +11,7 @@ extern CFURLRef QLPreviewCopyURLRepresentation(QLPreviewRef);
 extern CFDictionaryRef QLPreviewCopyOptions(QLPreviewRef);
 extern CFDictionaryRef QLPreviewCopyProperties(QLPreviewRef);
 extern CFStringRef QLPreviewGetPreviewType(QLPreviewRef); // eg. public.webcontent; public.text; public.image; public.pdf
-extern void QLPreviewSetPreviewType(QLPreviewRef, CFStringRef);
+extern void QLPreviewSetForceContentTypeUTI(QLPreviewRef, CFStringRef);
 //extern void QLPreviewSetForceContentTypeUTI(QLPreviewRef, CFStringRef);
 
 int main (int argc, char *argv[]) {
@@ -23,10 +25,11 @@ int main (int argc, char *argv[]) {
 			input = [[[NSFileHandle fileHandleWithStandardInput] readDataToEndOfFile] retain];
 		else
 			input = (NSURL *)CFURLCreateFromFileSystemRepresentation(NULL, (UInt8 *)argv[1], strlen(argv[1]), false);
+#if MAC_OS_X_VERSION_MIN_REQUIRED == MAC_OS_X_VERSION_10_5 && MAC_OS_X_VERSION_MAX_ALLOWED == MAC_OS_X_VERSION_10_5 // this has changed in 10.6
 		if (str == nil && &QLPreviewCreate != NULL) {
 			QLPreviewRef p = QLPreviewCreate(NULL, (CFTypeRef)input, NULL);
 			if (p != NULL) {
-				QLPreviewSetPreviewType(p, kUTTypeText);
+				QLPreviewSetForceContentTypeUTI(p, kUTTypeText);
 				CFStringRef type = QLPreviewGetPreviewType(p);
 				if (UTTypeConformsTo(type, kUTTypeText) || [@"public.webcontent" isEqualToString:(NSString *)type]) {
 					NSData *rtf = (NSData *)QLPreviewCopyData(p);
@@ -45,6 +48,7 @@ int main (int argc, char *argv[]) {
 				CFRelease(p);
 			}
 		}
+#endif
 		if (str == nil) {
 			if ([input isKindOfClass:[NSURL class]])
 				str = [[NSAttributedString alloc] initWithURL:input options:nil documentAttributes:NULL error:&error] ? : [[PDFDocument alloc] initWithURL:input];

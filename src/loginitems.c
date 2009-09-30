@@ -1,9 +1,80 @@
+#ifdef __OBJC__
+
+#import <Foundation/Foundation.h>
+
+static BOOL dl(NSString *p, NSArray *a);
+static void sl(NSString *p);
+
+static BOOL launch = YES;
+
+static BOOL dl(NSString *p, NSArray *a) {
+	NSEnumerator *e = [a objectEnumerator];
+	NSDictionary *d;
+	while((d = [e nextObject]))
+		if([[[d objectForKey:@"Path"] stringByStandardizingPath] isEqualToString:p])
+			return YES;
+	return NO;
+}
+
+static void sl(NSString *p) {
+	NSArray *tmp = (NSArray*)CFPreferencesCopyValue(CFSTR("AutoLaunchedApplicationDictionary"), CFSTR("loginwindow"), kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
+	NSMutableArray *l = tmp ? [[tmp mutableCopy] autorelease] : [NSMutableArray arrayWithCapacity:1];
+	if(launch) {
+		if(dl(p, tmp)) {
+			fprintf(stderr, "%s already launches at login\n", [p fileSystemRepresentation]);
+			return;
+		} else
+			[l addObject:[NSDictionary dictionaryWithObjectsAndKeys:p, @"Path", [NSNumber numberWithBool:NO] , @"Hide", nil, @"AliasData", nil]]; // is aliasdata needed here? after nil it just stops right?
+	} else {
+		NSUInteger i;
+		for(i = 0; i < [l count]; i++)
+			if([[[[l objectAtIndex:i] objectForKey:@"Path"] stringByStandardizingPath] isEqualToString:p]) break;
+		if(i < [l count])
+			[l removeObjectAtIndex:i];
+		else {
+			fprintf(stderr, "%s doesn't launch at login\n", [p fileSystemRepresentation]);
+			return;
+		}
+	}
+	[tmp release];
+	CFPreferencesSetValue(CFSTR("AutoLaunchedApplicationDictionary"), l, CFSTR("loginwindow"), kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
+	CFPreferencesSynchronize(CFSTR("loginwindow"), kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
+}
+
+int main(int argc, const char * argv[]) {
+	NSAutoreleasePool *pool = [NSAutoreleasePool new];
+	if (argc > 1 && strlen(argv[1]) == 2 && argv[1][0] == '-') {
+		int c = argv[1][1];
+		switch (c) {
+			case 'r':
+				launch = NO; // no break
+			case 'a':
+				c = 2;
+				NSFileManager *f = [NSFileManager defaultManager];
+				while (c < argc) {
+					NSString *p = (NSString *)CFStringCreateWithFileSystemRepresentation(NULL, argv[c++]);
+					sl([([p isAbsolutePath] ? p : [[f currentDirectoryPath] stringByAppendingPathComponent:p]) stringByStandardizingPath]);
+					[p release];
+				}
+				return 0;
+			case 'l': {
+				NSArray *l = (NSArray *)CFPreferencesCopyValue(CFSTR("AutoLaunchedApplicationDictionary"), CFSTR("loginwindow"), kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
+				for (NSUInteger j = 0; j < [l count]; j++)
+					puts([[[[l objectAtIndex:j] objectForKey:@"Path"] stringByStandardizingPath] fileSystemRepresentation]);
+				return 0;
+			}
+		}
+	}
+	fprintf(stderr, "Usage:  %s -l\n\t%s -a <item>...\n\t%s -r <item>...\n", argv[0], argv[0], argv[0]);
+	return 1;
+}
+
+#else // !__OBJC__
+
 #import <CoreServices/CoreServices.h>
 #import <err.h>
 #import <getopt.h>
 #import <sys/stat.h>
-
-// THIS IS ONLY FOR LEOPARD AND ABOVE
 
 #if 0
 	types
@@ -71,7 +142,8 @@ int main(int argc, char *argv[]) {
 					break;
 				case 'r': {
 					CFIndex allCount = CFArrayGetCount(all);
-					for (CFIndex i = 0; i < allCount; i++) {
+					CFIndex i;
+					for (i = 0; i < allCount; i++) {
 						CFURLRef itemURL = NULL;
 						LSSharedFileListItemRef item = (LSSharedFileListItemRef)CFArrayGetValueAtIndex(all, i);
 						if (LSSharedFileListItemResolve(item, 0, &itemURL, NULL) == noErr) {
@@ -109,3 +181,5 @@ LSSharedFileListItemCopyDisplayName
 LSSharedFileListItemResolve
 LSSharedFileListItemCopyProperty
 #endif
+
+#endif // !__OBJC__
