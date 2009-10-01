@@ -12,6 +12,7 @@
 static int options = XATTR_NOFOLLOW;
 static char action = '\0';
 static unsigned long gCols = 16ul;
+static bool hex = 0;
 
 static inline void x(const char *path);
 static inline void xD(const char *path);
@@ -22,26 +23,30 @@ static inline void xP(const char *path);
 static void xp(const char * restrict path, const char * restrict name);
 static inline ssize_t xtotalsize(const char *path);
 static inline ssize_t xsize(const char * restrict path, const char * restrict name);
-static inline void hexdump(const unsigned char *data, size_t n);
+static inline void dump(const unsigned char *data, size_t n);
 static char **readList(size_t *n);
 static unsigned char *xCopyData(const char * restrict path, const char * restrict name, ssize_t *n);
 static char *xCopyList(const char *path, ssize_t *n);
+
+// -D O P in another tool
 
 int main(int argc, char *argv[]) {
 	struct option longopts[] = {
 		{ "help",  no_argument, NULL, 'h' },
 		{ "version",  no_argument, NULL, 'V' },
+
 //		{ "long",  no_argument, NULL, 'l' },
-		{ "delete",  required_argument, NULL, 'd' },
-		{ "delete-all",  no_argument, NULL, 'D' },
-		{ "print",  required_argument, NULL, 'p' },
-		{ "print-all",  no_argument, NULL, 'P' },
-		{ "dump",  required_argument, NULL, 'o' },
-		{ "dump-all",  no_argument, NULL, 'O' },
-		{ "write",  required_argument, NULL, 'w' },
-		{ "create",  no_argument, NULL, 'C' },
-		{ "replace",  no_argument, NULL, 'R' },
+//		{ "delete",  required_argument, NULL, 'd' },
+//		{ "print",  required_argument, NULL, 'p' },
+//		{ "dump",  required_argument, NULL, 'o' },
+//		{ "write",  required_argument, NULL, 'w' },
+
 //		{ "follow-symlinks",  no_argument, NULL, 'L' },
+//		{ "create",  no_argument, NULL, 'C' },
+//		{ "replace",  no_argument, NULL, 'R' },
+//		{ "nosecurity",  no_argument, NULL, 'S' }, // 10.6 only?
+//		{ "nodefault",  no_argument, NULL, 'D' }, // 10.6 only?
+//		{ "show-compression",  no_argument, NULL, 'Z' }, // 10.6 only?
 //		{ "cols",  required_argument, NULL, 'c' },
 		{ NULL, 0, NULL, 0 }
 	};
@@ -51,38 +56,53 @@ int main(int argc, char *argv[]) {
 	// todo: -s <> and -S options to get XA sizes?
 	// todo: -w <> -f <> ?
 	// todo: -e attr exists?
-	while ((c = getopt_long(argc, argv, "hV" "lDd:Oo:Pp:w:RCLc:", longopts, NULL)) != EOF) {
+	while ((c = getopt_long(argc, argv, "hV" "ld:o:p:w:" "c:x" "LCRSDZ", longopts, NULL)) != EOF) {
 		switch (c) {
 			case 'l':
-				c = 'P'; // compatibility with /usr/bin/xattr
 			case 'o':
-			case 'O':
 			case 'p':
-			case 'P':
 			case 'd':
-			case 'D':
 			case 'w':
 				if (action) {
-					warnx("You may not specify more than one `-DdOoPpw' option");
+					warnx("You may not specify more than one `-dopw' option");
 					fprintf(stderr, "Try `%s --help' for more information.\n", argv[0]);
 					return 2;
 				} else {
 					action = c;
-					if (!isupper(c)) {
+					if (action != 'l') {
 						size_t l = strlen(optarg) + 1;
 						attr = xmalloc(l);
 						memcpy(attr, optarg, l);
+						if ((action == 'w') && (optind < argc)) {
+							char *val = argv[optind];
+							optind += 1;
+							l = strlen(val) + 1;
+							value = xmalloc(l);
+							memcpy(value, val, l);
+						}
 					}
 				}
 				break;
-			case 'R':
-				options ^= XATTR_REPLACE;
+			case 'L':
+				options ^= XATTR_NOFOLLOW;
 				break;
 			case 'C':
 				options ^= XATTR_CREATE;
 				break;
-			case 'L':
-				options ^= XATTR_NOFOLLOW;
+			case 'R':
+				options ^= XATTR_REPLACE;
+				break;
+			case 'S':
+				options ^= XATTR_NOSECURITY;
+				break;
+			case 'D':
+				options ^= XATTR_NODEFAULT;
+				break;
+			case 'Z':
+				options ^= XATTR_SHOWCOMPRESSION;
+				break;
+			case 'x':
+				hex ^= 1;
 				break;
 			case 'c': {
 				unsigned long acols = strtoul(optarg, NULL, 0);
@@ -97,24 +117,22 @@ int main(int argc, char *argv[]) {
 						" (default)\t"
 						"List names of xattrs\n"
 						" -p <name>\t"
-						"Hexdump of data for given xattr\n"
-						" -o <name>\t"
-						"Output raw data for given xattr\n"
+						"Print data for given xattr\n"
 						" -d <name>\t"
 						"Delete given xattr\n"
-						" -w <name>\t"
-						"Write xattr (data taken from stdin)\n"
-						" -P, -O, -D\t"
-						"Like small letter, but act on ALL xattrs\n"
+						" -w <name> <value>\t"
+						"Write xattr\n"
 						"OPTIONS\n"
 						" -L\t"
 						"Follow symlinks.\n"
-						//				" -c <n>\t"
-						//				"Show <n> bytes per line in hex output\n"
 						" -C\t"
 						"Fail if xattr exists (create)\n"
 						" -R\t"
 						"Fail if xattr doesn't exist (replace)\n"
+						" -D\t"
+						"Bypass the default extended attribute file (dot-underscore file)\n"
+						" -Z\t"
+						"Show HFS compression attributes\n"
 						, argv[0]);
 				return 0;
 			case 'V':
@@ -214,16 +232,7 @@ usage:
 				free(list);
 			}
 			break;
-		case 'O':
-			if (argc == 1)
-				xO(argv[0]);
-			else
-				do {
-					printf("%s:\n", argv[0]);
-					xO(argv[0]);
-				} while (++argv, --argc);
-			break;
-		case 'P':
+		case 'l':
 			if (argc == 1)
 				xP(argv[0]);
 			else {
@@ -240,7 +249,7 @@ usage:
 			// Read data from stdin
 			// 4096 bytes is max size for all xattrs except resource fork
 			size_t totalSize;
-//			if (value == NULL) {
+			if (value == NULL) {
 				value = malloc(4096);
 				size_t lastReadSize = 0;
 				unsigned int n = 0;
@@ -250,9 +259,9 @@ usage:
 				if (value == NULL)
 					err(1, NULL);
 				totalSize = (n*4096)+lastReadSize;
-//			} else {
-//				totalSize = strlen(value);
-//			}
+			} else {
+				totalSize = strlen(value);
+			}
 			do {
 				if (setxattr(argv[0], attr, value, totalSize, 0, options) != 0)
 					warn("%s", argv[0]);
@@ -275,11 +284,6 @@ usage:
 				// fixme: ? leaking each list item
 				free(list);
 			}
-			break;
-		case 'D': // delete all XAs
-			do {
-				xD(argv[0]);
-			} while (++argv, --argc);
 			break;
 	}
 	free(attr);
@@ -314,7 +318,7 @@ static void xp(const char * restrict path, const char * restrict name) {
 	ssize_t n;
 	unsigned char *data = xCopyData(path, name, &n);
 	if (data) {
-		hexdump(data, n);
+		dump(data, n);
 		free(data);
 	}
 }
@@ -324,7 +328,7 @@ static inline void xO(const char *path) {
 	if (all) {
 		char *ptr = all;
 		do {
-			printf("%s:\n", ptr);
+			printf("%s:%c", ptr, hex ? '\n' : ' ');
 			xo(path, ptr);
 			ptr += strlen(ptr) + 1;
 		} while (ptr < all + n);
@@ -337,7 +341,7 @@ static inline void xP(const char *path) {
 	if (all) {
 		char *ptr = all;
 		do {
-			printf("%s:\n", ptr);
+			printf("%s:%c", ptr, hex ? '\n' : ' ');
 			xp(path, ptr);
 			ptr += strlen(ptr) + 1;
 		} while (ptr < all + n);
@@ -400,7 +404,12 @@ static inline ssize_t xsize(const char * restrict path, const char * restrict na
 	return 0;
 }
 
-static inline void hexdump(const unsigned char *data, size_t n) {
+static inline void dump(const unsigned char *data, size_t n) {
+	if (hex == 0) {
+		fwrite(data, n, 1, stdout);
+		// todo: print newline
+		return;
+	}
 	size_t i = 0;
 	while (i < n) {
 		printf("%.2X ", data[i]);
