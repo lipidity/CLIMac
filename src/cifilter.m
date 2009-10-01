@@ -1,23 +1,6 @@
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
 
-#ifndef CGFLOAT_DEFINED // for 10.4
-#if defined(__LP64__) && __LP64__
-# define CGFLOAT_TYPE double
-# define CGFLOAT_IS_DOUBLE 1
-# define CGFLOAT_MIN DBL_MIN
-# define CGFLOAT_MAX DBL_MAX
-#else /* !defined(__LP64__) || !__LP64__ */
-# define CGFLOAT_TYPE float
-# define CGFLOAT_IS_DOUBLE 0
-# define CGFLOAT_MIN FLT_MIN
-# define CGFLOAT_MAX FLT_MAX
-#endif /* !defined(__LP64__) || !__LP64__ */
-
-typedef CGFLOAT_TYPE CGFloat;
-#define CGFLOAT_DEFINED 1
-#endif
-
 // todo: -f <path> to read lines from file
 // todo: -e '...' to specify individual lines
 // todo: able to read image from stdin

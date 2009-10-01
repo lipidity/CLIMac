@@ -1,8 +1,77 @@
+#if _10_4
+
+// need to have Slideshow.h from iMac
+
+#import <Cocoa/Cocoa.h>
+
+static id r;
+
+@interface S : NSObject {} @end
+@implementation S
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)a { return YES; }
+- (int)numberOfObjectsInSlideshow { return [r count]; }
+- (id)slideshowObjectAtIndex:(int)i { return [r objectAtIndex:i]; }
+//- (NSString *)slideshowObjectNameAtIndex:(int)i { return [[[r objectAtIndex:i] lastPathComponent] stringByDeletingPathExtension]; }
+@end
+
+int main(int argc, const char *argv[]) {
+	if(argc == 1) {
+	usage:
+		fprintf(stderr, "Usage:  %s\n"
+				"\t[-s <start-idx>] [-d <delay>] <files>...\n"
+				"\t-p <pdf-file>\n", argv[0]);
+		return 1;
+	}
+	int c; opterr = 0; float d = 2.0f; int s = 0;
+	while((c = getopt(argc, (char**)argv, "d:s:p")) != EOF) {
+		switch(c) {
+			case 'd': d = strtof(optarg, NULL); break;
+			case 's': s = (int)strtol(optarg, NULL, 10)-1; break;
+			case 'p': s = -1; break;
+			default: goto usage;
+		}
+	}
+	argc -= optind; argv += optind;
+	
+	[[NSAutoreleasePool alloc] init];
+	Slideshow *l = [Slideshow sharedSlideshow];
+	S *h = [[S alloc] init];
+	NSDictionary *opt = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:s], @"startIndex", [NSNumber numberWithFloat:d], @"autoPlayDelay", nil];
+	r = [[NSMutableArray alloc] init];
+	if(s >= 0) {
+		if(argc) {
+			int i = 0;
+			while(i < argc) {
+				NSString *aStr = NSTR(argv[i++]);
+				[r addObject:aStr];
+				[aStr release];
+			}
+		} else {
+			goto usage;
+		}
+		r = [r pathsMatchingExtensions:[NSImage imageFileTypes]];
+		if(![r count]) // error message?
+			return 2;
+		[l runSlideshowWithDataSource:h options:opt];
+	} else {
+		NSURL *u = NURL(argv[0], 0);
+		if(u)
+			[l runSlideshowWithPDF:u options:opt];
+		else
+			return 2;
+	}
+	[[NSApplication sharedApplication] setDelegate:h];
+	[NSApp run];
+	return 0;
+}
+
+#else // !_10_4
+
 #import <Cocoa/Cocoa.h>
 #import <Quartz/Quartz.h>
 
 @interface S : NSObject <IKSlideshowDataSource
-#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_6
+#if _10_6_PLUS
 , NSApplicationDelegate
 #endif
 > {
@@ -115,3 +184,5 @@ usage:
 }
 
 @end
+
+#endif // !_10_4

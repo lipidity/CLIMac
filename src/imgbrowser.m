@@ -5,7 +5,7 @@
 @interface IKImageBrowserView (IKPrivate) - (void)setCellsHaveTitle:(BOOL)a; @end
 @interface I : NSObject { @public NSString *u, *t; } @end
 @interface S : NSObject
-#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_6
+#if _10_6_PLUS
 <NSApplicationDelegate>
 #endif
 { IKImageBrowserView *b; NSUInteger x; @public NSMutableArray *items; NSMutableArray *his; }

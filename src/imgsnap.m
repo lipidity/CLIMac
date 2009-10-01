@@ -5,7 +5,7 @@
 // will have to over-ride some NSPanel methods to allow other panels (eg font / color panels) to be shown properly and not hide on deactivate
 
 @interface P : NSObject
-#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_6
+#if _10_6_PLUS
 <NSApplicationDelegate>
 #endif
 { @public NSURL *o; } @end

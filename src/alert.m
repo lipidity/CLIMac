@@ -1,9 +1,9 @@
 #import <Cocoa/Cocoa.h>
 
-#define ENABLE_HELP 1
+#define ENABLE_HELP 0
 
 @interface S : NSObject
-#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_6
+#if _10_6_PLUS
 <NSApplicationDelegate, NSAlertDelegate>
 #endif
 {
@@ -14,8 +14,6 @@
 	NSAlert *a;
 } @end
 
-// TODO: Take message from stdin if not specified
-
 int main(int argc, char *argv[]) {
 	NSAutoreleasePool *pool = [NSAutoreleasePool new];
 	const struct option longopts[] = {
@@ -23,17 +21,26 @@ int main(int argc, char *argv[]) {
 #if ENABLE_HELP
 		{ "help-file", required_argument, NULL, 'h' },
 #endif
-		{ "message", required_argument, NULL, 'm' },
+		{ "message", optional_argument, NULL, 'm' }, // from stdin if no arg
 		{ "information", required_argument, NULL, 'i' },
-		{ "icon", required_argument, NULL, 'b' },
+		{ "icon", required_argument, NULL, 'I' },
+#if _10_5_PLUS
 		{ "supression-button", no_argument, NULL, 'p' },
+#endif
 		{ NULL, 0, NULL, 0 }
 	};
 	S *s = [S new];
 	[[NSApplication sharedApplication] setDelegate:s];
 	int c;
 	NSAlert *alert = [NSAlert new];
-	while ((c = getopt_long(argc, (char **)argv, "s:m:i:b:ph:", longopts, NULL)) != EOF) { // #if ENABLE_HELP "h:" #endif
+	while ((c = getopt_long(argc, (char **)argv, "s:m::i:I:"
+#if _10_5_PLUS
+							"p"
+#endif
+#if ENABLE_HELP
+							"h:"
+#endif
+							, longopts, NULL)) != EOF) { // #if ENABLE_HELP "h:" #endif
 		switch (c) {
 			case 's': {
 				const char *styles[] = {"warn", "info", "critical"};
@@ -42,7 +49,7 @@ int main(int argc, char *argv[]) {
 						[alert setAlertStyle:i];
 						break;
 					}
-				}
+				} // anything else ignored
 			}
 				break;
 #if ENABLE_HELP
@@ -72,22 +79,34 @@ int main(int argc, char *argv[]) {
 				break;
 #endif
 			case 'm': {
-				CFStringRef msg = CFStringCreateWithFileSystemRepresentation(NULL, optarg);
+				CFStringRef msg = NULL;
+				if (optarg != NULL)
+					msg = CFStringCreateWithFileSystemRepresentation(NULL, optarg);
+				else
+					msg = (CFStringRef)[[NSString alloc] initWithData:[[NSFileHandle fileHandleWithStandardInput] readDataToEndOfFile] encoding:NSUTF8StringEncoding];
 				if (msg != NULL) {
+					NSUInteger len = [(NSString *)msg length];
+					if (len != 0) {
+						if ([[NSCharacterSet newlineCharacterSet] characterIsMember:[(NSString *)msg characterAtIndex:len-1]]) {
+							CFStringRef tmp = msg;
+							msg = CFRetain([(NSString *)msg substringToIndex:len-1]);
+							CFRelease(tmp);
+						}
+					}
 					[alert setMessageText:(NSString *)msg];
 					CFRelease(msg);
 				}
 			}
 				break;
 			case 'i': {
-				CFStringRef msg = CFStringCreateWithFileSystemRepresentation(NULL, optarg);
-				if (msg != NULL) {
-					[alert setInformativeText:(NSString *)msg];
-					CFRelease(msg);
+				CFStringRef info = CFStringCreateWithFileSystemRepresentation(NULL, optarg);
+				if (info != NULL) {
+					[alert setInformativeText:(NSString *)info];
+					CFRelease(info);
 				}
 			}
 				break;
-			case 'b': {
+			case 'I': {
 				CFStringRef msg = CFStringCreateWithFileSystemRepresentation(NULL, optarg);
 				if (msg != NULL) {
 					if (![(NSString *)msg isAbsolutePath]) {
@@ -105,11 +124,17 @@ int main(int argc, char *argv[]) {
 				}
 			}
 				break;
+#if _10_5_PLUS
 			case 'p':
 				[alert setShowsSuppressionButton:YES];
 				break;
+#endif
 			default:
-				fprintf(stderr, "usage:  %s [-m message] [-i info] [-h help] [-b icon] [-s style] buttons ...\n", argv[0]);
+				fprintf(stderr, "usage:  %s [-m message] [-i info]"
+#if ENABLE_HELP
+						" [-h help]"
+#endif
+						" [-I icon] [-s warn|info|critical] buttons ...\n", argv[0]);
 				return 1;
 		}
 	}
@@ -135,8 +160,10 @@ int main(int argc, char *argv[]) {
 - (void) applicationDidFinishLaunching:(NSNotification *)aNotification {
 	[NSApp activateIgnoringOtherApps:YES];
 	NSInteger ret = [a runModal];
+#if _10_5_PLUS
 	if ([[a suppressionButton] state] == NSOnState)
-		fputs("suppress", stdout);
+		fputs("suppress\n", stdout);
+#endif
 	exit((int)(ret ? ret - 1000 : 0));
 }
 #if ENABLE_HELP
