@@ -1,28 +1,6 @@
 #import <Cocoa/Cocoa.h>
 #import <QuickLook/QuickLook.h>
-
-typedef void *QLPreviewRef;
-extern QLPreviewRef QLPreviewCreate(void *unknownNULL, CFTypeRef item, CFDictionaryRef options);
-extern CFDataRef QLPreviewCopyData(QLPreviewRef thumbnail);
-extern CFURLRef QLPreviewCopyURLRepresentation(QLPreviewRef);
-extern CFDictionaryRef QLPreviewCopyOptions(QLPreviewRef);
-extern CFDictionaryRef QLPreviewCopyProperties(QLPreviewRef);
-extern CFStringRef QLPreviewGetPreviewType(QLPreviewRef); // eg. public.webcontent; public.text; public.image; public.pdf
-extern void QLPreviewSetPreviewType(QLPreviewRef, CFStringRef);
-extern void QLPreviewSetForceContentTypeUTI(QLPreviewRef, CFStringRef);
-
-typedef void *QLThumbnailRef;
-#if 0
-extern const NSString *kQLThumbnailOptionContentTypeUTI;
-//extern const NSString *kQLThumbnailOptionIconModeKey;
-extern QLThumbnailRef QLThumbnailCreate(void *unknownNULL, CFURLRef fileURL, CGSize iconSize, CFDictionaryRef options);
-extern CGImageRef QLThumbnailCopyImage(QLThumbnailRef thumbnail);
-_QLThumbnailSupportsContentUTIAtSize
-_QLThumbnailCopySpecialGenericImage
-_QLThumbnailGetMaximumSize
-_QLThumbnailGetMinimumUsefulSize
-_QLThumbnailSetForceContentTypeUTI
-#endif
+#import "QLPrivate.h"
 
 int main (int argc, char *argv[]) {
 	if (argc > 1) {
@@ -106,11 +84,11 @@ int main (int argc, char *argv[]) {
 				QLPreviewRef ql = QLPreviewCreate(NULL, item, NULL);
 				tiff = (NSData *)QLPreviewCopyData(ql);
 				if (tiff != nil) {
-					fprintf(stderr, "Generated Preview: %s\n", [(NSString *)QLPreviewGetPreviewType(ql) fileSystemRepresentation]);
+					fprintf(stderr, "Generated Preview: %s\n", [(NSString *)QLPreviewGetDisplayBundleID(ql) fileSystemRepresentation]);
 					NSDictionary *props = (NSDictionary *)QLPreviewCopyProperties(ql);
 					NSUInteger numAttachments = [[props objectForKey:@"Attachments"] count];
 					if (numAttachments != 0)
-						fprintf(stderr, "%lu attachments\n", numAttachments);
+						fprintf(stderr, "%lu attachments\n", (unsigned long)numAttachments);
 				}
 			} else {
 				NSMutableDictionary *opts = [NSMutableDictionary dictionary];
