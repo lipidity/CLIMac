@@ -10,8 +10,8 @@
 #import <string.h>
 
 static int options = XATTR_NOFOLLOW;
-static long gCols = 16;
 static char action = '\0';
+static unsigned long gCols = 16ul;
 
 static inline void x(const char *path);
 static inline void xD(const char *path);
@@ -28,15 +28,33 @@ static unsigned char *xCopyData(const char * restrict path, const char * restric
 static char *xCopyList(const char *path, ssize_t *n);
 
 int main(int argc, char *argv[]) {
+	struct option longopts[] = {
+		{ "help",  no_argument, NULL, 'h' },
+		{ "version",  no_argument, NULL, 'V' },
+//		{ "long",  no_argument, NULL, 'l' },
+		{ "delete",  required_argument, NULL, 'd' },
+		{ "delete-all",  no_argument, NULL, 'D' },
+		{ "print",  required_argument, NULL, 'p' },
+		{ "print-all",  no_argument, NULL, 'P' },
+		{ "dump",  required_argument, NULL, 'o' },
+		{ "dump-all",  no_argument, NULL, 'O' },
+		{ "write",  required_argument, NULL, 'w' },
+		{ "create",  no_argument, NULL, 'C' },
+		{ "replace",  no_argument, NULL, 'R' },
+//		{ "follow-symlinks",  no_argument, NULL, 'L' },
+//		{ "cols",  required_argument, NULL, 'c' },
+		{ NULL, 0, NULL, 0 }
+	};
 	int c;
 	char *attr = NULL;
 	char *value = NULL;
 	// todo: -s <> and -S options to get XA sizes?
 	// todo: -w <> -f <> ?
-	while ((c = getopt(argc, argv, "lDd:Oo:Pp:w:RCLc:h")) != EOF) {
+	// todo: -e attr exists?
+	while ((c = getopt_long(argc, argv, "hV" "lDd:Oo:Pp:w:RCLc:", longopts, NULL)) != EOF) {
 		switch (c) {
 			case 'l':
-				c = 'P'; // compatibility
+				c = 'P'; // compatibility with /usr/bin/xattr
 			case 'o':
 			case 'O':
 			case 'p':
@@ -46,8 +64,8 @@ int main(int argc, char *argv[]) {
 			case 'w':
 				if (action) {
 					warnx("You may not specify more than one `-DdOoPpw' option");
-					fprintf(stderr, "Try `%s -h' for usage information\n", argv[0]);
-					return 1;
+					fprintf(stderr, "Try `%s --help' for more information.\n", argv[0]);
+					return 2;
 				} else {
 					action = c;
 					if (!isupper(c)) {
@@ -67,49 +85,54 @@ int main(int argc, char *argv[]) {
 				options ^= XATTR_NOFOLLOW;
 				break;
 			case 'c': {
-				long acols = strtol(optarg, NULL, 0);
+				unsigned long acols = strtoul(optarg, NULL, 0);
 				if (acols > 0 && errno == 0)
 					gCols = acols;
 				else
 					err(1, NULL);
 			} break;
-			case '?':
-				fprintf(stderr, "Try `%s -h' for usage information\n", argv[0]);
-				return 1;
-//			case 'h':
+			case 'h':
+				fprintf(stderr, "usage:  %s [<action>] [<options>] <file>...\n"
+						"ACTIONS\n"
+						" (default)\t"
+						"List names of xattrs\n"
+						" -p <name>\t"
+						"Hexdump of data for given xattr\n"
+						" -o <name>\t"
+						"Output raw data for given xattr\n"
+						" -d <name>\t"
+						"Delete given xattr\n"
+						" -w <name>\t"
+						"Write xattr (data taken from stdin)\n"
+						" -P, -O, -D\t"
+						"Like small letter, but act on ALL xattrs\n"
+						"OPTIONS\n"
+						" -L\t"
+						"Follow symlinks.\n"
+						//				" -c <n>\t"
+						//				"Show <n> bytes per line in hex output\n"
+						" -C\t"
+						"Fail if xattr exists (create)\n"
+						" -R\t"
+						"Fail if xattr doesn't exist (replace)\n"
+						, argv[0]);
+				return 0;
+			case 'V':
+				puts(__TARGET_NAME__ " (CLIMac) " __TARGET_VERSION__ "\n"
+					 "Copyright (c) 2009 Vacuous Virtuoso" "\n"
+					 "<http://lipidity.com/climac/" __TARGET_NAME__ ">");
+				return 0;
+//			case '?':
 			default:
+//				fprintf(stderr, "Usage: %s [-LRC] ACTION [ARG] <file>...\n", argv[0]);
 				goto usage;
 		}
 	}
 	if ((argc -= optind) == 0) {
-//		warnx("No files to act on");
+		warnx("No files to act on");
 usage:
-		// or					 %s [-L] [-c <num>] ACTION [ARG] <file>...
-		fprintf(stderr, "usage:  %s [<action>] [<options>] <file>...\n"
-				"ACTIONS\n"
-				" (default)\t"
-				"List names of xattrs\n"
-				" -p <name>\t"
-				"Hexdump of data for given xattr\n"
-				" -o <name>\t"
-				"Output raw data for given xattr\n"
-				" -d <name>\t"
-				"Delete given xattr\n"
-				" -w <name>\t"
-				"Write xattr (data taken from stdin)\n"
-				" -P, -O, -D\t"
-				"Like small letter, but act on ALL xattrs\n"
-				"OPTIONS\n"
-				" -L\t"
-				"Follow symlinks.\n"
-//				" -c <n>\t"
-//				"Show <n> bytes per line in hex output\n"
-				" -C\t"
-				"Fail if xattr exists (create)\n"
-				" -R\t"
-				"Fail if xattr doesn't exist (replace)\n"
-				, argv[0]);
-		return 1;
+		fprintf(stderr,  "Try `%s --help' for more information.\n", argv[0]);
+		return 2;
 	}
 	argv += optind;
 
