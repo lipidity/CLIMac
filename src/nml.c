@@ -316,8 +316,11 @@ int main(int argc, char *argv[]) {
 	while (ptr < end) {
 		if (*ptr == '<')
 			parseElem(selfClosing, compact, outFile);
-		else
-			putc_unlocked(*ptr, outFile), ++ptr;
+		else {
+			if (!compact || !isspace(*ptr))
+				putc_unlocked(*ptr, outFile);
+			++ptr;
+		}
 	}
 	return 0;
 }
