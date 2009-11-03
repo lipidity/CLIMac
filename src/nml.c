@@ -8,36 +8,43 @@
 
 #define WRITE(PTR, LEN) EIF (fwrite((PTR), (LEN), 1, outFile) != 1, err(1, NULL));
 
-static inline void parseAttr(char ** restrict ptrToptr, char * restrict end, bool isXHTML, FILE * restrict outFile) {
-	char *ptr = *ptrToptr;
-top:
-	while (ptr < end && isspace(*ptr))
-		++ptr;
+#define SEEK(N) ({ if ((ptr+=(N)) >= end) errx(1, "Syntax"); })
+#define NEXTC SEEK(1ul)
+
+static char *ptr, *end;
+
+static inline void parseAttr(bool isXHTML, FILE * restrict outFile) {
+top: ;
+	while (isspace(*ptr))
+		NEXTC;
 	char *attr = ptr;
 	size_t lenAttr = 0;
-	while (ptr < end && !(isspace(*ptr) || *ptr == ']' || *ptr == ';'))
-		++lenAttr, ++ptr;
+	while (!(isspace(*ptr) || *ptr == ']' || *ptr == ';'))
+		++lenAttr, NEXTC;
 	if (lenAttr) {
 		putc_unlocked(' ', outFile);
 		WRITE (attr, lenAttr);
 		putc_unlocked('=', outFile);
 		putc_unlocked('"', outFile);
 
-		while (ptr < end && isspace(*ptr))
-			++ptr;
+		while (isspace(*ptr))
+			NEXTC;
 
 		switch (*ptr) {
 			case ']':
 			case ';':
 				WRITE (attr, lenAttr);
 				putc_unlocked('"', outFile);
-				if (*ptr++ == ';')
+				if (*ptr == ';') {
+					NEXTC;
 					goto top;
+				}
 				break;
 			default: {
 				bool quoted = 0;
-				do {
-					char c = *ptr++;
+				while (1) {
+					char c = *ptr;
+					NEXTC;
 					if (c == '"')
 						quoted = !quoted;
 					else if (quoted) {
@@ -49,21 +56,20 @@ top:
 								goto top;
 							case ']':
 								putc_unlocked('"', outFile);
-								goto end;
+								return;
 							default:
 								putc_unlocked(c, outFile);
 						}
 					}
-				} while (ptr < end);
+				}
 			}
 		}
-	} else if (*ptr++ == ';') {
+	} else if (*ptr == ';') {
+		NEXTC;
 		goto top;
 	}
-end:
-	*ptrToptr = ptr;
+	NEXTC;
 }
-#if 0
 static void penc(int c, FILE *out) {
 	static const char * const str = "&<>";
 	static const char * const rep[] = {"amp", "lt", "gt"};
@@ -76,16 +82,16 @@ static void penc(int c, FILE *out) {
 		putc_unlocked(';', out);
 	}
 }
-#endif
-static inline void parseElem(char ** restrict ptrToptr, char * restrict end, bool isXHTML, bool compact, FILE * restrict outFile) {
-	char *ptr = *ptrToptr;
-	while (ptr < end && isspace(*ptr))
-		++ptr;
+static void parseElem(bool isXHTML, bool compact, FILE * restrict outFile) {
+	NEXTC;
+	while (isspace(*ptr))
+		NEXTC;
 	char *name = ptr;
 	size_t lenName = 0;
-	while (ptr < end && (isalnum(*ptr) || *ptr == ':'))
-		++lenName, ++ptr;
+	while (isalnum(*ptr) || *ptr == ':')
+		++lenName, NEXTC;
 	if (lenName) {
+		putc_unlocked('<', outFile);
 		WRITE (name, lenName);
 
 		char *spaceAfterName = NULL;
@@ -93,26 +99,24 @@ static inline void parseElem(char ** restrict ptrToptr, char * restrict end, boo
 
 		bool selfClosed = (*ptr == '/');
 		if (selfClosed) {
-			++ptr;
-			while (ptr < end && isspace(*ptr))
-				++ptr;
+			NEXTC;
+			while (isspace(*ptr))
+				NEXTC;
 		} else {
 			if (*ptr == ' ')
-				++ptr;
-			while (ptr < end && isspace(*ptr))
-				++lenSpaceAfterName, ++ptr;
+				NEXTC;
+			while (isspace(*ptr))
+				++lenSpaceAfterName, NEXTC;
 			if (lenSpaceAfterName != 0)
 				spaceAfterName = ptr - lenSpaceAfterName;
 		}
 
-		if (ptr < end && *ptr == '[') {
+		if (*ptr == '[') {
 			spaceAfterName = NULL;
-			++ptr;
-			*ptrToptr = ptr;
-			parseAttr(ptrToptr, end, isXHTML, outFile);
-			ptr = *ptrToptr;
-			if (ptr < end && *ptr == ' ')
-				++ptr;
+			NEXTC;
+			parseAttr(isXHTML, outFile);
+			if (*ptr == ' ')
+				NEXTC;
 		}
 
 		if (isXHTML && selfClosed) {
@@ -122,136 +126,132 @@ static inline void parseElem(char ** restrict ptrToptr, char * restrict end, boo
 		putc_unlocked('>', outFile);
 
 		if (selfClosed) {
-			while (ptr < end && *ptr != '>')
-				++ptr;
-			++ptr;
+			while (*ptr != '>')
+				NEXTC;
 		} else {
 			if (spaceAfterName)
 				WRITE (spaceAfterName, lenSpaceAfterName);
 			do {
-				while (ptr < end && *ptr != '<' && *ptr != '>')
-					putc_unlocked(*ptr, outFile), ++ptr;
-				if (*ptr == '<') {
-					putc_unlocked('<', outFile);
-					++ptr;
-					*ptrToptr = ptr;
-					parseElem(ptrToptr, end, isXHTML, compact, outFile);
-					ptr = *ptrToptr;
-				}
-			} while (ptr < end && *ptr != '>');
-			++ptr;
+				while (*ptr != '<' && *ptr != '>')
+					putc_unlocked(*ptr, outFile), NEXTC;
+				if (*ptr == '<')
+					parseElem(isXHTML, compact, outFile);
+			} while (*ptr != '>');
 			putc_unlocked('<', outFile);
 			putc_unlocked('/', outFile);
 			WRITE (name, lenName);
 			putc_unlocked('>', outFile);
 		}
 	} else {
-#if 0
-		switch (*ptr) {
+		NEXTC;
+		switch (*(ptr - 1)) {
 			case '!': {
-				int a = getc_unlocked(f), b = getc_unlocked(f);
+				int a, b;
+				a = *ptr; NEXTC;
+				b = *ptr; NEXTC;
 				if (a == '-' && b == '-') {
 					fputs("<!--", outFile);
-					while ((c = getc_unlocked(f)) != EOF) {
-						putc_unlocked(c, outFile);
-						if (c == '-') {
-							putc_unlocked((c = getc_unlocked(f)), outFile);
-							if (c == '-') {
-								putc_unlocked((c = getc_unlocked(f)), outFile);
-								if (c == '>') {
+					while (1) {
+						putc_unlocked(*ptr, outFile);
+						if (*ptr == '-') {
+							NEXTC;
+							putc_unlocked(*ptr, outFile);
+							if (*ptr == '-') {
+								NEXTC;
+								putc_unlocked(*ptr, outFile);
+								if (*ptr == '>') {
 									break;
 								}
 							}
 						}
+						NEXTC;
 					}
 				} else if (a == '[' && b == 'C') {
-					char m[5];
-					fread(m, 5, 1, f);
-					if (strncmp("DATA[", m, 5) == 0) {
+					if (ptr + 5 < end && bcmp("DATA[", ptr, 5) == 0) {
+						SEEK(5);
 						fputs("<![CDATA[", outFile);
-						while ((c = getc_unlocked(f)) != EOF) {
-							putc_unlocked(c, outFile);
-							if (c == ']') {
-								putc_unlocked((c = getc_unlocked(f)), outFile);
-								if (c == ']') {
-									putc_unlocked((c = getc_unlocked(f)), outFile);
-									if (c == '>') {
+						while (1) {
+							putc_unlocked(*ptr, outFile);
+							NEXTC;
+							if (*ptr == ']') {
+								NEXTC;
+								putc_unlocked(*ptr, outFile);
+								if (*ptr == ']') {
+									NEXTC;
+									putc_unlocked(*ptr, outFile);
+									if (*ptr == '>') {
 										break;
 									}
 								}
 							}
 						}
 					} else {
-						fseek(f, -7, SEEK_CUR);
 						goto doctype;
 					}
 				} else {
 doctype:
-					ungetc(b, f);
-					ungetc(a, f);
+					ptr -= 2;
 					putc_unlocked('<', outFile);
 					putc_unlocked('!', outFile);
-					while ((c = getc_unlocked(f)) != EOF && c != '>')
-						putc_unlocked(c, outFile);
-					putc_unlocked(c, outFile);
+					while (*ptr != '>')
+						putc_unlocked(*ptr, outFile), NEXTC;
+					putc_unlocked('>', outFile);
 				}
 			}
 				break;
 			case '?':
-				while ((c = getc_unlocked(f)) != EOF) {
-					putc_unlocked(c, outFile);
-					if (c == '?') {
-						putc_unlocked((c = getc_unlocked(f)), outFile);
-						if (c == '>') {
+				putc_unlocked('<', outFile);
+				putc_unlocked('?', outFile);
+				while (1) {
+					putc_unlocked(*ptr, outFile);
+					if (*ptr == '?') {
+						NEXTC;
+						putc_unlocked(*ptr, outFile);
+						if (*ptr == '>') {
 							break;
 						}
 					}
+					NEXTC;
 				}
 				break;
 			case '<': {
-				while ((c = getc_unlocked(f)) != EOF && isspace(c))
-					;
-				ungetc(c, f);
-				len = 0;
-				while ((c = getc_unlocked(f)) != EOF && c != '\n' && c != '\r')
-					++len;
+				while (isspace(*ptr))
+					NEXTC;
+				char *token = ptr;
+				size_t len = 0;
+				while (*ptr != '\n')
+					++len, NEXTC;
+				NEXTC;
 				if (len == 0)
 					err(EX_DATAERR, "zero-length heredoc delimiter");
-				char token[len + 1];
-				readBackStr(token, len, f);
-				if (getc_unlocked(f) == '\r' && (c = getc_unlocked(f)) != '\n') // crlf handling
-					ungetc(c, f);
-				char search[len];
-				void (*pfn)(int, FILE *) = (token[0] == '&') ? &penc : (void (*)(int, FILE *))&putc_unlocked;
-				do {
-					while ((c = getc_unlocked(f)) != EOF && c != '\n' && c != '\r')
-						pfn(c, outFile);
-
-					int lf = 0;
-					if (c == '\r' && (lf = getc_unlocked(f)) != '\n') // crlf handling
-						ungetc(lf, f);
-
-					fread(search, len, 1, f);
-					int d = getc_unlocked(f);
-					if (strncmp(token, search, len) == 0 && (d == '\n' || d == '\r')) {
-						if (d == '\r' && (c = getc_unlocked(f)) != '\n') // crlf handling
-							ungetc(c, f);
+				void (*pfn)(int, FILE *);
+				if (*token == '&') {
+					pfn = &penc;
+					++token;
+					--len;
+				} else {
+					pfn = (void (*)(int, FILE *))&putc_unlocked;
+				}
+				while (1) {
+					while (*ptr != '\n')
+						pfn(*ptr, outFile), NEXTC;
+					NEXTC;
+					char *search = ptr;
+					SEEK(len - 1);
+					if (bcmp(token, search, len) == 0 && ++ptr < end && *ptr == '\n') {
 						break;
 					} else {
-						putc_unlocked(c, outFile);
-						if (lf == '\n') // crlf handling
-							putc_unlocked('\n', outFile);
-						fseek(f, -1 - len, SEEK_CUR);
+						ptr -= len - 1;
+						putc_unlocked('\n', outFile);
 					}
-				} while (!(feof_unlocked(f) || ferror_unlocked(f)));
+				}
 			}
 				break;
 			default:
 				err(EX_DATAERR, "bad syntax");
 		}
-#endif
 	}
-	*ptrToptr = ptr;
+	NEXTC;
 }
 
 int main(int argc, char *argv[]) {
@@ -311,13 +311,13 @@ int main(int argc, char *argv[]) {
 		if (nml_len != 0u)
 			nml_len = nml_len - 4096ul + lastReadCount;
 	}
-	char *ptr = nml, *end = (nml + nml_len);
+	ptr = nml;
+	end = (nml + nml_len);
 	while (ptr < end) {
-		char ch = *ptr;
-		putc_unlocked(ch, outFile);
-		++ptr;
-		if (ch == '<')
-			parseElem(&ptr, end, selfClosing, compact, outFile);
+		if (*ptr == '<')
+			parseElem(selfClosing, compact, outFile);
+		else
+			putc_unlocked(*ptr, outFile), ++ptr;
 	}
 	return 0;
 }
