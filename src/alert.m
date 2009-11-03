@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
 #if ENABLE_HELP
 		{ "help-file", required_argument, NULL, 'h' },
 #endif
-		{ "message", optional_argument, NULL, 'm' }, // from stdin if no arg
+		{ "message", required_argument, NULL, 'm' }, // todo: from stdin if no arg
 		{ "information", required_argument, NULL, 'i' },
 		{ "icon", required_argument, NULL, 'I' },
 #if _10_5_PLUS
@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
 	[[NSApplication sharedApplication] setDelegate:s];
 	int c;
 	NSAlert *alert = [NSAlert new];
-	while ((c = getopt_long(argc, (char **)argv, "s:m::i:I:"
+	while ((c = getopt_long(argc, argv, "s:m:i:I:"
 #if _10_5_PLUS
 							"p"
 #endif
@@ -82,8 +82,8 @@ int main(int argc, char *argv[]) {
 				CFStringRef msg = NULL;
 				if (optarg != NULL)
 					msg = CFStringCreateWithFileSystemRepresentation(NULL, optarg);
-				else
-					msg = (CFStringRef)[[NSString alloc] initWithData:[[NSFileHandle fileHandleWithStandardInput] readDataToEndOfFile] encoding:NSUTF8StringEncoding];
+//				else
+//					msg = (CFStringRef)[[NSString alloc] initWithData:[[NSFileHandle fileHandleWithStandardInput] readDataToEndOfFile] encoding:NSUTF8StringEncoding];
 				if (msg != NULL) {
 					NSUInteger len = [(NSString *)msg length];
 					if (len != 0) {

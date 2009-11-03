@@ -5,23 +5,43 @@
 .\"/usr/share/misc/mdoc.template
 .Dd June 14, 2009
 .Os "Mac OS X"
-.Dt DUP \&1 "CLIMac Reference Manual"
+.Dt ALERT \&1 "CLIMac Reference Manual"
 .Sh NAME                 \" Section Header - required - don't modify 
-.Nm dup
-.Nd duplicate files
+.Nm alert
+.Nd display dialog
 .Sh SYNOPSIS             \" Section Header - required - don't modify
 .Nm
-.Ar
+.Op Fl m Ar msg
+.Op Fl i Ar info
+.Op Fl I Ar icon
+.Op Fl s No info \*(Ba warn \*(Ba critical
+.Ar button ...
 .Sh DESCRIPTION          \" Section Header - required - don't modify
 .Pp
 The
 .Nm
-utility creates a copy of the specified files or folders in their parent directory. A suffix
-.Pq eg. Qq " copy"
-is added to the end of the new
-.No file Ap s name .
+utility displays a pop-up alert dialog.
 .Pp
-Symlinks are never followed.
+The options are as follows:
+.Bl -tag -width 4n
+.It Fl m , -message Ar msg
+The main message of the alert.
+.It Fl i , -info Ar info
+Additional information about the alert.
+.It Fl I , -icon Ar icon
+The icon displayed in the alert.
+.It Fl s , -style Ar style
+The type of alert. One of
+.Sq info ,
+.Sq warn
+or
+.Sq critical .
+The default alert style is
+.Sq warn .
+.Sq critical
+should be reserved for critical alerts and will cause the icon to be badged with a caution icon.
+.El
+
 .\".Sh FILES                \" File used or created by the topic of the man page
 .\".Sh EXAMPLES
 .Sh DIAGNOSTICS
