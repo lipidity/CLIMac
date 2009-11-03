@@ -281,7 +281,7 @@ int main(int argc, char *argv[]) {
 			case 'o':
 				if (outFile != stdout)
 					errx(1, "Only one %s option can be specified", "-o");
-				outFile = fopen(optarg, "w"); // SHOULD: not create/truncate file unless have output
+				outFile = fopen(optarg, "w"); // FIXME: MUST: don't create/truncate file unless have output
 				EIF (outFile == NULL, err(1, "%s", optarg));
 				// Locks are retain counted,
 				// Create one now so don't have to create / destroy locks all the time (eg. in fputs)
@@ -301,15 +301,15 @@ int main(int argc, char *argv[]) {
 	if (nml == NULL) {
 		size_t lastReadCount = 0u;
 		while (!ferror_unlocked(stdin) && !feof_unlocked(stdin)) {
-			nml_len += 4096u;
-			if (nml_len == 0) // MUST: check if overflow is caught
+			if (SIZE_T_MAX - nml_len < 4096ul)
 				errx(1, "Input too big");
+			nml_len += 4096ul;
 			nml = xrealloc(nml, nml_len);
 			lastReadCount = fread(nml + (nml_len - 4096u), 1u, 4096u, stdin);
 		}
 		EIF (ferror_unlocked(stdin), errx(1, "Read error"));
 		if (nml_len != 0u)
-			nml_len = nml_len - 4096u + lastReadCount;
+			nml_len = nml_len - 4096ul + lastReadCount;
 	}
 	char *ptr = nml, *end = (nml + nml_len);
 	while (ptr < end) {
