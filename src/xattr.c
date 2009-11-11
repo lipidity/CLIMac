@@ -63,7 +63,7 @@ int main(int argc, char *argv[]) {
 			case 'p':
 			case 'd':
 			case 'w':
-				if (action) {
+				if (action != '\0') {
 					warnx("You may not specify more than one `-dopw' option");
 					fprintf(stderr, "Try `%s --help' for more information.\n", argv[0]);
 					return 2;
@@ -112,7 +112,7 @@ int main(int argc, char *argv[]) {
 					err(1, NULL);
 			} break;
 			case 'h':
-				fprintf(stderr, "usage:  %s [<action>] [<options>] <file>...\n"
+				printf("usage:  %s [<action>] [<options>] <file>...\n"
 						"ACTIONS\n"
 						" (default)\t"
 						"List names of xattrs\n"
@@ -136,19 +136,17 @@ int main(int argc, char *argv[]) {
 						, argv[0]);
 				return 0;
 			case 'V':
-				puts(__TARGET_NAME__ " (CLIMac) " __TARGET_VERSION__ "\n"
-					 "Copyright (c) 2009 Vacuous Virtuoso" "\n"
-					 "<http://lipidity.com/climac/" __TARGET_NAME__ ">");
+				PRINT_VERSION;
 				return 0;
 //			case '?':
 			default:
 //				fprintf(stderr, "Usage: %s [-LRC] ACTION [ARG] <file>...\n", argv[0]);
-				goto usage;
+				goto bad_cmd;
 		}
 	}
 	if ((argc -= optind) == 0) {
 		warnx("No files to act on");
-usage:
+bad_cmd:
 		fprintf(stderr,  "Try `%s --help' for more information.\n", argv[0]);
 		return 2;
 	}
