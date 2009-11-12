@@ -11,16 +11,18 @@
 .Nd move files to trash
 .Sh SYNOPSIS             \" Section Header - required - don't modify
 .Nm
+.Op Fl v
 .Ar
 .Sh DESCRIPTION          \" Section Header - required - don't modify
 .Pp
 The
 .Nm
-utility moves
-.Ar file
-to the trash folder on the volume containing the file. If a file with the same name currently exists in the trash folder, the new file is renamed. If no trash folder exists on the volume containing the file, the operation fails.
+utility
+moves a file or directory to the Trash, adjusting the
+.No object Ap s
+name if necessary. The appropriate trash folder is chosen based on the source volume and the current user.
 .Pp
-Symlinks are never followed. Metadata such as owner and group numbers, file permissions, and modification date are preserved.
+If the source volume does not support a trash folder, this utility does nothing and returns an error.
 .\".Sh FILES                \" File used or created by the topic of the man page
 .\".Sh EXAMPLES
 .Sh DIAGNOSTICS
@@ -35,9 +37,13 @@ utility exits 0 on success, and \*(Gt0 if an error occurs.
 .Xr mv 1
 .Sh BUGS              \" Document known, unremedied bugs
 .Pp
-The Cocoa APIs which the
-.Nm
-utility uses assert that you need write permissions on the containing directory for the operation to succeed. This means escalation via
+The
+.Dq put back
+mechanism introduced in 10.6 is not supported as it relies on .DS_Store files. A script to do this with extended attributes instead is provided at
+.Pa eg/recycle
+in your CLIMac destribution.
+.Pp
+The API which is used stipulates that you have write permissions on the containing directory for the operation to succeed. This means escalation via
 .Xr sudo 1
 currently has little effect.
 .\" .Sh HISTORY           \" Document history if command behaves in a unique manner

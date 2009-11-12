@@ -1,0 +1,20 @@
+#!/bin/zsh
+for i in $*; do
+		# make absolute path
+        path -a $i # [[ $i[1] == '/' ]] || i=$PWD/$i 
+		t=$(=trash -v -- $i)
+		if [[ -n $t ]]; then
+			=xattr -C -w com.lipidity.Trash:orig -- $t <<< $i || echo Could not set xattr for $i "()"
+		else
+			echo Could not trash $i
+		fi
+done
+
+#!/bin/zsh
+for i in $*; do
+        orig=$(xattr -p com.lipidity.Trash:orig -- $i)
+        if [[ -z $orig ]] { echo ${i}: Original location unknown >&2; continue }
+		if [[ -e $orig ]] { echo ${orig} exists; continue }
+		mv $i $orig || { echo ${i}: Failed; continue }
+		xattr -d com.lipidity.Trash:orig -- $orig
+done
