@@ -7,7 +7,9 @@
 {
 @public
 	NSAlert *a;
-} @end
+}
+- (void) applicationDidFinishLaunching:(NSNotification *)aNotification __attribute((noreturn));
+@end
 
 int main(int argc, char *argv[]) {
 	NSAutoreleasePool *pool = [NSAutoreleasePool new];
@@ -123,7 +125,7 @@ int main(int argc, char *argv[]) {
 }
 
 @implementation S
-- (void) applicationDidFinishLaunching:(NSNotification *)aNotification {
+- (void) applicationDidFinishLaunching:(NSNotification *) __attribute((unused)) aNotification {
 	[NSApp activateIgnoringOtherApps:YES];
 	NSInteger ret = [a runModal];
 #if _10_5_PLUS
