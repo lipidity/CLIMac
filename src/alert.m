@@ -1,26 +1,21 @@
 #import <Cocoa/Cocoa.h>
 
-#define ENABLE_HELP 0
-
 @interface S : NSObject
 #if _10_6_PLUS
 <NSApplicationDelegate, NSAlertDelegate>
 #endif
 {
 @public
-#if ENABLE_HELP
-	id help;
-#endif
 	NSAlert *a;
 } @end
 
 int main(int argc, char *argv[]) {
 	NSAutoreleasePool *pool = [NSAutoreleasePool new];
 	const struct option longopts[] = {
+		{ "help", no_argument, NULL, 'h' },
+		{ "version", no_argument, NULL, 'V' },
+
 		{ "style", required_argument, NULL, 's' },
-#if ENABLE_HELP
-		{ "help-file", required_argument, NULL, 'h' },
-#endif
 		{ "message", required_argument, NULL, 'm' }, // todo: from stdin if no arg
 		{ "information", required_argument, NULL, 'i' },
 		{ "icon", required_argument, NULL, 'I' },
@@ -33,14 +28,11 @@ int main(int argc, char *argv[]) {
 	[[NSApplication sharedApplication] setDelegate:s];
 	int c;
 	NSAlert *alert = [NSAlert new];
-	while ((c = getopt_long(argc, argv, "s:m:i:I:"
+	while ((c = getopt_long(argc, argv, "hVs:m:i:I:"
 #if _10_5_PLUS
 							"p"
 #endif
-#if ENABLE_HELP
-							"h:"
-#endif
-							, longopts, NULL)) != EOF) { // #if ENABLE_HELP "h:" #endif
+							, longopts, NULL)) != EOF) {
 		switch (c) {
 			case 's': {
 				const char *styles[] = {"warn", "info", "critical"};
@@ -52,32 +44,6 @@ int main(int argc, char *argv[]) {
 				} // anything else ignored
 			}
 				break;
-#if ENABLE_HELP
-			case 'h': {
-				[alert setShowsHelp:YES];
-				if (optarg[0] == '@') {
-					s->help = (NSURL *)CFURLCreateFromFileSystemRepresentation(NULL, (UInt8 *) optarg + 1, strlen(optarg + 1), false);
-				} else if (optarg[0] == '<') {
-					CFStringRef file = CFStringCreateWithFileSystemRepresentation(NULL, optarg + 1);
-					if (file != NULL) {
-						NSStringEncoding enc; NSError *error;
-						s->help = [[NSString alloc] initWithContentsOfFile:(NSString *)file usedEncoding:&enc error:&error];
-						CFRelease(file);
-					}
-				} else if (optarg[0] == '+') {
-					CFStringRef anchor = CFStringCreateWithFileSystemRepresentation(NULL, optarg + 1);
-					if (anchor != NULL) {
-						[alert setHelpAnchor:(NSString *)anchor];
-						CFRelease(anchor);
-					}
-				} else if (optarg[0] == '-' && optarg[1] == '\0') {
-					s->help = [[NSString alloc] initWithData:[[NSFileHandle fileHandleWithStandardInput] readDataToEndOfFile] encoding:NSUTF8StringEncoding];
-				} else {
-					s->help = (NSString *)CFStringCreateWithFileSystemRepresentation(NULL, optarg);
-				}
-			}
-				break;
-#endif
 			case 'm': {
 				CFStringRef msg = NULL;
 				if (optarg != NULL)
@@ -129,13 +95,13 @@ int main(int argc, char *argv[]) {
 				[alert setShowsSuppressionButton:YES];
 				break;
 #endif
+			case 'V':
+				PRINT_VERSION;
+				return 0;
+			case 'h':
 			default:
-				fprintf(stderr, "usage:  %s [-m message] [-i info]"
-#if ENABLE_HELP
-						" [-h help]"
-#endif
-						" [-I icon] [-s warn|info|critical] buttons ...\n", argv[0]);
-				return 1;
+				fprintf(stderr, "usage:  %s [-m message] [-i info] [-I icon] [-s warn|info|critical] buttons ...\n", argv[0]);
+				return (c != 'h');
 		}
 	}
 	argv += optind; argc -= optind;
@@ -166,16 +132,4 @@ int main(int argc, char *argv[]) {
 #endif
 	exit((int)(ret ? ret - 1000 : 0));
 }
-#if ENABLE_HELP
-- (BOOL) alertShowHelp:(NSAlert *)alert {
-	NSLog(@"HELP!");
-	if ([help isKindOfClass:[NSString class]])
-		puts([help fileSystemRepresentation]);
-	else if ([help isKindOfClass:[NSURL class]])
-		[[NSWorkspace sharedWorkspace] openURL:help];
-	else
-		return NO;
-	return YES;
-}
-#endif
 @end
