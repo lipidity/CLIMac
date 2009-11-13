@@ -12,6 +12,9 @@ compile(){
 c_build(){
 	c=$CFLAGS' -include Prefix.pch'
 	case $1 in
+		(app)
+			c="$c -framework Cocoa -Wno-cast-qual"
+			;;
 		(alert)
 			c="$c -framework Cocoa -Wno-cast-qual"
 			;;

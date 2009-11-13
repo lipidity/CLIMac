@@ -1,122 +1,161 @@
-#import <getopt.h>
+/*
+ * Find or list applications
+ *
+ * Copyright (C) Vacuous Virtuoso
+ * <http://lipidity.com/climac/>
+ */
 
-CG_EXTERN OSStatus _LSCopyAllApplicationURLs(CFArrayRef *);
-CG_EXTERN CGError CGSConnectionGetPID(int cid, pid_t *outPID);
-CG_EXTERN int CGSMainConnectionID(void);
-CG_EXTERN CGError CGSGetWindowOwner(int cid, int wid, int *outOwner);
+extern OSStatus _LSCopyAllApplicationURLs(CFArrayRef *);
+extern CGError CGSConnectionGetPID(int cid, pid_t *outPID);
+extern int CGSMainConnectionID(void);
+extern CGError CGSGetWindowOwner(int cid, int wid, int *outOwner);
+
+static NSWorkspace *ws = nil;
 
 /* LSCopyDefault(Role)?Handler functions are only valid for explicitly set associations. */
-
-@interface NSString (aBID) - (NSString *) cp4bid; @end
-@implementation NSString (aBID)
-- (NSString *) cp4bid; {
-	NSString *retval = [[NSWorkspace sharedWorkspace] absolutePathForAppBundleWithIdentifier:self];
-	if (retval == nil)
-		warnx("No path for bundle ID '%s'", [self fileSystemRepresentation]);
-	return retval;
+static inline NSString *pathForBundle(CFStringRef bundle);
+static inline NSString *pathForBundle(CFStringRef bundle) {
+	if (bundle != NULL) {
+		NSString *retval = [ws absolutePathForAppBundleWithIdentifier:(NSString *)bundle];
+		if (retval == nil)
+			warnx("No path for bundle ID '%s'", [(NSString *)bundle fileSystemRepresentation]);
+		return retval;
+	} else {
+		return NULL;
+	}
 }
-@end
+static NSArray *bundlesToPaths(CFArrayRef bids);
+static NSArray *bundlesToPaths(CFArrayRef bids) {
+	NSUInteger n = CFArrayGetCount(bids);
+	NSMutableArray *a = [[NSMutableArray alloc] initWithCapacity:n];
+	NSEnumerator *e = [(NSArray *)bids objectEnumerator];
+	NSString *b;
+	while ((b = [e nextObject]) != nil) {
+		b = pathForBundle((CFStringRef)b);
+		if (b != nil) {
+			[a addObject:b];
+		}
+	}
+	return a;
+}
 
-int main(int argc, const char * argv[]) {
+int main(int argc, char *argv[]) {
 	if (argc > 1) {
 		NSAutoreleasePool *pool = [NSAutoreleasePool new];
 		const struct option longopts[] = {
+			{ "help", no_argument, NULL, 'h' },
+			{ "version", no_argument, NULL, 'V' },
+
 			/* list */
 			{ "all", no_argument, NULL, 'l' },
 			{ "active", no_argument, NULL, 'a' },
 			/* find */
+			{ "name", required_argument, NULL, 'n' },
 			{ "bundle", required_argument, NULL, 'b' },
 			{ "window", required_argument, NULL, 'w' },
-			{ "scheme", required_argument, NULL, 'u' },
+			{ "scheme", required_argument, NULL, 'u' }, // TODO: url and url scheme are different; LSGetApplicationForURL vs LSCopyDefaultHandlerForURLScheme
+//			{ "url", required_argument, NULL, 'U' },
 			{ "type", required_argument, NULL, 't' },
 			{ "file", required_argument, NULL, 'f' },
 			{ NULL, 0, NULL, 0 }
 		};
 		int c;
 		char action = 0;
-		NSString *arg = NULL;
-		BOOL listAll = NO;
-		while ((c = getopt_long(argc, (char **)argv, "lab:w:u:t:f:", longopts, NULL)) != EOF) {
+		CFStringRef arg = NULL;
+		BOOL listAll = 0;
+		while ((c = getopt_long_only(argc, argv, "lab:w:u:t:f:n:h", longopts, NULL)) != EOF) {
 			switch (c) {
 				case 'l':
 					listAll ^= 1;
 					break;
 				case 'a':
+				case 'n':
 				case 'b':
 				case 'w':
 				case 'u':
 				case 't':
 				case 'f':
 					if (action != 0) {
-						fputs("You may not specify more than one `-bwuta' option", stderr);
-						goto usage;
+						fputs("You may not specify more than one `-nbwuta' option", stderr);
+						fprintf(stderr,  "Try `%s --help' for more information.\n", argv[0]);
+						return 2;
 					} else {
 						action = c;
 						if (action != 'a') {
-							arg = (NSString *)CFStringCreateWithFileSystemRepresentation(NULL, optarg);
+							arg = CFStringCreateWithFileSystemRepresentation(NULL, optarg);
 							if (arg == NULL)
 								errc(1, EINVAL, "Argument for -%c", action);
 						}
 					}
 					break;
-				default:
+				case 'V':
+					PRINT_VERSION;
+					return 0;
+				case 'h':
 					goto usage;
+				default:
+					fprintf(stderr,  "Try `%s --help' for more information.\n", argv[0]);
+					return 2;
 			}
 		}
-		if (argc != optind && argc != 2)
+		argc -= optind; argv += optind;
+		if (action == 0 && argc == 1) {
+			action = 'n';
+			arg = CFStringCreateWithFileSystemRepresentation(NULL, argv[0]);
+			if (arg == NULL)
+				errc(1, EINVAL, NULL);
+		} else if (((action | listAll) == 0) || argc != 0) {
 			goto usage;
+		}
 
-		NSWorkspace *ws = [NSWorkspace sharedWorkspace];
+		ws = [NSWorkspace sharedWorkspace];
 
-		NSArray *all = NULL;
-		NSString *str = nil;
+		id result = nil;
 		switch (action) {
 			case 'a':
 				if (listAll)
-					all = [[[ws launchedApplications] valueForKey:@"NSApplicationPath"] copy];
+					result = [[[ws launchedApplications] valueForKey:@"NSApplicationPath"] copy];
 				else
-					str = [[[ws activeApplication] objectForKey:@"NSApplicationPath"] copy];
+					result = [[[ws activeApplication] objectForKey:@"NSApplicationPath"] copy];
 				break;
 			case 'b':
-				str = [[arg cp4bid] copy];
+				result = [pathForBundle(arg) copy];
 				break;
 			case 'w': {
-				NSScanner *scan = [NSScanner scannerWithString:arg];
 				int wid = 0;
-				int appConnection = 0;
+				int appCid = 0;
 				int appPid = 0;
-				[scan scanInt:&wid];
+				if (sscanf([(NSString *)arg fileSystemRepresentation], "%u", &wid) != 1)
+					errc(1, EINVAL, "Argument for -%c", 'w');
 				ProcessSerialNumber s = {0u, 0u};
-				if (CGSGetWindowOwner(CGSMainConnectionID(), wid, &appConnection) == 0) {
-					CGSConnectionGetPID(appConnection, &appPid);
+				if (CGSGetWindowOwner(CGSMainConnectionID(), wid, &appCid) == 0) {
+					CGSConnectionGetPID(appCid, &appPid);
 					GetProcessForPID(appPid, &s);
 					FSRef ref = {{0}};
 					GetProcessBundleLocation(&s, &ref);
-					CFURLRef appURL = CFURLCreateFromFSRef(NULL, &ref);
-					if (appURL != NULL) {
-						str = (NSString *)CFURLCopyFileSystemPath(appURL, kCFURLPOSIXPathStyle);
-						CFRelease(appURL);
-					}
+					UInt8 path[PATH_MAX];
+					if (FSRefMakePath(&ref, path, PATH_MAX) == noErr)
+						result = (NSString *)CFStringCreateWithFileSystemRepresentation(NULL, (char *)path);
 				}
 			}
 				break;
 			case 'u':
 				if (listAll) {
-					CFArrayRef bids = LSCopyAllHandlersForURLScheme((CFStringRef)arg);
+					CFArrayRef bids = LSCopyAllHandlersForURLScheme(arg);
 					if (bids) {
-						all = [[(NSArray *)bids valueForKey:@"cp4bid"] copy];
-						CFRelease(bids);
+						result = bundlesToPaths(bids);
 					}
 				} else {
+#if 0
 					NSURL *inURL = [[NSURL alloc] initWithScheme:arg host:@"" path:@"/"];
 					CFURLRef outURL = NULL;
 					if ((LSGetApplicationForURL((CFURLRef)inURL, kLSRolesAll, NULL, (CFURLRef *)&outURL) == 0) && (outURL != NULL))
-						str = (NSString *)CFURLCopyFileSystemPath(outURL, kCFURLPOSIXPathStyle);
+						result = (NSString *)CFURLCopyFileSystemPath(outURL, kCFURLPOSIXPathStyle);
 					[inURL release];
-#if 0
-					CFStringRef bundle = LSCopyDefaultHandlerForURLScheme((CFStringRef)arg);
+#else
+					CFStringRef bundle = LSCopyDefaultHandlerForURLScheme(arg);
 					if (bundle) {
-						str = [[(NSString *)bundle cp4bid] copy];
+						result = [pathForBundle(bundle) copy];
 						CFRelease(bundle);
 					}
 #endif
@@ -126,31 +165,32 @@ int main(int argc, const char * argv[]) {
 				if (listAll) {
 					CFArrayRef bids = LSCopyAllRoleHandlersForContentType((CFStringRef)arg, kLSRolesAll);
 					if (bids) {
-						all = [[(NSArray *)bids valueForKey:@"cp4bid"] copy];
+						result = bundlesToPaths(bids);
 						CFRelease(bids);
 					}
 				} else {
 					CFStringRef bundle = LSCopyDefaultRoleHandlerForContentType((CFStringRef)arg, kLSRolesAll);
 					if (bundle) {
-						str = [[(NSString *)bundle cp4bid] copy];
+						result = [pathForBundle(bundle) copy];
 						CFRelease(bundle);
 					}
-					if (str == NULL) {
+					if (result == NULL) {
+						warnx("Searching further...");
 						CFURLRef outURL = NULL;
 						CFStringRef tag = UTTypeCopyPreferredTagWithClass((CFStringRef)arg, kUTTagClassMIMEType); // leak
 						if (tag) {
 							LSCopyApplicationForMIMEType(tag, kLSRolesAll, &outURL);
 							if (outURL != NULL) {
-								str = (NSString *)CFURLCopyFileSystemPath(outURL, kCFURLPOSIXPathStyle);
+								result = (NSString *)CFURLCopyFileSystemPath(outURL, kCFURLPOSIXPathStyle);
 								CFRelease(outURL);
 							}
 						}
-						if (str == NULL) {
+						if (result == NULL) {
 							tag = UTTypeCopyPreferredTagWithClass((CFStringRef)arg, kUTTagClassFilenameExtension);
 							if (tag) {
 								LSGetApplicationForInfo(kLSUnknownType, kLSUnknownCreator, tag, kLSRolesAll, NULL, &outURL);
 								if (outURL != NULL) {
-									str = (NSString *)CFURLCopyFileSystemPath(outURL, kCFURLPOSIXPathStyle);
+									result = (NSString *)CFURLCopyFileSystemPath(outURL, kCFURLPOSIXPathStyle);
 								}
 							}
 						}
@@ -162,37 +202,39 @@ int main(int argc, const char * argv[]) {
 				NSString *appName = nil, *fileType = nil;
 				[ws getInfoForFile:absPath application:&appName type:&fileType];
 				if (appName)
-					str = [appName copy];
+					result = [appName copy];
 			}
 				break;
-			default: {
+			case 'n': {
+				result = [[ws fullPathForApplication:(NSString *)arg] copy];
+			}
+				break;
+			case 0:
 				if (listAll) {
 					CFArrayRef appURLs = NULL;
 					if (_LSCopyAllApplicationURLs(&appURLs) == 0) {
-						all = [[(NSArray *)appURLs valueForKey:@"path"] copy];
+						result = [[(NSArray *)appURLs valueForKey:@"path"] copy];
 						CFRelease(appURLs);
-					}
-				} else {
-					arg = (NSString *)CFStringCreateWithFileSystemRepresentation(NULL, argv[1]);
-					if (arg) {
-						str = [[ws fullPathForApplication:arg] copy];
 					}
 				}
 				break;
+			default: {
+				// shouldn't happen
+				exit(1);
 			}
 		}
 		if (arg != NULL)
 			CFRelease(arg);
-		if (str != nil) {
-			puts([str fileSystemRepresentation]);
-			CFRelease(str);
-		} else if (all != nil) {
-			NSEnumerator *e = [all objectEnumerator];
+		if ([result respondsToSelector:@selector(fileSystemRepresentation)]) {
+			puts([result fileSystemRepresentation]);
+			CFRelease(result);
+		} else if ([result respondsToSelector:@selector(objectEnumerator)]) {
+			NSEnumerator *e = [result objectEnumerator];
 			NSString *obj;
 			while ((obj = [e nextObject]) != nil)
 				if ([obj respondsToSelector:@selector(fileSystemRepresentation)])
 					puts([obj fileSystemRepresentation]);
-			CFRelease(all);
+			CFRelease(result);
 		} else {
 			exit(1);
 		}
@@ -200,14 +242,20 @@ int main(int argc, const char * argv[]) {
 		return 0;
 	} else {
 usage:
-		fprintf(stderr, "usage:  %s <name>\n", argv[0]);
+		fprintf(stderr, "Usage:  %s [--all] [criterion]\nCriterion is one of:\n", argv[0]);
 		const char * const uses[] = {
-			"-l", "-a", "-b <bundle-id>", "-w <window-id>", "-u <url-scheme>", "-t <UTI>", "-f <file>"
+			"active",				"",
+			"name <app-name>",		"eg. Chess",
+			"bundle <bundle-id>",	"eg. com.apple.Chess",
+			"window <window-id>",	"see wid(1)",
+			"url-scheme <scheme>",	"eg. https",
+			"type <UTI>",			"see uti(1)",
+			"file <file>",			"eg. readme.txt",
 		};
-		size_t j = 0;
+		unsigned short j = 1;
 		do {
-			fprintf(stderr, "\t%s %s\n", argv[0], uses[j]);
-			j += 1;
+			fprintf(stderr, "%9s%-25s%s\n", "-", uses[j-1], uses[j]);
+			j += 2;
 		} while (j < (sizeof(uses)/sizeof(uses[0])));
 		return 1;
 	}
