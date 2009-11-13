@@ -1,8 +1,12 @@
-#import <CoreServices/CoreServices.h>
-#ifdef __OBJC__
-#import <Cocoa/Cocoa.h>
-#endif
-#import <err.h>
+/*
+ * Move files to a Trash
+ *
+ * Using FileManager for 10.5 and newer
+ *   and NSWorkspace for 10.4 down
+ *
+ * Copyright (C) Vacuous Virtuoso
+ * <http://lipidity.com/climac/>
+ */
 
 #define USAGE "usage:  %s [-v] <file>...\n"
 
