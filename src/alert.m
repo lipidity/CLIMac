@@ -1,4 +1,9 @@
-#import <Cocoa/Cocoa.h>
+/*
+ * Display an alert dialog
+ *
+ * Copyright (C) Vacuous Virtuoso
+ * <http://lipidity.com/climac/>
+ */
 
 @interface S : NSObject
 #if _10_6_PLUS
