@@ -41,7 +41,7 @@ GCC_WARN_64_TO_32_BIT_CONVERSION = YES
 GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES
 GCC_WARN_ABOUT_RETURN_TYPE = YES
 GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES
-WARNING_CFLAGS = -Winvalid-pch -Wstrict-aliasing=2 -Wall -Wextra -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wcast-align -Wwrite-strings -Wstrict-prototypes -Wold-style-definition -Wmissing-declarations -Wunreachable-code -Winline -Wdisabled-optimization -Wno-missing-field-initializers -Wno-unused-parameter
+WARNING_CFLAGS = -Winvalid-pch -Wstrict-aliasing=2 -Wall -Wextra -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wcast-align -Wwrite-strings -Wstrict-prototypes -Wold-style-definition -Wmissing-declarations -Wunreachable-code -Winline -Wdisabled-optimization -Wno-missing-field-initializers -Wno-unused-parameter -Wnewline-eof
 GCC_WARN_SIGN_COMPARE = YES
 GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES
 GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES
