@@ -1,13 +1,13 @@
 #import <Cocoa/Cocoa.h>
 
 int main (int argc, char *argv[]) {
-	if ((argc == 2 && isatty(STDOUT_FILENO)) || argc == 3) {
+	if ((argc == 2 && !isatty(STDOUT_FILENO)) || argc == 3) {
 		[NSAutoreleasePool new];
 		[NSApplication sharedApplication];
 
 		CFStringRef inPath = CFStringCreateWithFileSystemRepresentation(NULL, argv[1]);
 		if (inPath) {
-			NSAttributedString *str = [[NSAttributedString alloc] initWithPath:(NSString *)inPath documentAttributes:NULL];
+			NSAttributedString *str = (argv[1][0]=='-'&&argv[1][1]=='\0') ? [[NSAttributedString alloc] initWithData:[[NSFileHandle fileHandleWithStandardInput] readDataToEndOfFile] options:[NSDictionary dictionaryWithObject:NSHTMLTextDocumentType forKey:NSDocumentTypeDocumentOption] documentAttributes:nil error:nil] : [[NSAttributedString alloc] initWithPath:(NSString *)inPath documentAttributes:NULL];
 			CFRelease(inPath);
 			if (str) {
 				NSImage *img = [[NSImage alloc] initWithSize:[str size]];
@@ -19,9 +19,10 @@ int main (int argc, char *argv[]) {
 				[img release];
 				if (argc == 3) {
 					CFStringRef outPath = CFStringCreateWithFileSystemRepresentation(NULL, argv[2]);
-					if (outPath && [data writeToFile:(NSString *)outPath atomically:NO]) {
+					if (outPath) {
+						if ([data writeToFile:(NSString *)outPath atomically:NO])
+							return 0;
 						CFRelease(outPath);
-						return 0;
 					}
 				} else {
 					if (fwrite([data bytes], [data length], 1, stdout) == 1)
