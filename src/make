@@ -13,6 +13,9 @@ c_build(){
 		(app)
 			c="-framework AppKit -Wno-cast-qual"
 			;;
+		(appr)
+			c="-framework AppKit -Wno-cast-qual"
+			;;
 		(trash)
 			c="-framework AppKit"
 			;;
@@ -42,7 +45,7 @@ if [[ -z $_CFLAGS ]] {
 	}
 }
 
-TARGETS=(app trash xattr)
+TARGETS=(app appr trash xattr)
 
 if (( # == 0 )) { # build all targets
 	for i in $TARGETS; c_build $i;
