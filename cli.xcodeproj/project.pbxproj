@@ -35,7 +35,6 @@
 				92C37B0410739CCD00545838 /* PBXTargetDependency */,
 				92C37B0610739CCD00545838 /* PBXTargetDependency */,
 				92C37B0810739CCD00545838 /* PBXTargetDependency */,
-				927BA9051074468E00EFBD0C /* PBXTargetDependency */,
 				92C37B0A10739CCD00545838 /* PBXTargetDependency */,
 				92C37B0C10739CCD00545838 /* PBXTargetDependency */,
 				92C37B0E10739CCD00545838 /* PBXTargetDependency */,
@@ -154,8 +153,6 @@
 		927BA89C107440E400EFBD0C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		927BA8B4107441BD00EFBD0C /* LargeType.m in Sources */ = {isa = PBXBuildFile; fileRef = 927BA8B3107441AA00EFBD0C /* LargeType.m */; };
 		927BA8D01074434700EFBD0C /* audioctl.c in Sources */ = {isa = PBXBuildFile; fileRef = 927BA8AD107441AA00EFBD0C /* audioctl.c */; };
-		927BA8EC1074451400EFBD0C /* Calculate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 927BA8EB1074451400EFBD0C /* Calculate.framework */; };
-		927BA8F31074454600EFBD0C /* calc.c in Sources */ = {isa = PBXBuildFile; fileRef = 927BA8AE107441AA00EFBD0C /* calc.c */; };
 		927BA91E1074476900EFBD0C /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928EEC120FE3A4A300B5953C /* ApplicationServices.framework */; };
 		927BA92B107447C700EFBD0C /* displayctl.c in Sources */ = {isa = PBXBuildFile; fileRef = 927BA8AF107441AA00EFBD0C /* displayctl.c */; };
 		927CFB770FEF182B00D7D4DF /* wintransition.c in Sources */ = {isa = PBXBuildFile; fileRef = 927CFB760FEF182B00D7D4DF /* wintransition.c */; };
@@ -238,13 +235,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		927BA9041074468E00EFBD0C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 927BA8D81074442800EFBD0C;
-			remoteInfo = calc;
-		};
 		927BA906107446A700EFBD0C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
@@ -797,15 +787,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
-		927BA8E01074442800EFBD0C /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 8;
-			dstPath = /Users/ankur/share/man/man1;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
 		927BA9221074476900EFBD0C /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 8;
@@ -1090,13 +1071,10 @@
 		927BA8881074409E00EFBD0C /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = /System/Library/Frameworks/CoreAudio.framework; sourceTree = "<absolute>"; };
 		927BA898107440AF00EFBD0C /* large-type */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "large-type"; sourceTree = BUILT_PRODUCTS_DIR; };
 		927BA8AD107441AA00EFBD0C /* audioctl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = audioctl.c; sourceTree = "<group>"; };
-		927BA8AE107441AA00EFBD0C /* calc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = calc.c; sourceTree = "<group>"; };
 		927BA8AF107441AA00EFBD0C /* displayctl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = displayctl.c; sourceTree = "<group>"; };
 		927BA8B1107441AA00EFBD0C /* imgwin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imgwin.m; sourceTree = "<group>"; };
 		927BA8B2107441AA00EFBD0C /* LargeType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LargeType.h; sourceTree = "<group>"; };
 		927BA8B3107441AA00EFBD0C /* LargeType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LargeType.m; sourceTree = "<group>"; };
-		927BA8E41074442800EFBD0C /* calc */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = calc; sourceTree = BUILT_PRODUCTS_DIR; };
-		927BA8EB1074451400EFBD0C /* Calculate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Calculate.framework; path = /System/Library/PrivateFrameworks/Calculate.framework; sourceTree = "<absolute>"; };
 		927BA9261074476900EFBD0C /* displayctl */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = displayctl; sourceTree = BUILT_PRODUCTS_DIR; };
 		927CFB5C0FEF17F900D7D4DF /* wintransition */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = wintransition; sourceTree = BUILT_PRODUCTS_DIR; };
 		927CFB760FEF182B00D7D4DF /* wintransition.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = wintransition.c; sourceTree = "<group>"; };
@@ -1359,14 +1337,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		927BA8DA1074442800EFBD0C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				927BA8EC1074451400EFBD0C /* Calculate.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		927BA91C1074476900EFBD0C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1615,7 +1585,6 @@
 				32A70AAB03705E1F00C91783 /* alloc.h */,
 				927FB7F110C0064900260C9F /* version.h */,
 				927BA8AD107441AA00EFBD0C /* audioctl.c */,
-				927BA8AE107441AA00EFBD0C /* calc.c */,
 				927BA8AF107441AA00EFBD0C /* displayctl.c */,
 				927BA8B1107441AA00EFBD0C /* imgwin.m */,
 				927BA8B2107441AA00EFBD0C /* LargeType.h */,
@@ -1652,7 +1621,6 @@
 		08FB779DFE84155DC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				927BA8EB1074451400EFBD0C /* Calculate.framework */,
 				927BA8881074409E00EFBD0C /* CoreAudio.framework */,
 				925B70B60FF27D3900030F9C /* IOKit.framework */,
 				92832D170FF0975D00D513E3 /* QuickLook.framework */,
@@ -1715,7 +1683,6 @@
 				92C8EA391034FB4600048FC7 /* normalize */,
 				927BA8851074407900EFBD0C /* audioctl */,
 				927BA898107440AF00EFBD0C /* large-type */,
-				927BA8E41074442800EFBD0C /* calc */,
 				927BA9261074476900EFBD0C /* displayctl */,
 				9265496D10B8A9EF00200173 /* pdate */,
 				92D1CD09112E416800F87310 /* dictctl */,
@@ -2237,23 +2204,6 @@
 			productReference = 927BA898107440AF00EFBD0C /* large-type */;
 			productType = "com.apple.product-type.tool";
 		};
-		927BA8D81074442800EFBD0C /* calc */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 927BA8E11074442800EFBD0C /* Build configuration list for PBXNativeTarget "calc" */;
-			buildPhases = (
-				927BA8D91074442800EFBD0C /* Sources */,
-				927BA8DA1074442800EFBD0C /* Frameworks */,
-				927BA8E01074442800EFBD0C /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = calc;
-			productName = imgconv;
-			productReference = 927BA8E41074442800EFBD0C /* calc */;
-			productType = "com.apple.product-type.tool";
-		};
 		927BA91A1074476900EFBD0C /* displayctl */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 927BA9231074476900EFBD0C /* Build configuration list for PBXNativeTarget "displayctl" */;
@@ -2724,7 +2674,6 @@
 				9291220611C8C80F005E9A35 /* appr */,
 				927BA8791074407900EFBD0C /* audioctl */,
 				928F92E00FE8B2600031CEB8 /* beep */,
-				927BA8D81074442800EFBD0C /* calc */,
 				9270CFBD0FEA6D740026D4F5 /* cifilter */,
 				92A850870FFB265500957102 /* dict */,
 				92D1CCFF112E416800F87310 /* dictctl */,
@@ -3015,14 +2964,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		927BA8D91074442800EFBD0C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				927BA8F31074454600EFBD0C /* calc.c in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		927BA91B1074476900EFBD0C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3234,11 +3175,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		927BA9051074468E00EFBD0C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 927BA8D81074442800EFBD0C /* calc */;
-			targetProxy = 927BA9041074468E00EFBD0C /* PBXContainerItemProxy */;
-		};
 		927BA907107446A700EFBD0C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 92C37B0110739CCD00545838 /* 10.4 */;
@@ -3794,26 +3730,6 @@
 		927BA897107440AF00EFBD0C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-			};
-			name = Release;
-		};
-		927BA8E21074442800EFBD0C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
-				);
-			};
-			name = Debug;
-		};
-		927BA8E31074442800EFBD0C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks\"",
-				);
 			};
 			name = Release;
 		};
@@ -4441,15 +4357,6 @@
 			buildConfigurations = (
 				927BA896107440AF00EFBD0C /* Debug */,
 				927BA897107440AF00EFBD0C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		927BA8E11074442800EFBD0C /* Build configuration list for PBXNativeTarget "calc" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				927BA8E21074442800EFBD0C /* Debug */,
-				927BA8E31074442800EFBD0C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
