@@ -145,9 +145,14 @@ int main(int argc, char *argv[]) {
 			break;
 		case 't':	/* by Uniform Type Identifier */
 			if (listAll) {
-				id apps = (NSArray *)LSCopyAllRoleHandlersForContentType((CFStringRef)arg, kLSRolesAll);
-				result = [[apps valueForKey:@"path"] copy];
-				[apps release];
+				id bundles = (NSArray *)LSCopyAllRoleHandlersForContentType((CFStringRef)arg, kLSRolesAll);
+				result = [[NSMutableArray alloc] initWithCapacity:[bundles count]];
+				for (NSString *bundle in bundles) {
+					NSURL *url = [ws URLForApplicationWithBundleIdentifier:bundle];
+					if (url)
+						[result addObject:[url path]];
+				}
+				[bundles release];
 			} else {
 				NSString *bundle = (NSString *)LSCopyDefaultRoleHandlerForContentType((CFStringRef)arg, kLSRolesAll);
 				if (bundle) {
@@ -157,6 +162,8 @@ int main(int argc, char *argv[]) {
 			}
 			break;
 		case 'f': { /* by file */
+			if (listAll)
+				errx(1, "-lf doesn't make sense. use -lt instead.");
 			NSString *absPath = [arg isAbsolutePath] ? arg : [[fm currentDirectoryPath] stringByAppendingPathComponent:arg];
 			NSString *appName = nil, *fileType = nil;
 			[ws getInfoForFile:absPath application:&appName type:&fileType];
@@ -206,7 +213,7 @@ static inline void usage(FILE *outfile) {
 		const char *long_opt;
 		const char *explanation;
 	} const u[] = {
-		{ 'a', "active",			 "frontmost app; with -l all running"},
+		{ 'a', "active",			 "frontmost app"},
 		{ 'n', "name=[App]",		 "app with name"},
 		{ 'b', "bundle=[BundleID]",  "app with bundle identifier"},
 		{ 's', "url-scheme=[Scheme]","for URLs of type (eg. `https')"},
