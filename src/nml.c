@@ -1,10 +1,21 @@
 #import <sys/mman.h>
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include <stdlib.h>
-#include <err.h>
-#include <sysexits.h>
+#import <sys/stat.h>
+
+#import <ctype.h>
+#import <err.h>
+#import <fcntl.h>
+#import <getopt.h>
+#import <limits.h>
+#import <stdbool.h>
+#import <stdio.h>
+#import <stdint.h>
+#import <stdlib.h>
+#import <string.h>
+#import <sysexits.h>
+
+#import "alloc.h"
+
+#define EIF(cond, then) ((cond) ? (then) : (void)0)
 
 #define WRITE(PTR, LEN) EIF (fwrite((PTR), (LEN), 1, outFile) != 1, err(1, NULL));
 
@@ -13,7 +24,7 @@
 
 static char *ptr, *end;
 
-static inline void parseAttr(bool isXHTML, FILE * restrict outFile) {
+static inline void parseAttr(bool isXHTML, FILE *outFile) {
 top: ;
 	while (isspace(*ptr))
 		NEXTC;
@@ -82,7 +93,7 @@ static void penc(int c, FILE *out) {
 		putc_unlocked(';', out);
 	}
 }
-static void parseElem(bool isXHTML, bool compact, FILE * restrict outFile) {
+static void parseElem(bool isXHTML, bool compact, FILE *outFile) {
 	NEXTC;
 	while (isspace(*ptr))
 		NEXTC;
@@ -268,7 +279,7 @@ int main(int argc, char *argv[]) {
 					errx(1, "Only one %s option can be specified", "-f");
 				else {
 					// SHOULD: check if these three EIF's are optimized into one
-					struct stat st = {0};
+					struct stat st = (struct stat){0};
 					int fd = open(optarg, O_RDONLY);
 					EIF (fd == -1, err(1, "%s", optarg));
 					EIF (fstat(fd, &st) == -1, err(1, "%s", optarg));
@@ -283,9 +294,6 @@ int main(int argc, char *argv[]) {
 					errx(1, "Only one %s option can be specified", "-o");
 				outFile = fopen(optarg, "w"); // FIXME: MUST: don't create/truncate file unless have output
 				EIF (outFile == NULL, err(1, "%s", optarg));
-				// Locks are retain counted,
-				// Create one now so don't have to create / destroy locks all the time (eg. in fputs)
-				flockfile(outFile); // no funlockfile(outFile)
 				break;
 			case 'x':
 				selfClosing ^= 1;

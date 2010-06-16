@@ -1,23 +1,22 @@
-ARCHS = $(ARCHS_STANDARD_32_64_BIT)
+ARCHS = $(NATIVE_ARCH_ACTUAL)
 ONLY_ACTIVE_ARCH = YES
-VALID_ARCHS = i386 ppc ppc64 ppc7400 ppc970 x86_64
-VALID_ARCHS[sdk=macosx10.6] = i386 x86_64
-VALID_ARCHS[sdk=macosx10.4] = i386 ppc ppc7400 ppc970
+VALID_ARCHS = i386 x86_64
+DEBUG_INFORMATION_FORMAT = dwarf
 PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO
-GCC_VERSION = 
-GCC_VERSION[sdk=macosx10.4][arch=*] = 4.0
 INSTALL_PATH = $(HOME)/bin
-MACOSX_DEPLOYMENT_TARGET = $(inherited)
-MACOSX_DEPLOYMENT_TARGET[sdk=macosx10.5][arch=*] = 10.5
-MACOSX_DEPLOYMENT_TARGET[sdk=macosx10.4][arch=*] = 10.4
-MACOSX_DEPLOYMENT_TARGET[sdk=macosx10.6][arch=*] = 10.6
+// MACOSX_DEPLOYMENT_TARGET = $(inherited)
 PREBINDING = NO
 PRODUCT_NAME = $(TARGET_NAME)
 ALWAYS_SEARCH_USER_PATHS = NO
 STRIPFLAGS = -no_uuid
+GCC_VERSION = com.apple.compilers.llvmgcc42
+//GCC_VERSION = com.apple.compilers.llvm.clang.1_0
+LLVM_LTO = YES
 GCC_AUTO_VECTORIZATION = YES
 GCC_ENABLE_SSE3_EXTENSIONS = YES
 GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS = YES
+GCC_ENABLE_SSE41_EXTENSIONS = YES
+GCC_ENABLE_SSE42_EXTENSIONS = YES
 GCC_STRICT_ALIASING = YES
 GCC_DYNAMIC_NO_PIC = YES
 GCC_INLINES_ARE_PRIVATE_EXTERN = YES
@@ -31,18 +30,18 @@ GCC_CW_ASM_SYNTAX = NO
 GCC_ENABLE_CPP_EXCEPTIONS = NO
 GCC_ENABLE_CPP_RTTI = NO
 GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES
-OTHER_CFLAGS = -fno-non-lvalue-assign -fstrict-aliasing -freorder-blocks
-GCC_PRECOMPILE_PREFIX_HEADER = YES
-GCC_PREFIX_HEADER = Prefix.pch
+OTHER_CFLAGS = -mtune=core2 -mfpmath=sse -fdiagnostics-show-option -fno-pic -fno-non-lvalue-assign -freorder-blocks -mno-red-zone -feliminate-unused-debug-types
+//GCC_PRECOMPILE_PREFIX_HEADER = YES
+//GCC_PREFIX_HEADER = Prefix.pch
 GCC_ENABLE_PASCAL_STRINGS = NO
-PROJECT_VERSION = "0.1d"
-GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = __TARGET_NAME__="\"$(PRODUCT_NAME)\"" __TARGET_VERSION__="\"0.1\"" "_PRINT_VERSION(NAME,VERSION)"="puts(NAME \" (CLIMac $(PROJECT_VERSION)) \" VERSION \"\\n\\nCopyright (C) 2009 Vacuous Virtuoso\\n<http:\/\/lipidity.com/climac/\" NAME \"/>\")" PRINT_VERSION="_PRINT_VERSION(__TARGET_NAME__, __TARGET_VERSION__)"
+GCC_PREPROCESSOR_DEFINITIONS = "UTIL_NAME=\"$(PRODUCT_NAME)\""
 GCC_WARN_SHADOW = YES
 GCC_WARN_64_TO_32_BIT_CONVERSION = YES
 GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES
 GCC_WARN_ABOUT_RETURN_TYPE = YES
 GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES
-WARNING_CFLAGS = -Winvalid-pch -Wstrict-aliasing=2 -Wall -Wextra -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wcast-align -Wwrite-strings -Wstrict-prototypes -Wold-style-definition -Wmissing-declarations -Wunreachable-code -Winline -Wdisabled-optimization -Wno-missing-field-initializers -Wno-unused-parameter -Wnewline-eof
+WARNING_CFLAGS = -Wfatal-errors -Wformat-nonliteral -Wformat-security -Wall -Wextra -Wunsafe-loop-optimizations -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wcast-align -Wwrite-strings -Waggregate-return -Wstrict-prototypes -Wold-style-definition -Wmissing-prototypes -Wmissing-declarations -Wmissing-noreturn -Winline -Wstrict-aliasing  -Wdisabled-optimization -Winvalid-pch -Wnewline-eof -Wunreachable-code
+// WARNING_CFLAGS += -Wno-missing-field-initializers -Wno-unused-parameter -Wpadded 
 GCC_WARN_SIGN_COMPARE = YES
 GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES
 GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES

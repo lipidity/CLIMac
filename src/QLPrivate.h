@@ -1,5 +1,7 @@
 typedef void *QLPreviewRef;
-extern QLPreviewRef QLPreviewCreate(void *unknownNULL, CFTypeRef item, CFDictionaryRef options) AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
+extern QLPreviewRef QLPreviewCreate(CFAllocatorRef allocator, CFURLRef item, CFDictionaryRef options) AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
+id QLPreviewCopyBitmapImage(id preview);
+NSString* QLPreviewGetPreviewType(id preview);
 extern CFDataRef QLPreviewCopyData(QLPreviewRef thumbnail) AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
 //extern CFURLRef QLPreviewCopyURLRepresentation(QLPreviewRef);
 extern CFDictionaryRef QLPreviewCopyOptions(QLPreviewRef) AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;

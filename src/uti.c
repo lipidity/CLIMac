@@ -26,6 +26,8 @@ int main (int argc, char *argv[]) {
 			{ "define", required_argument, NULL, 'd' },
 			{ "conform", required_argument, NULL, 'c' },
 			{ "equal", required_argument, NULL, 'q' },
+
+//			{ "reverse", required_argument, NULL, 'r' }, // todo: find mime/ext of UTI
 			{ NULL, 0, NULL, 0 }
 		};
 		int c;

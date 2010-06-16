@@ -6,26 +6,20 @@ int main(int argc, char *argv[]) {
 #if 1
 	const struct option longopts[] = {
 		{ "help", no_argument, NULL, 'h' },
-#if _10_5_PLUS
+
 		{ "volume", required_argument, NULL, 'v' },
 		{ "loop", no_argument, NULL, 'l' },
-#endif
 		{ NULL, 0, NULL, 0 }
 	};
 	NSString *whichSnd = nil;
 	int c;
 	NSAutoreleasePool *pool = [NSAutoreleasePool new];
-#if _10_5_PLUS
 	BOOL setV = 0;
 	BOOL loop = NO;
 	float volume = 1.0f;
 #define ARGSTRING "v:lh"
-#else
-#define ARGSTRING "h"
-#endif
 	while ((c = getopt_long_only(argc, argv, ARGSTRING, longopts, NULL)) != EOF) {
 		switch (c) {
-#if _10_5_PLUS
 			case 'v': {
 				setV = 1;
 				volume = strtof(optarg, NULL);
@@ -33,7 +27,6 @@ int main(int argc, char *argv[]) {
 			case 'l': {
 				loop ^= 1;
 			}	break;
-#endif
 			case 'h':
 			default:
 usage:
@@ -47,29 +40,21 @@ usage:
 	} else if (argc != 0) {
 		goto usage;
 	}
-	NSArray *keys = [[NSArray alloc] initWithObjects:@"com.apple.sound.beep.sound"
-#if _10_5_PLUS
-					 , @"com.apple.sound.beep.volume"
-#endif
-					 , nil];
+	NSArray *keys = [[NSArray alloc] initWithObjects:@"com.apple.sound.beep.sound", @"com.apple.sound.beep.volume", nil];
 	NSDictionary *dict = (NSDictionary *)CFPreferencesCopyMultiple((CFArrayRef)keys, CFSTR("com.apple.systemsound"), kCFPreferencesCurrentUser, kCFPreferencesAnyHost); // leak
 	if (whichSnd == nil)
 		whichSnd = [dict objectForKey:@"com.apple.sound.beep.sound"];
-#if _10_5_PLUS
 	if (!setV) {
 		id num = [dict objectForKey:@"com.apple.sound.beep.volume"];
 		if (num)
 			volume = [num floatValue];
 	}
-#endif
 	[keys release];
 	NSSound *sound = [NSSound soundNamed:whichSnd] ? : [[NSSound alloc] initWithContentsOfFile:whichSnd byReference:YES];
 	[pool release];
 	if (sound != nil) {
-#if _10_5_PLUS
-			[sound setVolume:volume];
-			[sound setLoops:loop];
-#endif
+		[sound setVolume:volume];
+		[sound setLoops:loop];
 		[sound setDelegate:[[S allocWithZone:NULL] init]];
 		[sound play];
 		[[NSRunLoop currentRunLoop] run];

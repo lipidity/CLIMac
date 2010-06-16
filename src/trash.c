@@ -1,12 +1,18 @@
 /*
  * Move files to a Trash
  *
- * Using FileManager for 10.5 and newer
- *   and NSWorkspace for 10.4 down
- *
  * Copyright (C) Vacuous Virtuoso
  * <http://lipidity.com/climac/>
  */
+
+#import <err.h>
+#import <getopt.h>
+
+#import <Cocoa/Cocoa.h>
+
+#import "version.h"
+
+TODO use [NSWorkspace recycleURLs:completionHandler:] or FSPathMoveObjectToTrashAsync
 
 #define USAGE "usage:  %s [-v] <file>...\n"
 
@@ -26,7 +32,7 @@ int main(int argc, char *argv[]) {
 				verbose ^= 1;
 				break;
 			case 'V':
-				PRINT_VERSION;
+				version_info();
 				return 0;
 			case 'h':
 			default: {

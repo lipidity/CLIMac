@@ -1,3 +1,4 @@
 build
 *.xcodeproj/*
 ^*.xcodeproj/project.pbxproj
+share/

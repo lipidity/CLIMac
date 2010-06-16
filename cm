@@ -1,34 +1,25 @@
 #!/bin/zsh
-
 emulate -L zsh
-
-CLIMac_VERSION=0.1e
-V=0.1
 
 TRAPZERR(){ echo ' ** Build Failed **'; exit 1 }
 compile(){
-	$CC -D__TARGET_NAME__=\"$1\" -D__TARGET_VERSION__=\"$V\" "-D_PRINT_VERSION(NAME,VERSION)=puts(NAME \" (CLIMac ${CLIMac_VERSION}) \" VERSION \"\\n\\nCopyright (C) 2009 Vacuous Virtuoso\\n<http://lipidity.com/climac/\" NAME \"/>\")" "-DPRINT_VERSION=_PRINT_VERSION(__TARGET_NAME__, __TARGET_VERSION__)" ${(z)CFLAGS} $0:h/src/${1}.(c|m)([1]) -o $BINDIR/$1 ${*[2,3]}
+	$CC -DUTIL_NAME=\"$2\" ${(z)1} ${(z)CFLAGS} $0:h/src/${2}.(c|m)([1]) -o $BINDIR/$2 #${*[2,3]}
 }
 c_build(){
-	c=$CFLAGS' -include Prefix.pch'
 	case $1 in
-		(app)
-			c="$c -framework Cocoa -Wno-cast-qual"
-			;;
 		(alert)
-			c="$c -framework Cocoa -Wno-cast-qual"
+			c="-framework AppKit -Wno-cast-qual"
+			;;
+		(app)
+			c="-framework AppKit -Wno-cast-qual"
 			;;
 		(trash)
-			if (( OSX_VERSION < 1050 )) {
-				c="$c -x objective-c -framework Cocoa"
-			} else {
-				c="$c -x c -framework CoreServices"
-			}
+			c="-framework AppKit"
 			;;
 		(*)
 			;;
 	esac
-	CFLAGS=$c compile $1
+	compile "$_CFLAGS $c" $1
 }
 
 typeset -A opts
@@ -44,20 +35,14 @@ mkdir -p $PREFIX $BINDIR $MANDIR
 if [[ -z $CC ]] {
 	CC=gcc
 }
-if [[ -z $OSX_VERSION ]] {
-	OSX_VERSION=${(r:4::0:)$(sw_vers -productVersion | tr -d .)}
-}
-if [[ -z $CFLAGS ]] {
-	CFLAGS='-Wfatal-errors -Wformat-nonliteral -Wformat-security -Wall -Wextra -Wshadow -Wunsafe-loop-optimizations -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wcast-align -Wwrite-strings -Wshorten-64-to-32 -Waggregate-return -Wstrict-prototypes -Wold-style-definition -Wmissing-prototypes -Wmissing-declarations -Wmissing-noreturn -Wpadded -Winline -Wstrict-aliasing  -Wdisabled-optimization -Winvalid-pch -Wnewline-eof  -fvisibility=hidden -mno-red-zone -feliminate-unused-debug-types -fmessage-length=0 -pipe -freorder-blocks -ftree-vectorize -fno-pic -mdynamic-no-pic  -std=gnu99 -gdwarf-2 -Os  -mtune=core2 -msse -msse2 -msse3 -mfpmath=sse -fdiagnostics-show-option'
+if [[ -z $_CFLAGS ]] {
+	_CFLAGS='-Wfatal-errors -Wformat-nonliteral -Wformat-security -Wall -Wextra -Wshadow -Wunsafe-loop-optimizations -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wcast-align -Wwrite-strings -Wshorten-64-to-32 -Waggregate-return -Wstrict-prototypes -Wold-style-definition -Wmissing-prototypes -Wmissing-declarations -Wmissing-noreturn -Wpadded -Winline -Wstrict-aliasing  -Wdisabled-optimization -Winvalid-pch -Wnewline-eof  -fvisibility=hidden -mno-red-zone -feliminate-unused-debug-types -fmessage-length=0 -pipe -freorder-blocks -ftree-vectorize -fno-pic -mdynamic-no-pic  -std=gnu99 -gdwarf-2 -Os  -mtune=core2 -msse -msse2 -msse3 -mfpmath=sse -fdiagnostics-show-option'
 	if [[ ${opts[--style]} == fat ]] {
-		CFLAGS="$CFLAGS -arch i386 -arch ppc"
-		if (( OSX_VERSION > 1040 )) {
-			CFLAGS="$CFLAGS -arch x86_64 -Xarch_x86_64 -msse4"
-		}
+		_CFLAGS="$_CFLAGS -arch i386 -arch x86_64 -Xarch_x86_64 -msse4"
 	}
 }
 
-TARGETS=(trash xattr)
+TARGETS=(app trash xattr)
 
 if (( # == 0 )) { # build all targets
 	for i in $TARGETS; c_build $i;

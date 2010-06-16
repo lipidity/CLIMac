@@ -1,3 +1,9 @@
+#import "CGSInternal/CGSInternal.h"
+#import <ApplicationServices/ApplicationServices.h>
+#import <unistd.h>
+#import <stdio.h>
+
+#if 0
 #import <ApplicationServices/ApplicationServices.h>
 #import <unistd.h>
 
@@ -66,6 +72,8 @@ mouse:		mouseDriverInitialDelay, mouseDriverMaxSpeed, useMouseKeysShortcutKeys, 
 zoomin:		closeViewNearPoint, closeViewFarPoint, closeViewSmoothImages, closeViewZoomFollowsFocus, closeViewPanningMode, closeViewDriver, closeViewZoomFactor
 #endif
 
+#else
+
 int main (int argc, const char * argv[]) {
 	if (argc == 1) {
 	usage:
@@ -110,3 +118,5 @@ int main (int argc, const char * argv[]) {
 	}
 	return 0;
 }
+
+#endif
