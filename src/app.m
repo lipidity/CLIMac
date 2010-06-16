@@ -13,35 +13,19 @@
 /* Get NSArray * of all apps registered with LaunchServices */
 extern OSStatus _LSCopyAllApplicationURLs(CFArrayRef *);
 
-
 static inline void usage(FILE *);
-static NSString *absolute_path_for_bundle_id(NSString *);
-static inline NSString *cstring_to_nsstring(const char *s);
-static inline void with_cstring(NSString *path, void (^act)(char *));
 
 static NSWorkspace *ws = nil;
 static NSFileManager *fm = nil;
-
-/* one of these is used to print the final result */
-static void (^b_url)(id, NSUInteger, BOOL *) = ^(id obj, NSUInteger idx __unused, BOOL *stop __unused) {
-	with_cstring([obj path], ^(char *b){ puts(b); });
-};
-static void (^b_bundle)(id, NSUInteger, BOOL *) = ^(id obj, NSUInteger idx __unused, BOOL *stop __unused) {
-	with_cstring(absolute_path_for_bundle_id(obj), ^(char *b){ puts(b); });
-};
-static void (^ablock)(id, NSUInteger, BOOL *) = ^(id obj, NSUInteger idx __unused, BOOL *stop __unused) {
-	with_cstring(obj, ^(char *b){ puts(b); });
-};
 
 int main(int argc, char *argv[]) {
 	const struct option longopts[] = {
 		{ "help", no_argument, NULL, 'h' },
 		{ "version", no_argument, NULL, 'V' },
 
-		/* list */
 		{ "all", no_argument, NULL, 'l' },
+
 		{ "active", no_argument, NULL, 'a' },
-		/* find */
 		{ "name", required_argument, NULL, 'n' },
 		{ "bundle", required_argument, NULL, 'b' },
 		{ "url-scheme", required_argument, NULL, 's' },
@@ -71,7 +55,7 @@ int main(int argc, char *argv[]) {
 				if (action == 0) {
 					action = c;
 					if (action != 'a')
-						arg = cstring_to_nsstring(optarg);
+						arg = (NSString *)CFStringCreateWithFileSystemRepresentation(NULL, optarg);
 				} else {
 					warnx("Can't specify both -%c and -%c", action, c);
 					fprintf(stderr,  "Try `%s --help' for more information.\n", argv[0]);
@@ -93,7 +77,7 @@ int main(int argc, char *argv[]) {
 	if (action == 0 && argc == 1) {
 		/* default is to search by name */
 		action = 'n';
-		arg = cstring_to_nsstring(argv[0]);
+		arg = (NSString *)CFStringCreateWithFileSystemRepresentation(NULL, argv[0]);
 	} else if (((action | listAll) == 0) || argc != 0) {
 		/* nothing to be done OR too many arguments given */
 		usage(stderr);
@@ -114,47 +98,60 @@ int main(int argc, char *argv[]) {
 				result = [[[ws activeApplication] valueForKey:@"NSApplicationPath"] copy];
 			break;
 		case 'b':	/* by bundle ID */
-			result = absolute_path_for_bundle_id((id)arg);
-			if (result)
-				result = [result copy];
+			result = [ws URLForApplicationWithBundleIdentifier:(NSString *)arg];
+			if (result) {
+				if (listAll)
+					result = [[NSArray alloc] initWithObjects:[result path], nil];
+				else
+					result = [[result path] copy];
+			}
 			break;
 		case 's':	/* by URL scheme */
 			if (listAll) {
-				result = (NSArray *)LSCopyAllHandlersForURLScheme((CFStringRef)arg);
-				ablock = b_bundle;
+				NSArray *bundles = (NSArray *)LSCopyAllHandlersForURLScheme((CFStringRef)arg);
+				result = [[NSMutableArray alloc] initWithCapacity:[bundles count]];
+				for (NSString *bundle in bundles) {
+					NSURL *url = [ws URLForApplicationWithBundleIdentifier:bundle];
+					if (url)
+						[result addObject:[url path]];
+				}
 			} else {
-				CFStringRef bundle = LSCopyDefaultHandlerForURLScheme((CFStringRef)arg);
+				NSString *bundle = (NSString *)LSCopyDefaultHandlerForURLScheme((CFStringRef)arg);
 				if (bundle) {
-					result = absolute_path_for_bundle_id((id)bundle);
-					if (result)
-						result = [result copy];
+					result = [[ws URLForApplicationWithBundleIdentifier:bundle] path];
+					if (result) {
+						if (listAll)
+							result = [[NSArray alloc] initWithObjects:result, nil];
+						else
+							result = [result copy];
+					}
 					CFRelease(bundle);
 				}
 			}
 			break;
 		case 'u': {	/* by URL */
 			NSURL *inURL = [[NSURL alloc] initWithString:arg];
-			CFURLRef outURL = NULL;
 			if (inURL == nil)
 				errx(1, "Invalid URL.");
 			if (listAll) {
-				result = (NSArray *)LSCopyApplicationURLsForURL((CFURLRef)inURL, kLSRolesAll);
-				ablock = b_url;
+				id apps = (NSArray *)LSCopyApplicationURLsForURL((CFURLRef)inURL, kLSRolesAll);
+				result = [[apps valueForKey:@"path"] copy];
+				[apps release];
 			} else {
-				if ((LSGetApplicationForURL((CFURLRef)inURL, kLSRolesAll, NULL, &outURL) == 0) && (outURL != NULL))
-					result = (NSString *)CFURLCopyFileSystemPath(outURL, kCFURLPOSIXPathStyle);
+				result = [[[ws URLForApplicationToOpenURL:inURL] path] copy];
 			}
 			[inURL release];
 		}
 			break;
 		case 't':	/* by Uniform Type Identifier */
 			if (listAll) {
-				result = (NSArray *)LSCopyAllRoleHandlersForContentType((CFStringRef)arg, kLSRolesAll);
-				ablock = b_bundle;
+				id apps = (NSArray *)LSCopyAllRoleHandlersForContentType((CFStringRef)arg, kLSRolesAll);
+				result = [[apps valueForKey:@"path"] copy];
+				[apps release];
 			} else {
-				CFStringRef bundle = LSCopyDefaultRoleHandlerForContentType((CFStringRef)arg, kLSRolesAll);
+				NSString *bundle = (NSString *)LSCopyDefaultRoleHandlerForContentType((CFStringRef)arg, kLSRolesAll);
 				if (bundle) {
-					result = [absolute_path_for_bundle_id((NSString *)bundle) copy];
+					result = [[[ws URLForApplicationWithBundleIdentifier:bundle] path] copy];
 					CFRelease(bundle);
 				}
 			}
@@ -174,56 +171,32 @@ int main(int argc, char *argv[]) {
 			break;
 		case 0:	/* all applications */
 			if (listAll) {
-				(void)_LSCopyAllApplicationURLs((CFArrayRef *)&result);
-				ablock = b_url;
+				id apps = nil;
+				(void)_LSCopyAllApplicationURLs((CFArrayRef *)&apps);
+				result = [apps valueForKey:@"path"];
+				[apps release];
 			}
 			break;
 	}
 	if (arg != nil)
 		[arg release];
+
 	if (result != nil) {
-		if ([result respondsToSelector:@selector(fileSystemRepresentation)]) {
-			/* result is either an NSString* */
-			puts([result fileSystemRepresentation]);
-			[result release];
-			exit(RET_SUCCESS);
-		} else if ([result respondsToSelector:@selector(enumerateObjectsUsingBlock:)]) {
-			/* or an NSArray* */
+		if (listAll) {
 			if ([result count] != 0) {
-				[result enumerateObjectsUsingBlock:ablock];
+				for (NSString *str in result)
+					puts([str fileSystemRepresentation]);
 				[result release];
 				exit(RET_SUCCESS);
 			}
+		} else {
+			puts([result fileSystemRepresentation]);
+			[result release];
+			exit(RET_SUCCESS);
 		}
 		[result release];
 	}
 	exit(RET_FAILURE);
-}
-
-static inline NSString *cstring_to_nsstring(const char *s) {
-	return [fm stringWithFileSystemRepresentation:s length:strlen(s)];
-}
-
-/*
- * Not using -[NSString fileSystemRepresentation]
- * because it calls -[fm fileSystemRepresentationWithPath:]
- * which can throw an exception.
- */
-static inline void with_cstring(NSString *path, void (^act)(char *)) {
-	if (path != nil && [path length] != 0) {
-		CFIndex maxlen = CFStringGetMaximumSizeOfFileSystemRepresentation((CFStringRef)path);
-		char *b = malloc(maxlen);
-		if (CFStringGetFileSystemRepresentation((CFStringRef)path, b, maxlen))
-			act(b);
-		free(b);
-	}
-}
-
-static NSString *absolute_path_for_bundle_id(NSString *bid) {
-	NSString *retval = [ws absolutePathForAppBundleWithIdentifier:bid];
-	if (retval == nil)
-		with_cstring(bid, ^(char *b){ warnx("%s: not found", b); });
-	return retval;
 }
 
 static inline void usage(FILE *outfile) {
