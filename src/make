@@ -3,7 +3,7 @@ emulate -L zsh
 
 TRAPZERR(){ echo ' ** Build Failed **'; exit 1 }
 compile(){
-	$CC -DUTIL_NAME=\"$2\" ${(z)1} ${(z)CFLAGS} $0:h/src/${2}.(c|m)([1]) -o $BINDIR/$2 #${*[2,3]}
+	$CC -DUTIL_NAME=\"$2\" ${(z)1} ${(z)CFLAGS} $0:h/${2}.(c|m)([1]) -o $BINDIR/$2 #${*[2,3]}
 }
 c_build(){
 	case $1 in
@@ -26,7 +26,7 @@ typeset -A opts
 zparseopts -K -D -E -A opts -- -install=flags -style: -prefix: -bin-prefix: -man-prefix:
 
 # TODO test prefix setting in various ways !!
-PREFIX=${${opts[--prefix]}:-${PREFIX:-${0:h}/build}}
+PREFIX=${${opts[--prefix]}:-${PREFIX:-${0:h}/../build}}
 BINDIR=${${opts[--bin-prefix]}:-$PREFIX/bin}
 MANDIR=${${opts[--man-prefix]}:-$PREFIX/man}
 

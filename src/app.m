@@ -15,7 +15,7 @@ extern OSStatus _LSCopyAllApplicationURLs(CFArrayRef *);
 
 
 static inline void usage(FILE *);
-static inline NSString *absolute_path_for_bundle_id(NSString *);
+static NSString *absolute_path_for_bundle_id(NSString *);
 static inline NSString *cstring_to_nsstring(const char *s);
 static inline void with_cstring(NSString *path, void (^act)(char *));
 
@@ -27,7 +27,7 @@ static void (^b_url)(id, NSUInteger, BOOL *) = ^(id obj, NSUInteger idx __unused
 	with_cstring([obj path], ^(char *b){ puts(b); });
 };
 static void (^b_bundle)(id, NSUInteger, BOOL *) = ^(id obj, NSUInteger idx __unused, BOOL *stop __unused) {
-	with_cstring(bid2path(obj), ^(char *b){ puts(b); });
+	with_cstring(absolute_path_for_bundle_id(obj), ^(char *b){ puts(b); });
 };
 static void (^ablock)(id, NSUInteger, BOOL *) = ^(id obj, NSUInteger idx __unused, BOOL *stop __unused) {
 	with_cstring(obj, ^(char *b){ puts(b); });
@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
 	NSString *arg = nil;
 
 	int c;
-	while ((c = getopt_long_only(argc, argv, "hVlab:s:u:t:f:n:", longopts, NULL)) != EOF) {
+	while ((c = getopt_long(argc, argv, "hVlab:s:u:t:f:n:", longopts, NULL)) != EOF) {
 		switch (c) {
 			case 'l':
 				listAll = 1;
@@ -219,7 +219,7 @@ static inline void with_cstring(NSString *path, void (^act)(char *)) {
 	}
 }
 
-static inline NSString *absolute_path_for_bundle_id(NSString *bid) {
+static NSString *absolute_path_for_bundle_id(NSString *bid) {
 	NSString *retval = [ws absolutePathForAppBundleWithIdentifier:bid];
 	if (retval == nil)
 		with_cstring(bid, ^(char *b){ warnx("%s: not found", b); });
@@ -229,18 +229,18 @@ static inline NSString *absolute_path_for_bundle_id(NSString *bid) {
 static inline void usage(FILE *outfile) {
 	fprintf(outfile, "Usage: %s [-l] [option]\n", getprogname());
 	static const struct {
+		char short_opt;
 		const char *long_opt;
 		const char *explanation;
-		char short_opt;
 	} const u[] = {
-		{.short_opt = 'a', .long_opt = "active",			.explanation = "frontmost app; with -l all running"},
-		{.short_opt = 'n', .long_opt = "name=[App]",		.explanation = "app with name"},
-		{.short_opt = 'b', .long_opt = "bundle=[BundleID]", .explanation = "app with bundle identifier"},
-		{.short_opt = 's', .long_opt = "url-scheme=[Scheme]", .explanation = "for URLs of type (eg. `https')"},
-		{.short_opt = 'u', .long_opt = "url=[URL]",			.explanation = "for specific URL"},
-		{.short_opt = 't', .long_opt = "uti=[UTI]",			.explanation = "for files of type; see uti(1)"},
-		{.short_opt = 'f', .long_opt = "file=[File]",		.explanation = "for specific file"},
+		{ 'a', "active",			 "frontmost app; with -l all running"},
+		{ 'n', "name=[App]",		 "app with name"},
+		{ 'b', "bundle=[BundleID]",  "app with bundle identifier"},
+		{ 's', "url-scheme=[Scheme]","for URLs of type (eg. `https')"},
+		{ 'u', "url=[URL]",			 "for specific URL"},
+		{ 't', "uti=[UTI]",			 "for files of type; see uti(1)"},
+		{ 'f', "file=[File]",		 "for specific file"},
 	};
 	for (unsigned j = 0; j < sizeof(u)/sizeof(u[0]); j++)
-		fprintf(outfile, "    -%c, -%-22s%s\n", u[j].short_opt, u[j].long_opt, u[j].explanation);
+		fprintf(outfile, "    -%c, --%-22s%s\n", u[j].short_opt, u[j].long_opt, u[j].explanation);
 }
