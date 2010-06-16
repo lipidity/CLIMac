@@ -15,9 +15,6 @@ extern OSStatus _LSCopyAllApplicationURLs(CFArrayRef *);
 
 static inline void usage(FILE *);
 
-static NSWorkspace *ws = nil;
-static NSFileManager *fm = nil;
-
 int main(int argc, char *argv[]) {
 	const struct option longopts[] = {
 		{ "help", no_argument, NULL, 'h' },
@@ -25,7 +22,6 @@ int main(int argc, char *argv[]) {
 
 		{ "all", no_argument, NULL, 'l' },
 
-		{ "active", no_argument, NULL, 'a' },
 		{ "name", required_argument, NULL, 'n' },
 		{ "bundle", required_argument, NULL, 'b' },
 		{ "url-scheme", required_argument, NULL, 's' },
@@ -40,12 +36,11 @@ int main(int argc, char *argv[]) {
 	NSString *arg = nil;
 
 	int c;
-	while ((c = getopt_long(argc, argv, "hVlab:s:u:t:f:n:", longopts, NULL)) != EOF) {
+	while ((c = getopt_long(argc, argv, "hVlb:s:u:t:f:n:", longopts, NULL)) != EOF) {
 		switch (c) {
 			case 'l':
 				listAll = 1;
 				break;
-			case 'a':
 			case 'b':
 			case 'f':
 			case 'n':
@@ -54,11 +49,10 @@ int main(int argc, char *argv[]) {
 			case 'u':
 				if (action == 0) {
 					action = c;
-					if (action != 'a')
-						arg = (NSString *)CFStringCreateWithFileSystemRepresentation(NULL, optarg);
+					arg = (NSString *)CFStringCreateWithFileSystemRepresentation(NULL, optarg);
 				} else {
 					warnx("Can't specify both -%c and -%c", action, c);
-					fprintf(stderr,  "Try `%s --help' for more information.\n", argv[0]);
+					fprintf(stderr,  "Try `%s --help' for more information.\n", getprogname());
 					exit(RET_USAGE);
 				}
 				break;
@@ -69,7 +63,7 @@ int main(int argc, char *argv[]) {
 				usage(stdout);
 				exit(RET_SUCCESS);
 			default:
-				fprintf(stderr, "Try `%s --help' for more information.\n", argv[0]);
+				fprintf(stderr, "Try `%s --help' for more information.\n", getprogname());
 				exit(RET_USAGE);
 		}
 	}
@@ -86,24 +80,17 @@ int main(int argc, char *argv[]) {
 
 	[NSAutoreleasePool new];
 
-	fm = [NSFileManager defaultManager];
-	ws = [NSWorkspace sharedWorkspace];
+	NSWorkspace *ws = [NSWorkspace sharedWorkspace];
 
 	id result = nil;
 	switch (action) {
-		case 'a':	/* by launched/active */
-			if (listAll)
-				result = [[[ws launchedApplications] valueForKey:@"NSApplicationPath"] copy];
-			else
-				result = [[[ws activeApplication] valueForKey:@"NSApplicationPath"] copy];
-			break;
 		case 'b':	/* by bundle ID */
 			result = [ws URLForApplicationWithBundleIdentifier:(NSString *)arg];
 			if (result) {
+				result = [result path];
 				if (listAll)
-					result = [[NSArray alloc] initWithObjects:[result path], nil];
-				else
-					result = [[result path] copy];
+					result = [NSArray arrayWithObject:result];
+				result = [result copy];
 			}
 			break;
 		case 's':	/* by URL scheme */
@@ -121,9 +108,8 @@ int main(int argc, char *argv[]) {
 					result = [[ws URLForApplicationWithBundleIdentifier:bundle] path];
 					if (result) {
 						if (listAll)
-							result = [[NSArray alloc] initWithObjects:result, nil];
-						else
-							result = [result copy];
+							result = [NSArray arrayWithObject:result];
+						result = [result copy];
 					}
 					CFRelease(bundle);
 				}
@@ -164,7 +150,7 @@ int main(int argc, char *argv[]) {
 		case 'f': { /* by file */
 			if (listAll)
 				errx(1, "-lf doesn't make sense. use -lt instead.");
-			NSString *absPath = [arg isAbsolutePath] ? arg : [[fm currentDirectoryPath] stringByAppendingPathComponent:arg];
+			NSString *absPath = [arg isAbsolutePath] ? arg : [[[NSFileManager defaultManager] currentDirectoryPath] stringByAppendingPathComponent:arg];
 			NSString *appName = nil, *fileType = nil;
 			[ws getInfoForFile:absPath application:&appName type:&fileType];
 			if (appName)
@@ -178,10 +164,10 @@ int main(int argc, char *argv[]) {
 			break;
 		case 0:	/* all applications */
 			if (listAll) {
-				id apps = nil;
-				(void)_LSCopyAllApplicationURLs((CFArrayRef *)&apps);
-				result = [apps valueForKey:@"path"];
-				[apps release];
+				CFArrayRef apps = NULL;
+				(void)_LSCopyAllApplicationURLs(&apps);
+				result = [(NSArray *)apps valueForKey:@"path"];
+				CFRelease(apps);
 			}
 			break;
 	}
@@ -208,19 +194,17 @@ int main(int argc, char *argv[]) {
 
 static inline void usage(FILE *outfile) {
 	fprintf(outfile, "Usage: %s [-l] [option]\n", getprogname());
-	static const struct {
-		char short_opt;
-		const char *long_opt;
-		const char *explanation;
-	} const u[] = {
-		{ 'a', "active",			 "frontmost app"},
-		{ 'n', "name=[App]",		 "app with name"},
-		{ 'b', "bundle=[BundleID]",  "app with bundle identifier"},
-		{ 's', "url-scheme=[Scheme]","for URLs of type (eg. `https')"},
-		{ 'u', "url=[URL]",			 "for specific URL"},
-		{ 't', "uti=[UTI]",			 "for files of type; see uti(1)"},
-		{ 'f', "file=[File]",		 "for specific file"},
+	struct {
+		const char *opt;
+		const char *exp;
+	} u[] = {
+		{ "n" "name=[App]",			 "app with name"},
+		{ "b" "bundle=[BundleID]",	 "app with bundle identifier"},
+		{ "s" "url-scheme=[Scheme]", "for URLs of type (eg. `https')"},
+		{ "u" "url=[URL]",			 "for specific URL"},
+		{ "t" "uti=[UTI]",			 "for files of type; see uti(1)"},
+		{ "f" "file=[File]",		 "for specific file"},
 	};
 	for (unsigned j = 0; j < sizeof(u)/sizeof(u[0]); j++)
-		fprintf(outfile, "    -%c, --%-22s%s\n", u[j].short_opt, u[j].long_opt, u[j].explanation);
+		fprintf(outfile, "    -%c, --%-22s%s\n", u[j].opt[0], u[j].opt + 1, u[j].exp);
 }
