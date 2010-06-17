@@ -23,41 +23,36 @@ void ff(FSRef *aref, int level, struct sizes *s) {
     FSIterator iterator = NULL;
 
     if (FSOpenIterator(aref, kFSIterateFlat, &iterator) == noErr) {
-		FSCatalogInfo cat;
-		FSRef ref;
-		ItemCount count = 0;
-		OSErr fsErr = FSGetCatalogInfoBulk(iterator, 1, &count, NULL, kFSCatInfoRsrcSizes | kFSCatInfoDataSizes | kFSCatInfoNodeFlags, &cat, &ref, NULL, NULL);
-		if (fsErr == errFSNoMoreItems) {
-			return;
-		}
-		if (fsErr != noErr) {
+		const int cs = 1;
+		ItemCount count;
+		FSCatalogInfo cat[cs];
+		FSRef ref[cs];
+	_do:
+		count = 0;
+		OSErr fsErr = FSGetCatalogInfoBulk(iterator, cs, &count, NULL, kFSCatInfoRsrcSizes | kFSCatInfoDataSizes | kFSCatInfoNodeFlags, cat, ref, NULL, NULL);
+		if (fsErr == errFSNoMoreItems)
+			goto end;
+		if (fsErr != noErr)
 			err(1, "%d", fsErr);
-		}
-        while ((fsErr == noErr) || (fsErr == errFSNoMoreItems)) {
-			s->count += count;
-            ItemCount i;
-            for (i = 0; i < count; i++) {
-                // Recurse if it's a folder
-				UInt8 path[1024];
-				FSRefMakePath(&ref, path, 1024);
-                if (cat.nodeFlags & kFSNodeIsDirectoryMask) {
-					ff(&ref, level + 1, s);
+		s->count += count;
+		ItemCount i;
+		for (i = 0; i < count; i++) {
+			UInt8 path[1024];
+			FSRefMakePath(&ref[i], path, 1024);
+			printf("%s\n", path);
+			if (cat[i].nodeFlags & kFSNodeIsDirectoryMask) {
+				ff(&ref[i], level + 1, s);
 //					printf("%llu\t%s\n", subdir_size, path);
-                } else {
+			} else {
 //					printf("%llu %s\n", cat.dataPhysicalSize, path);
-                    s->physical += cat.dataPhysicalSize;
-					s->logical += cat.dataLogicalSize;
-                    s->rsrc_physical += cat.rsrcPhysicalSize;
-					s->rsrc_logical += cat.rsrcLogicalSize;
-                }
-            }
-            if (fsErr == errFSNoMoreItems)
-                break;
-            else if (fsErr == noErr)
-                fsErr = FSGetCatalogInfoBulk(iterator, 1, &count, NULL, kFSCatInfoRsrcSizes | kFSCatInfoDataSizes | kFSCatInfoNodeFlags, &cat, &ref, NULL, NULL);
-			else
-				printf("ERROR %d\n", fsErr);
-        }
+				s->physical += cat[i].dataPhysicalSize;
+				s->logical += cat[i].dataLogicalSize;
+				s->rsrc_physical += cat[i].rsrcPhysicalSize;
+				s->rsrc_logical += cat[i].rsrcLogicalSize;
+			}
+		}
+		goto _do;
+	end:
 		FSCloseIterator(iterator);
     }
 }
@@ -67,7 +62,7 @@ int main(int argc, char *argv[]) {
 	if (argc == 0)
 		return 1;
 	FSPathMakeRef((UInt8 *)argv[1], &ref, NULL);
-    struct sizes s = {0};
+    struct sizes s = {0,0,0,0,0};
 	ff(&ref, 0, &s);
 	printf("%lld items\ndata\nphys %lld\tlogi %lld\nrsrc\nphys %lld\tlogi %lld\n", s.count, s.physical, s.logical, s.rsrc_physical, s.rsrc_logical);
 	return 0;
