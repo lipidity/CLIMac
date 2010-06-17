@@ -7,6 +7,12 @@ static inline void *xmalloc(size_t n) {
 		err(1, NULL);
 	return r;
 }
+static inline void *xcalloc(size_t n, size_t m) {
+	void *r;
+	if ((r = calloc(n, m)) == NULL)
+		err(1, NULL);
+	return r;
+}
 static inline void *xrealloc(void *ptr, size_t n) {
 	void *r;
 	if ((r = reallocf(ptr, n)) == NULL)
