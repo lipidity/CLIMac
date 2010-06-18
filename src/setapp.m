@@ -73,59 +73,45 @@ int main(int argc, char *argv[]) {
 		exit(RET_USAGE);
 	}
 	argv += optind;
-	CFStringRef appID = NULL;
-	FSRef appRef, *appRefP = &appRef;
 	NSAutoreleasePool *pool = [NSAutoreleasePool new];
-	if ((argv[0][0] == '\0' || (argv[0][0] == '-' && argv[0][1] == '\0')) && set_for == 'f') {
-		appRefP = NULL; // removing strong binding
-	} else {
-		if (set_for == 'f') {
-			if (FSPathMakeRef((const UInt8 *)argv[0], appRefP, NULL) != noErr)
-				errx(1, NULL);
-		} else {
-			NSString *appPath;
-			NSBundle *appBundle;
-			if (((appPath = (NSString *)CFStringCreateWithFileSystemRepresentation(NULL, argv[0])) == nil)
-				|| ((appBundle = [NSBundle bundleWithPath:appPath]) == nil)
-				|| ((appID = (CFStringRef)[[appBundle bundleIdentifier] copy]) == nil))
-				err(1, NULL);
-		}
-	}
-	// todo : loop inside switch
 
 	int retval = 0;
-	while ((++argv)[0] != NULL) {
-		CFStringRef arg = CFStringCreateWithFileSystemRepresentation(NULL, argv[0]);
-		if (arg != NULL) {
-			switch (set_for) {
-				case 'f': {
-					FSRef r;
-					if ((FSPathMakeRef((const UInt8 *)argv[0], &r, NULL) != noErr) || (_LSSetStrongBindingForRef(&r, appRefP) != noErr)) {
-						warnx("%s: failed", argv[0]);
-						retval = RET_FAILURE;
-					}
-				}	break;
-				case 'u':
-					if (LSSetDefaultHandlerForURLScheme(arg, appID) != 0) {
-						warnx("%s: failed", argv[0]);
-						retval = RET_FAILURE;
-					}
-					break;
-				default:
-					// todo: test the || 
-					if (LSSetDefaultRoleHandlerForContentType(arg, roles || kLSRolesAll, appID) != 0) {
-						warnx("%s: failed", argv[0]);
-						retval = RET_FAILURE;
-					}
-					break;
+	if (set_for == 'f') {
+		FSRef appRef;
+		FSRef *appRefP = &appRef;
+		if (argv[0][0] == '\0' || (argv[0][0] == '-' && argv[0][1] == '\0'))
+			appRefP = NULL; // removing strong binding
+		else if (FSPathMakeRef((const UInt8 *)argv[0], appRefP, NULL) != noErr)
+			errx(RET_FAILURE, "not found: %s", argv[0]);
+		while ((++argv)[0]) {
+			FSRef r;
+			if ((FSPathMakeRef((const UInt8 *)argv[0], &r, NULL) != noErr) || (_LSSetStrongBindingForRef(&r, appRefP) != noErr)) {
+				warnx("%s: failed", argv[0]);
+				retval = RET_FAILURE;
+			}
+		}
+	} else {
+		CFStringRef appID = NULL;
+		NSString *appPath;
+		NSBundle *appBundle;
+		if (((appPath = (NSString *)CFStringCreateWithFileSystemRepresentation(NULL, argv[0])) == nil)
+			|| ((appBundle = [NSBundle bundleWithPath:appPath]) == nil)
+			|| ((appID = (CFStringRef)[[appBundle bundleIdentifier] copy]) == nil))
+			err(1, NULL);
+		while ((++argv)[0]) {
+			CFStringRef arg = CFStringCreateWithFileSystemRepresentation(NULL, argv[0]);
+			if (arg == NULL)
+				errx(RET_FAILURE, "bad string \"%s\"", argv[0]);
+			if ((set_for == 'u' && LSSetDefaultHandlerForURLScheme(arg, appID) != 0)
+				|| (set_for == 't' && LSSetDefaultRoleHandlerForContentType(arg, roles || kLSRolesAll, appID) != 0)) {
+				warnx("%s: failed", argv[0]);
+				retval = RET_FAILURE;
 			}
 			CFRelease(arg);
-		} else {
-			exit(1); // shouldn't happen
 		}
-	}
-	if (appID != NULL)
 		CFRelease(appID);
+	}
+
 	[pool release];
 
 	return retval;

@@ -1,6 +1,8 @@
 /*
  * Find or list applications
- * gcc -std=c99 -framework Cocoa -o app app.m
+ *
+ * Copyright (C) Vacuous Virtuoso
+ * <http://lipidity.com/climac/>
  */
 
 #import <Cocoa/Cocoa.h>
