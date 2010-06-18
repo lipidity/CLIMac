@@ -1,28 +1,33 @@
 #!/bin/zsh
 emulate -L zsh
 
+TARGETS=(app setapp appr dux trash xattr)
+
 TRAPZERR(){ echo ' ** Build Failed **'; exit 1 }
 compile(){
 	$CC -DUTIL_NAME=\"$2\" ${(z)1} ${(z)CFLAGS} $0:h/${2}.(c|m)([1]) -o $BINDIR/$2 #${*[2,3]}
 }
 c_build(){
 	case $1 in
-		(alert)
+		alert)
 			c="-framework AppKit -Wno-cast-qual"
 			;;
-		(app)
+		app)
 			c="-framework AppKit -Wno-cast-qual"
 			;;
-		(appr)
+		setapp)
+			c="-framework AppKit -framework Foundation -Wno-cast-qual"
+			;;
+		appr)
 			c="-framework AppKit -Wno-cast-qual"
 			;;
-		(dux)
+		dux)
 			c="-framework CoreServices"
 			;;
-		(trash)
+		trash)
 			c="-framework AppKit"
 			;;
-		(*)
+		*)
 			;;
 	esac
 	compile "$_CFLAGS $c" $1
@@ -47,8 +52,6 @@ if [[ -z $_CFLAGS ]] {
 		_CFLAGS="$_CFLAGS -arch i386 -arch x86_64 -Xarch_x86_64 -msse4"
 	}
 }
-
-TARGETS=(app appr dux trash xattr)
 
 if (( # == 0 )) { # build all targets
 	for i in $TARGETS; c_build $i;
