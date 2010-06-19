@@ -89,6 +89,7 @@
 		920EC1B00FEF514100C1AC0C /* any2txt.m in Sources */ = {isa = PBXBuildFile; fileRef = 920EC1AF0FEF514100C1AC0C /* any2txt.m */; };
 		920EC1C00FEF534D00C1AC0C /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
 		920EC1C20FEF538100C1AC0C /* alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 920EC1C10FEF538100C1AC0C /* alert.m */; };
+		9230EF9811CC65E300E9C7EF /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
 		923C79BB0FD948F7008D3742 /* imgconv.m in Sources */ = {isa = PBXBuildFile; fileRef = 927050930FD919CF003074F2 /* imgconv.m */; };
 		923C79C20FD9492B008D3742 /* goosh-fn.m in Sources */ = {isa = PBXBuildFile; fileRef = 923C79BE0FD9492B008D3742 /* goosh-fn.m */; };
 		923C79C30FD9492B008D3742 /* goosh-JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 923C79C00FD9492B008D3742 /* goosh-JSON.m */; };
@@ -229,7 +230,7 @@
 		92D1CD15112E425F00F87310 /* dict.c in Sources */ = {isa = PBXBuildFile; fileRef = 92D1CD14112E425F00F87310 /* dict.c */; };
 		92DF6CBB1000C92A00A8EFAF /* pdfcat.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 92DF6CB91000C7CB00A8EFAF /* pdfcat.1 */; };
 		92DFDABC0FD9FE1400F7C0BD /* dup.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DFDABA0FD9FE1400F7C0BD /* dup.m */; };
-		92DFDAC10FD9FE1800F7C0BD /* trash.c in Sources */ = {isa = PBXBuildFile; fileRef = 92DFDABB0FD9FE1400F7C0BD /* trash.c */; };
+		92DFDAC10FD9FE1800F7C0BD /* trash.m in Sources */ = {isa = PBXBuildFile; fileRef = 92DFDABB0FD9FE1400F7C0BD /* trash.m */; };
 		92F77F0211C9B981001EC6FF /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B4CF700FDA69C300F5AC0D /* CoreServices.framework */; };
 		92F77F0C11C9BDB6001EC6FF /* dux.c in Sources */ = {isa = PBXBuildFile; fileRef = 92F77F0B11C9BDB6001EC6FF /* dux.c */; };
 		92FF24240FF8EA2900A7B039 /* seticon.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 92FF24230FF8EA2200A7B039 /* seticon.1 */; };
@@ -1149,7 +1150,7 @@
 		92DF6CC11000CA0200A8EFAF /* pdfinfo.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = pdfinfo.1; sourceTree = "<group>"; };
 		92DFDAB80FD9FDC900F7C0BD /* dup */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dup; sourceTree = BUILT_PRODUCTS_DIR; };
 		92DFDABA0FD9FE1400F7C0BD /* dup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dup.m; sourceTree = "<group>"; };
-		92DFDABB0FD9FE1400F7C0BD /* trash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = trash.c; sourceTree = "<group>"; };
+		92DFDABB0FD9FE1400F7C0BD /* trash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = trash.m; sourceTree = "<group>"; };
 		92DFDAC60FD9FE1800F7C0BD /* trash */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = trash; sourceTree = BUILT_PRODUCTS_DIR; };
 		92ECA3820FE60214004022DA /* TollFree.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = TollFree.xcconfig; sourceTree = "<group>"; };
 		92F77F0811C9B981001EC6FF /* dux */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = dux; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1572,6 +1573,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9230EF9811CC65E300E9C7EF /* AppKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1763,7 +1765,7 @@
 				924E30690FEB9C08004A9EA1 /* trimmit.m */,
 				927E86100FDA37CE008D6B2B /* readalias.c */,
 				92DFDABA0FD9FE1400F7C0BD /* dup.m */,
-				92DFDABB0FD9FE1400F7C0BD /* trash.c */,
+				92DFDABB0FD9FE1400F7C0BD /* trash.m */,
 				924A9B620FE4F4920098AC53 /* uti.c */,
 				924311760FD12ACB00148B78 /* xattr.c */,
 			);
@@ -3209,7 +3211,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92DFDAC10FD9FE1800F7C0BD /* trash.c in Sources */,
+				92DFDAC10FD9FE1800F7C0BD /* trash.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4175,16 +4177,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 92ECA3820FE60214004022DA /* TollFree.xcconfig */;
 			buildSettings = {
-				GCC_INPUT_FILETYPE = sourcecode.c.c;
-				"GCC_INPUT_FILETYPE[sdk=macosx10.4][arch=*]" = sourcecode.c.objc;
-				"OTHER_LDFLAGS[arch=*]" = (
-					"-framework",
-					CoreServices,
-				);
-				"OTHER_LDFLAGS[sdk=macosx10.4][arch=*]" = (
-					"-framework",
-					Cocoa,
-				);
 			};
 			name = Release;
 		};
