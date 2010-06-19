@@ -5,21 +5,21 @@
  * <http://lipidity.com/climac/>
  */
 
+#import <Foundation/Foundation.h>
+#import <err.h>
+
+#import "ret_codes.h"
+
 int main(int argc, char *argv[]) {
+	if (argc == 1)
+		exit(RET_USAGE);
 	id p = [NSAutoreleasePool new];
-#if 0
-	NSDateFormatter *f = [];
-	(style each: (do (s) (f setDateStyle: s) (set a (f dateFromString:str)));
-	if (!a) {
-	format:
-			d'th'|'st'|'nd'|'rd'
-			d/m or m/d -- check locale
-			'to' -- tomorrow
-			't' -- today
-			last mon,tue etc
-			next mon,tue etc
-	}
-#endif
+	NSMutableString *s = [[NSMutableString alloc] initWithFormat:@"%s", argv[1]];
+	while ((++argv)[1])
+		[s appendFormat:@" %s", argv[1]];
+	id d = [NSDate dateWithNaturalLanguageString:s];
+	puts([[d description] fileSystemRepresentation]);
+	[s release];
 	[p release];
-	return 0;
+	return RET_SUCCESS;
 }
