@@ -100,6 +100,7 @@ int main(int argc, char *argv[]) {
 				strcpy(new + 2, act);
 				new[2] = new[2] & ~0x20;
 				act = new;
+				[arg release];
 				goto try_is_prefix;
 			}
 			usage(stderr);
@@ -111,6 +112,8 @@ int main(int argc, char *argv[]) {
 	for (id i in val)
 		puts([[i description] fileSystemRepresentation]);
 
+	[arg release];
+	[apps release];
 	exit(RET_SUCCESS);
 }
 
