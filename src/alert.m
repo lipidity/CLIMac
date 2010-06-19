@@ -1,15 +1,15 @@
 /*
  * Display an alert dialog
- * gcc -std=c99 -framework Cocoa alert.m -o alert.out
+ *
+ * Copyright (C) Vacuous Virtuoso
+ * <http://lipidity.com/climac/>
  */
 
+#import <Cocoa/Cocoa.h>
 #import <err.h>
 #import <getopt.h>
 #import <stdio.h>
 
-#import <Cocoa/Cocoa.h>
-
-#define _VERSION 0
 #import "version.h"
 #import "ret_codes.h"
 
@@ -41,10 +41,10 @@ int main(int argc, char *argv[]) {
 				for (size_t i = 0; i < sizeof(styles)/sizeof(styles[0]); i++) {
 					if (strncasecmp(optarg, styles[i], strlen(styles[i])) == 0) {
 						[alert setAlertStyle:i];
-						break;
+						goto end;
 					}
 				}
-				errx(RET_USAGE, "Style should be one of 'warn', 'info' or 'critical'.");
+				errx(RET_USAGE, "Style should be one of 'warn', 'info' or 'critical'");
 			}
 				break;
 			case 'm': {
@@ -97,12 +97,13 @@ int main(int argc, char *argv[]) {
 				[alert setShowsSuppressionButton:YES];
 				break;
 			case 'V':
-				version_info();
-				return (RET_SUCCESS);
+				climac_version_info();
+				exit(RET_SUCCESS);
 			case 'h':
 			default:
 				fprintf(stderr, "usage:  %s [-m message] [-i info] [-I icon] [-s warn|info|critical] buttons ...\n", argv[0]);
-				return (c != 'h' ? RET_USAGE : RET_SUCCESS);
+				exit(c != 'h' ? RET_USAGE : RET_SUCCESS);
+			end:;
 		}
 	}
 	argv += optind; argc -= optind;
@@ -119,7 +120,7 @@ int main(int argc, char *argv[]) {
 	[pool release];
 
 	[NSApp run];
-	return (RET_FAILURE);
+	exit(RET_FAILURE);
 }
 
 @implementation S
