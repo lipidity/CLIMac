@@ -72,63 +72,14 @@ static CGKeyCode keyCodeForCharWithLayout(const int c, const UCKeyboardLayout *u
     }
 	errx(1, "Keycode for [%1$#x] not found", c);
 }
-#if 0
-NSString *sta(const UCKeyboardLayout *keyboardLayout, UInt16 keyCode, NSUInteger modifierFlags);
-NSString *sta(const UCKeyboardLayout *keyboardLayout, UInt16 keyCode, NSUInteger modifierFlags) {
-	if(keyboardLayout) {
-		UInt32 deadKeyState = 0;
-		UniCharCount maxStringLength = 255;
-		UniCharCount actualStringLength = 0;
-		UniChar unicodeString[maxStringLength];
 
-		OSStatus status = UCKeyTranslate(keyboardLayout,
-										 keyCode, kUCKeyActionDown, modifierFlags,
-										 LMGetKbdType(), 0,
-										 &deadKeyState,
-										 maxStringLength,
-										 &actualStringLength, unicodeString);
-
-		if(status != noErr)
-			NSLog(@"There was an %s error translating from the '%d' key code to a human readable string: %s",
-				  GetMacOSStatusErrorString(status), status, GetMacOSStatusCommentString(status));
-		else if(actualStringLength > 0) {
-			// Replace certain characters with user friendly names, e.g. Space, Enter, Tab etc.
-//			NSUInteger i = 0;
-//			while(i <= NumberOfUnicodeGlyphReplacements) {
-//				if(mapOfNamesForUnicodeGlyphs[i].glyph == unicodeString[0])
-//					return NSLocalizedString(([NSString stringWithFormat:@"%s", mapOfNamesForUnicodeGlyphs[i].name, nil]), @"Friendly Key Name");
-				
-//				i++;
-			}
-
-			// NSLog(@"Unicode character as hexadecimal: %X", unicodeString[0]);
-			return [NSString stringWithCharacters:unicodeString length:(NSInteger)actualStringLength];
-		} else
-			NSLog(@"Couldn't find a translation for the '%d' key code", keyCode);
-//	} else
-//		NSLog(@"Couldn't find a suitable keyboard layout from which to translate");
-
-	return nil;
-}
-#endif
 int main (int __unused argc, const char *argv[]) {
 	signal(SIGCHLD, SIG_IGN);
-#if 0
-	[NSAutoreleasePool new];
-#endif
+
 	TISInputSourceRef tis = TISCopyCurrentKeyboardLayoutInputSource();
 	CFDataRef uchr = TISGetInputSourceProperty(tis, kTISPropertyUnicodeKeyLayoutData);
     const UCKeyboardLayout *keyboardLayoutData = (const UCKeyboardLayout *)CFDataGetBytePtr(uchr);
-#if 0
-	for (int i = 0; i < 255; i++) {
-		NSString *s = sta(keyboardLayoutData, i, 0);
-		if ([s length]) {
-			unichar buf[16];
-			[s getCharacters:buf];
-			printf("%i %x\n", i, buf[0]);
-		}
-	}
-#endif
+
 	char **cmds = NULL;
 	unsigned cmd_top = 0;
 
@@ -191,11 +142,15 @@ read_mod:
 		case '~':
 			mods |= optionKey;
 			break;
-		case '@':
-			mods |= cmdKey;
-			break;
 		case '$':
 			mods |= shiftKey;
+			break;
+//		case '#':
+//			numpad
+//			mods |= ;
+//			break;
+		case '@':
+			mods |= cmdKey;
 			break;
 		default:
 			goto end_mod;
@@ -210,14 +165,93 @@ end_mod:
 	inc;
 	character = *c;
 	inc;
-	// handle ^-\ ^-\013 or ^-\0x13 or ^-\k0xF704
-	if (character == '\\') {
-		if (isnumber(*c)) {
-			character = (int)strtoul(c, &c, 0);
+	// ^-<F1> etc
+	if (character == '<' && !isspace(*c)) {
+		switch (*c) {
+				// add 'clear'
+			case 'D':
+				if ((inc, *c == 'E') && (inc, *c == 'L') && (inc, *c == '>'))
+					inc, keycode = kVK_Delete;
+				else if ((*c == 'O') && (inc, *c == 'W') && (inc, *c == 'N') && (inc, *c == '>'))
+					inc, keycode = kVK_DownArrow;
+				break;
+			case 'E':
+				// add 'enter' (different to return)
+				if ((inc, *c == 'N') && (inc, *c == 'D') && (inc, *c == '>'))
+					inc, keycode = kVK_End;
+				if ((inc, *c == 'S') && (inc, *c == 'C') && (inc, *c == '>'))
+					inc, keycode = kVK_Escape;
+				break;
+			case 'F': {
+				// add 'find'
+				// add 'forward delete'
+				if ((inc, *c == 'D') && (inc, *c == 'E') && (inc, *c == 'L') && (inc, *c == '>')) {
+					inc, keycode = kVK_ForwardDelete;
+				} else {
+					unsigned fs[] = {kVK_F1, kVK_F2, kVK_F3, kVK_F4, kVK_F5, kVK_F6, kVK_F7, kVK_F8, kVK_F9, kVK_F10,
+					kVK_F11, kVK_F12, kVK_F13, kVK_F14, kVK_F15, kVK_F16, kVK_F17, kVK_F18, kVK_F19, kVK_F20 };
+					int n = (int)strtol(c, &c, 10) - 1;
+					if (n < 0 || n >= sizeof(fs)/sizeof(fs[0]) || *c != '>')
+						errx(1, "no f%d key", n);
+					inc;
+					keycode = fs[n];
+				}
+			}
+				break;
+			case 'H':
+				if ((inc, *c == 'E') && (inc, *c == 'L') && (inc, *c == 'P') && (inc, *c == '>'))
+					inc, keycode = kVK_Help;
+				else if ((*c == 'O') && (inc, *c == 'M') && (inc, *c == 'E') && (inc, *c == '>'))
+					inc, keycode = kVK_Home;
+				break;
+				// add 'insert'
+//			case 'I':
+//				if ((inc, *c == 'N') && (inc, *c == 'S') && (inc, *c == '>'))
+//					inc, keycode = kVK_I;
+//				break;
+			case 'L':
+				if ((inc, *c == 'E') && (inc, *c == 'F') && (inc, *c == 'T') && (inc, *c == '>'))
+					inc, keycode = kVK_LeftArrow;
+				break;
+			case 'P':
+				if ((inc, *c == 'G')) {
+					if ((inc, *c == 'U') && (inc, *c == 'P') && (inc, *c == '>'))
+						inc, keycode = kVK_PageUp;
+					else if ((*c == 'D') && (inc, *c == 'N') && (inc, *c == '>'))
+						inc, keycode = kVK_PageDown;
+				}
+				break;
+			case 'R':
+				if ((inc, *c == 'E') && (inc, *c == 'T') && (inc, *c == '>'))
+					inc, keycode = kVK_Return;
+				else if ((*c == 'I') && (inc, *c == 'G') && (inc, *c == 'H') && (inc, *c == 'T') && (inc, *c == '>'))
+					inc, keycode = kVK_RightArrow;
+				break;
+			case 'S':
+				if ((inc, *c == 'P') && (inc, *c == 'C') && (inc, *c == '>'))
+					inc, keycode = kVK_Space;
+				break;
+			case 'T':
+				if ((inc, *c == 'A') && (inc, *c == 'B') && (inc, *c == '>'))
+					inc, keycode = kVK_Tab;
+				break;
+			case 'U':
+				if ((inc, *c == 'P') && (inc, *c == '>'))
+					inc, keycode = kVK_UpArrow;
+				break;
+		}
+		if (keycode == UINT16_MAX)
+			errx(1, "unknown key");
+	}
+	// handle eg ^-\U0013 (hex unicode character) or ^-\K7a (hex key code)
+	if (character == '\\' && !isspace(*c)) {
+		if (*c == 'U') {
+			inc;
+			character = (int)strtoul(c, &c, 16);
 			inc;
 		} else if (*c == 'K') {
 			inc;
-			keycode = (int)strtoul(c, &c, 0);
+			keycode = (int)strtoul(c, &c, 16);
 			inc;
 		}
 	}
