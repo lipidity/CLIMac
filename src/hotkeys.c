@@ -5,7 +5,6 @@
  * <http://lipidity.com/climac/>
  */
 
-#import <Cocoa/Cocoa.h>
 #import <Carbon/Carbon.h>
 
 #import <sys/mman.h>
@@ -15,27 +14,6 @@
 #import <err.h>
 
 #import "alloc.h"
-
-static char *shell = NULL;
-
-static OSStatus h(EventHandlerCallRef n, EventRef e, void *a);
-
-static OSStatus h(EventHandlerCallRef __unused n, EventRef e, void *cmds) {
-	EventHotKeyID i;
-	GetEventParameter(e, kEventParamDirectObject, typeEventHotKeyID, NULL, sizeof(i), NULL, &i);
-//	const char *cmd = [[(NSMutableArray *)cmds objectAtIndex:(i.id)] fileSystemRepresentation];
-	char *cmd = *((char **)cmds + i.id);
-	pid_t c;
-	c = fork();
-	if (c == -1)
-		err(1, "fork");
-	printf("%s -c %s", shell, cmd);
-	if (c == 0) {
-		execl(shell, shell, "-c", cmd, NULL);
-		err(1, "exec shell");
-	}
-	return noErr;
-}
 
 static CGKeyCode keyCodeForCharWithLayout(const int, const UCKeyboardLayout *);
 
@@ -93,22 +71,68 @@ static CGKeyCode keyCodeForCharWithLayout(const int c, const UCKeyboardLayout *u
     	}
     }
 	errx(1, "Keycode for [%1$#x] not found", c);
-//    return UINT16_MAX;
 }
+#if 0
+NSString *sta(const UCKeyboardLayout *keyboardLayout, UInt16 keyCode, NSUInteger modifierFlags);
+NSString *sta(const UCKeyboardLayout *keyboardLayout, UInt16 keyCode, NSUInteger modifierFlags) {
+	if(keyboardLayout) {
+		UInt32 deadKeyState = 0;
+		UniCharCount maxStringLength = 255;
+		UniCharCount actualStringLength = 0;
+		UniChar unicodeString[maxStringLength];
 
+		OSStatus status = UCKeyTranslate(keyboardLayout,
+										 keyCode, kUCKeyActionDown, modifierFlags,
+										 LMGetKbdType(), 0,
+										 &deadKeyState,
+										 maxStringLength,
+										 &actualStringLength, unicodeString);
+
+		if(status != noErr)
+			NSLog(@"There was an %s error translating from the '%d' key code to a human readable string: %s",
+				  GetMacOSStatusErrorString(status), status, GetMacOSStatusCommentString(status));
+		else if(actualStringLength > 0) {
+			// Replace certain characters with user friendly names, e.g. Space, Enter, Tab etc.
+//			NSUInteger i = 0;
+//			while(i <= NumberOfUnicodeGlyphReplacements) {
+//				if(mapOfNamesForUnicodeGlyphs[i].glyph == unicodeString[0])
+//					return NSLocalizedString(([NSString stringWithFormat:@"%s", mapOfNamesForUnicodeGlyphs[i].name, nil]), @"Friendly Key Name");
+				
+//				i++;
+			}
+
+			// NSLog(@"Unicode character as hexadecimal: %X", unicodeString[0]);
+			return [NSString stringWithCharacters:unicodeString length:(NSInteger)actualStringLength];
+		} else
+			NSLog(@"Couldn't find a translation for the '%d' key code", keyCode);
+//	} else
+//		NSLog(@"Couldn't find a suitable keyboard layout from which to translate");
+
+	return nil;
+}
+#endif
 int main (int __unused argc, const char *argv[]) {
 	signal(SIGCHLD, SIG_IGN);
-	
+#if 0
+	[NSAutoreleasePool new];
+#endif
 	TISInputSourceRef tis = TISCopyCurrentKeyboardLayoutInputSource();
 	CFDataRef uchr = TISGetInputSourceProperty(tis, kTISPropertyUnicodeKeyLayoutData);
     const UCKeyboardLayout *keyboardLayoutData = (const UCKeyboardLayout *)CFDataGetBytePtr(uchr);
-//	int ch;
-//	for (ch = 0; ch < 65535; ++ch)
-//		printf("%1$x (%1$d) == %2$x (%2$d)\n", ch, keyCodeForCharWithLayout(ch, keyboardLayoutData));
-//	exit(0);
-//	NSMutableArray *cmds = [[NSMutableArray alloc] init];
+#if 0
+	for (int i = 0; i < 255; i++) {
+		NSString *s = sta(keyboardLayoutData, i, 0);
+		if ([s length]) {
+			unichar buf[16];
+			[s getCharacters:buf];
+			printf("%i %x\n", i, buf[0]);
+		}
+	}
+#endif
 	char **cmds = NULL;
 	unsigned cmd_top = 0;
+
+	static char *shell = NULL;
 
 	shell = getenv("SHELL");
 	if (shell == NULL || *shell == '\0') {
@@ -142,13 +166,8 @@ int main (int __unused argc, const char *argv[]) {
 
 	char *end = base + st.st_size;
 
-//	NSAutoreleasePool *p = [NSAutoreleasePool new];
-//	NSFileManager *fm = [NSFileManager defaultManager];
-	
 	EventHotKeyRef hotkey; EventHotKeyID hotkey_id = {0, 0};
-	
-	const char *mods_char = "^~@$";
-	unsigned mods_mask[] = {controlKey, optionKey, cmdKey, shiftKey};
+
 #define inc ({ if (++c == end) errx(1, "unexpected EOF"); })
 #define inc_or_last ({ if (++c == end) break; })
 #define inc_or_end ({ if (++c == end) goto fin; })
@@ -161,16 +180,29 @@ loop: ;
 		while (*c != '\n') inc_or_end;
 		goto loop;
 	}
-	unsigned mods = 0;
+	unsigned int mods = 0;
 	int character = 0;
-	char *m;
+	CGKeyCode keycode = UINT16_MAX;
 read_mod:
-	m = strchr(mods_char, *c);
-	if (m != NULL) {
-		mods |= mods_mask[m - mods_char];
-		inc;
-		goto read_mod;
+	switch (*c) {
+		case '^':
+			mods |= controlKey;
+			break;
+		case '~':
+			mods |= optionKey;
+			break;
+		case '@':
+			mods |= cmdKey;
+			break;
+		case '$':
+			mods |= shiftKey;
+			break;
+		default:
+			goto end_mod;
 	}
+	inc;
+	goto read_mod;
+end_mod:
 	if (mods == 0)
 		errx(1, "hotkey with no %s", "modifiers");
 	if (*c != '-')
@@ -178,36 +210,58 @@ read_mod:
 	inc;
 	character = *c;
 	inc;
-	// handle ^-\ ^-\013 or ^-\0x13
+	// handle ^-\ ^-\013 or ^-\0x13 or ^-\k0xF704
 	if (character == '\\') {
 		if (isnumber(*c)) {
 			character = (int)strtoul(c, &c, 0);
 			inc;
+		} else if (*c == 'K') {
+			inc;
+			keycode = (int)strtoul(c, &c, 0);
+			inc;
 		}
 	}
 	char *cmd_start = c;
-	NSUInteger cmd_len = 0;
+	unsigned int cmd_len = 0;
 	while (*c != '\n') {
 		++cmd_len;
 		inc_or_last;
 	}
-	CGKeyCode keycode = keyCodeForCharWithLayout(character, keyboardLayoutData);
-	RegisterEventHotKey(keycode, mods, hotkey_id, GetApplicationEventTarget(), 0, &hotkey);
+	if (keycode == UINT16_MAX)
+		keycode = keyCodeForCharWithLayout(character, keyboardLayoutData);
+	RegisterEventHotKey(keycode, (UInt32)mods, hotkey_id, GetApplicationEventTarget(), 0, &hotkey);
 	hotkey_id.id += 1;
 	if (cmd_top % 16 == 0)
 		cmds = xrealloc(cmds, cmd_top + (sizeof(char *) * 16));
 	cmds[cmd_top] = xmalloc(cmd_len + 1);
 	strlcpy(cmds[cmd_top], cmd_start, cmd_len + 1);
-	printf("%2i: %c,%x-%x -- %s\n", hotkey_id.id - 1, (char)character, keycode, mods, cmds[cmd_top]);
+	if (argc != 1)
+		fprintf(stderr, "%2i: %c,%x-%x -- %s\n", hotkey_id.id - 1, (char)character, keycode, (int)mods, cmds[cmd_top]);
 	++cmd_top;
-	//		[cmds addObject:[fm stringWithFileSystemRepresentation:cmd_start length:cmd_len]];
 	if (c != end)
 		goto loop;
 fin:
 	munmap(base, st.st_size);
-//	[p release];
 	CFRelease(tis);
 	EventTypeSpec e = {kEventClassKeyboard, kEventHotKeyPressed};
-	InstallApplicationEventHandler(&h, 1, &e, cmds, NULL);
-	[[NSApplication sharedApplication] run];
+	InstallApplicationEventHandler(NULL, 1, &e, NULL, NULL);
+	EventTypeSpec evs = {kEventClassKeyboard, kEventHotKeyPressed};
+	while (1) {
+		EventRef event;
+		EventHotKeyID i;
+		if (ReceiveNextEvent(1, &evs, kEventDurationForever, 1, &event) == noErr
+			&& GetEventParameter(event, kEventParamDirectObject, typeEventHotKeyID, NULL, sizeof(i), NULL, &i) == noErr
+			&& i.id < cmd_top) {
+			char *cmd = *((char **)cmds + i.id);
+			pid_t child;
+//			fprintf(stderr, "%s -c %s", shell, cmd);
+			child = fork();
+			if (child == -1)
+				err(1, "fork");
+			if (child == 0) {
+				execl(shell, shell, "-c", cmd, NULL);
+				err(1, "exec shell");
+			}
+		}
+	}
 }
