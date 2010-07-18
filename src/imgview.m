@@ -1,13 +1,14 @@
 #import <Cocoa/Cocoa.h>
 #import <Quartz/Quartz.h>
+#import <err.h>
+
 #import "../build/etc/imgview/menu.h"
 
+// ADD option to select which rep to use (eg. if tiff, which image index)
+
 @interface IKImageView (IKPrivate) - (void) setAnimates:(BOOL)a; @end
-@interface S : NSObject
-#if _10_6_PLUS
-<NSApplicationDelegate>
-#endif
-{} @end
+@interface S : NSObject <NSApplicationDelegate> {}
+@end
 
 int main(int argc, char *argv[]) {
 	NSAutoreleasePool *pool = [NSAutoreleasePool new];
@@ -96,7 +97,7 @@ int main(int argc, char *argv[]) {
 	[sender setState:NSOnState];
 }
 -(void)magnifyWithEvent:(NSEvent *)anEvent {
-	CGFloat new = [self zoomFactor] + ([anEvent deltaZ] / 100.0f);
+	CGFloat new = [self zoomFactor] + [anEvent magnification];
 	if (new <= 1e-10f) new = 1e-10f;
 //	[self setImageZoomFactor:new centerPoint:[self convertPoint:[anEvent locationInWindow] fromView:nil]];
 	[self setZoomFactor:new];

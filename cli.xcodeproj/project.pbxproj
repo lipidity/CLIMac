@@ -119,6 +119,7 @@
 		925C36D70FE7EC5A00E9B9E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		925C36E00FE7EC9000E9B9E4 /* seticon.m in Sources */ = {isa = PBXBuildFile; fileRef = 925C36DF0FE7EC9000E9B9E4 /* seticon.m */; };
 		925C37040FE7F2A300E9B9E4 /* pid.c in Sources */ = {isa = PBXBuildFile; fileRef = 925C37030FE7F2A300E9B9E4 /* pid.c */; };
+		925C96DA11F331E100E0DCFA /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B4CF700FDA69C300F5AC0D /* CoreServices.framework */; };
 		9265496410B8A9EF00200173 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
 		9265497110B8AA5B00200173 /* pdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265497010B8AA5B00200173 /* pdate.m */; };
 		926ED7FC0FE8A0DC00FD42D0 /* loginitems.c in Sources */ = {isa = PBXBuildFile; fileRef = 926ED7FB0FE8A0DC00FD42D0 /* loginitems.c */; };
@@ -1318,6 +1319,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				925C96DA11F331E100E0DCFA /* CoreServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,7 +16,7 @@ c_build(){
 			c="-framework AppKit -Wno-cast-qual"
 			;;
 		setapp)
-			c="-framework AppKit -framework Foundation -Wno-cast-qual"
+			c="-framework AppKit -Wno-cast-qual"
 			;;
 		appr)
 			c="-framework AppKit -Wno-cast-qual"

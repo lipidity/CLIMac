@@ -7,6 +7,9 @@
  *
  * Handles multiple image representations (eg. can have multiple images in one tiff file)
  */
+
+// there is also sips(1)
+
 int main (int argc, char *argv[]) {
 //	These are probably not necessary as they can be done manually in Preview.app, but command-line capability wouldn't hurt.
 // MAY:	use CGImageDestinationSetProperties() to specify background color (if output doesn't handle alpha) & compression type / level

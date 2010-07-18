@@ -2,6 +2,7 @@
  * Gets icon of file or file type in TIFF format (with LZW compression).
  * If no destination path (and not tty), dump to stdout.
  */
+
 int main(int argc, const char *argv[]) {
 	if (argc > 1) {
 		NSAutoreleasePool *pool = [NSAutoreleasePool new];

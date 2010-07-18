@@ -32,6 +32,9 @@ static inline id ql(CFURLRef file) {
 			fprintf(stderr, "QuickLook (%s)\n", [[(NSString *)bundle description] UTF8String]); // todo comment
 			if ([@"com.apple.qldisplay.Web" isEqualToString:(NSString *)bundle]) {
 				result = (NSData *)QLPreviewCopyData(p);
+//				[webresource initWithDat];
+//				[result writeToFile:@"/tmp/any2txt.out" atomically:NO];
+				// save it as multipart (mb webarchive) if has attachments
 				NSMutableDictionary *newProp = [prop mutableCopy];
 				[newProp setObject:NSHTMLTextDocumentType forKey:NSDocumentTypeDocumentOption];
 				[prop release];
@@ -131,7 +134,7 @@ int main (int argc, char *argv[]) {
 	}
 	if (atstr_opts != nil)
 		[atstr_opts release];
-	NSLog(@"%@", [str string]);
+//	NSLog(@"%@", [str string]);
 
 	[input release];
 	if (str != nil) {
