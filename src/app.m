@@ -6,11 +6,8 @@
  */
 
 #import <Cocoa/Cocoa.h>
-#import <err.h>
-#import <getopt.h>
 
-#import "version.h"
-#import "ret_codes.h"
+#import "climac.h"
 
 /* Get NSArray * of all apps registered with LaunchServices */
 extern OSStatus _LSCopyAllApplicationURLs(CFArrayRef *);

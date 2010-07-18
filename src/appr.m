@@ -5,11 +5,8 @@
 
 #import <Cocoa/Cocoa.h>
 #import <objc/objc-class.h>
-#import <err.h>
-#import <getopt.h>
 
-#import "version.h"
-#import "ret_codes.h"
+#import "climac.h"
 
 static inline void usage(FILE *);
 

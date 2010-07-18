@@ -6,12 +6,8 @@
  */
 
 #import <Cocoa/Cocoa.h>
-#import <err.h>
-#import <getopt.h>
-#import <stdio.h>
 
-#import "version.h"
-#import "ret_codes.h"
+#import "climac.h"
 
 @interface S : NSObject <NSApplicationDelegate> {
 	@public NSAlert *a;

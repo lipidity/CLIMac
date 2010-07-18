@@ -6,11 +6,8 @@
  */
 
 #import <Cocoa/Cocoa.h>
-#import <err.h>
-#import <getopt.h>
 
-#import "version.h"
-#import "ret_codes.h"
+#import "climac.h"
 
 static inline void usage(FILE *outfile);
 
