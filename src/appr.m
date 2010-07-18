@@ -1,14 +1,21 @@
 /*
  * Describe and manipulate running applications
- * gcc -std=c99 -framework Cocoa -o appr appr.m
+ *
+ * Copyright (C) Vacuous Virtuoso
+ * <http://lipidity.com/climac/>
  */
 
 #import <Cocoa/Cocoa.h>
+
 #import <objc/objc-class.h>
 
 #import "climac.h"
 
 static inline void usage(FILE *);
+
+@implementation NSURL (p)
+- (NSString *) description { return [self absoluteString]; }
+@end
 
 @implementation NSRunningApplication (appr)
 - (pid_t) pid { return [self processIdentifier]; }
@@ -31,7 +38,8 @@ int main(int argc, char *argv[]) {
 
 	NSMutableSet *apps = [NSMutableSet new];
 	int c;
-	while ((c = getopt_long(argc, argv, "hV" "cli:b:", longopts, NULL)) != EOF) {
+	bool null_terminate = 0;
+	while ((c = getopt_long(argc, argv, "hV" "cli:b:" "0", longopts, NULL)) != EOF) {
 		switch (c) {
 			case 'l':
 				[apps addObjectsFromArray:[[NSWorkspace sharedWorkspace] runningApplications]];
@@ -45,7 +53,7 @@ int main(int argc, char *argv[]) {
 				char *endptr = optarg;
 				pid_t pid = (pid_t)strtoul(optarg, &endptr, 10);
 				if (*endptr != '\0') {
-					warnx("illegal process ID: %s", optarg);
+					warnx("invalid process ID: %s", optarg);
 					fprintf(stderr,  "Try `%s --help' for more information.\n", getprogname());
 					exit(RET_USAGE);
 				}
@@ -59,6 +67,9 @@ int main(int argc, char *argv[]) {
 				CFRelease(bid);
 				[apps addObjectsFromArray:found_apps];
 			}	break;
+			case '0':
+				null_terminate = 1;
+				break;
 			case 'V':
 				climac_version_info();
 				exit(RET_SUCCESS);
@@ -70,10 +81,18 @@ int main(int argc, char *argv[]) {
 				exit(RET_USAGE);
 		}
 	}
-	argc -= optind; argv += optind;
+	argc -= optind;
+	argv += optind;
 
-	if ([apps count] == 0)
-		errx(RET_FAILURE, "no matching applications");
+	if ([apps count] == 0) {
+		warnx("no matching applications");
+		if (optind == 1) {
+			fprintf(stderr, "Try `%s --help' for more information.\n", getprogname());
+			exit(RET_USAGE);
+		} else {
+			exit(RET_FAILURE);
+		}
+	}
 
 	NSString *arg;
 	if (argc == 0) {
@@ -106,8 +125,12 @@ int main(int argc, char *argv[]) {
 	}
 
 	NSArray *val = [apps valueForKey:arg];
-	for (id i in val)
-		puts([[i description] fileSystemRepresentation]);
+	if (null_terminate == 0)
+		for (id i in val)
+			puts([[i description] fileSystemRepresentation]);
+	else
+		for (id i in val)
+			printf("%s%c", [[i description] fileSystemRepresentation], '\0');
 
 	[arg release];
 	[apps release];
@@ -160,4 +183,5 @@ static inline void usage(FILE *outfile) {
 	}
 	if (i != 0)
 		putc('\n', outfile);
+	free(methods);
 }
