@@ -97,5 +97,4 @@ static inline void usage(FILE *outfile) {
 	}
 	if (i != 0)
 		putc('\n', outfile);
-	free(methods);
 }
