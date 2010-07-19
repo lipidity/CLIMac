@@ -209,7 +209,6 @@
 		929ECF530FEE802E0085F378 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92ACC30A0FE9E38D009E0760 /* Carbon.framework */; };
 		92A4825B0FF873F70027FCF1 /* fileicon.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 92A4825A0FF873E90027FCF1 /* fileicon.1 */; };
 		92A8508D0FFB265500957102 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B4CF700FDA69C300F5AC0D /* CoreServices.framework */; };
-		92A850A50FFB2C1F00957102 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92ACC30A0FE9E38D009E0760 /* Carbon.framework */; };
 		92ACC0B50FE9C756009E0760 /* slideshow.m in Sources */ = {isa = PBXBuildFile; fileRef = 92ACC0B40FE9C756009E0760 /* slideshow.m */; };
 		92ACC0B80FE9C783009E0760 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92ACC0B70FE9C783009E0760 /* Quartz.framework */; };
 		92ACC10E0FE9CD1F009E0760 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 928BE6B40F973AD600E2E886 /* AppKit.framework */; };
@@ -231,7 +230,6 @@
 		92CB6B7D11F29F800055C445 /* menu.m in Sources */ = {isa = PBXBuildFile; fileRef = 92CB6B7C11F29F800055C445 /* menu.m */; };
 		92D1CD01112E416800F87310 /* dictctl.c in Sources */ = {isa = PBXBuildFile; fileRef = 92A850950FFB269C00957102 /* dictctl.c */; };
 		92D1CD03112E416800F87310 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B4CF700FDA69C300F5AC0D /* CoreServices.framework */; };
-		92D1CD04112E416800F87310 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92ACC30A0FE9E38D009E0760 /* Carbon.framework */; };
 		92D1CD15112E425F00F87310 /* dict.c in Sources */ = {isa = PBXBuildFile; fileRef = 92D1CD14112E425F00F87310 /* dict.c */; };
 		92DE947E11EC3D8800FA0DB5 /* hotkeys.c in Sources */ = {isa = PBXBuildFile; fileRef = 92DE947D11EC3D8800FA0DB5 /* hotkeys.c */; };
 		92DE948311EC3DD900FA0DB5 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92ACC30A0FE9E38D009E0760 /* Carbon.framework */; };
@@ -1545,7 +1543,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				92A8508D0FFB265500957102 /* CoreServices.framework in Frameworks */,
-				92A850A50FFB2C1F00957102 /* Carbon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1614,7 +1611,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				92D1CD03112E416800F87310 /* CoreServices.framework in Frameworks */,
-				92D1CD04112E416800F87310 /* Carbon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
