@@ -15,9 +15,10 @@ int main(int argc, char *argv[]) {
 	const struct option longopts[] = {
 		{ "help", no_argument, NULL, 'h' },
 		{ "version", no_argument, NULL, 'V' },
-		
+
 		{ NULL, 0, NULL, 0 }
 	};
+
 	int c;
 	while ((c = getopt_long(argc, argv, "hV", longopts, NULL)) != EOF) {
 		switch (c) {
@@ -32,20 +33,26 @@ int main(int argc, char *argv[]) {
 				exit(RET_USAGE);
 		}
 	}
-	if ((argc -= optind) == 0) {
+	argc -= optind; argv += optind;
+
+	if (argc == 0) {
 		usage(stderr);
 		exit(RET_USAGE);
 	}
-	argv += optind;
+
 	NSAutoreleasePool *pool = [NSAutoreleasePool new];
-	id ws = [NSWorkspace sharedWorkspace];
 	NSMutableArray *urls = [[NSMutableArray alloc] initWithCapacity:argc];
 	do {
 		id u = (NSURL *)CFURLCreateFromFileSystemRepresentation(NULL, (UInt8 *)argv[0], strlen(argv[0]), 0);
-		[urls addObject:u];
-		CFRelease(u);
-	} while ((++argv)[0]);
-	[ws duplicateURLs:urls completionHandler:(^(NSDictionary *map, NSError *error){
+		if (u != nil) {
+			[urls addObject:u];
+			CFRelease(u);
+		} else {
+			warnx("%s: couldn't make url", argv[0]);
+		}
+	} while ((++argv)[0] != NULL);
+
+	[[NSWorkspace sharedWorkspace] duplicateURLs:urls completionHandler:(^(NSDictionary *map, NSError *error){
 		if (error != nil) {
 			fputs([[error localizedDescription] fileSystemRepresentation], stderr);
 			fputc('\n', stderr);
@@ -57,7 +64,9 @@ int main(int argc, char *argv[]) {
 		}
 		exit(RET_SUCCESS);
 	})];
+
 	[[NSApplication sharedApplication] run];
+
 	[pool release];
 	exit(RET_ERROR);
 }
