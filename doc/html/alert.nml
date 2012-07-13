@@ -1,0 +1,23 @@
+<h1 alert>
+<hr/>
+	<p Pop up a GUI alert panel.>
+	<h2 Usage>
+	<pre alert [options] [button]...>
+	<hr/>
+	<p Buttons are added from right to left.>
+	<p The return value is the zero-based index of the pressed button starting from the rightmost button.>
+	<h3 Options>
+	<dl
+		<dt -m, --message <var msg>>
+		<dd The main message of the alert.>
+		<dt -i, --info <var txt>>
+		<dd Additional information about the alert.>
+		<dt -I, --icon <var path>>
+		<dd The icon displayed in the alert.>
+	>
+	<h2 Examples>
+	<pre <samp % ><kbd alert -m "Shutdown remote host?" -i "You will not be able to SSH in again until the remote computer is physically turned on." -I `<a {href "app.html"} app> Terminal` Shutdown Sleep Cancel>
+<img/ {src "alert_eg.png"; width "525"; height "233"; alt "Alert Eg"}>
+<kbd echo $?> # given "Sleep" pressed...
+<samp 1>>
+<hr/>

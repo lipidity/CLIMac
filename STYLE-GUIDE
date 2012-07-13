@@ -1,0 +1,43 @@
+/*
+ * VERY important single-line comments look like this.
+ */
+
+/* Most single-line comments look like this. */
+
+/*
+ * Multi-line comments look like this.  Make them real sentences.  Fill
+ * them so they look like real paragraphs.
+ */
+
+Copyright header at top of file.
+
+Leave another blank line before the header files.
+Non-local includes in angle brackets.
+Kernel include files (i.e. sys/*.h) come first;
+Leave a blank line before the next group, the framework and /usr include files, which should be sorted alphabetically by name.
+Leave another blank line before the user include files.
+Local includes in double quotes.
+
+Space after keywords (if, while, for, return, switch).  No braces are
+     used for control statements with zero or only a single statement unless
+     that statement is more than a single line in which case they are permit-
+     ted.  Forever loops are done with for's, not while's.
+
+Variable names should contain underscores to separate words.
+
+Do not add whitespace at the end of a line, and only use tabs followed by spaces to form the indentation.  Do not use more spaces than a tab will produce and do not use spaces in front of tabs.
+
+Closing and opening braces go on the same line as the else.  Braces that are not necessary may be left out.
+
+No spaces after function names.  Commas have a space after them.  No spaces after `(' or `[' or preceding `]' or `)' characters.
+
+Use err(3) or warn(3), do not roll your own.
+
+Main should be
+int main(int argc, char *argv[])
+(getopt shuffles argv)
+
+Use getopt_long or getopt_long_only; provide at least --help and --version.
+
+Use climac_version_info(); to print standard copyright information -- if copyright belongs to lipidity.com
+else use custom_version_info(...)

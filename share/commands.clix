@@ -1,0 +1,50 @@
+Hovered element,Accessibility,Print the value of the element under the mouse pointer (eg window / text). Requires accessibility APIs,~/bin/selection -i | ~/bin/large-type -
+Invert display,Accessibility,Invert screen colors,~/bin/access -invert
+Selected element,Accessibility,Print the value of the currently selected element (eg window / text). Requires accessibility APIs,~/bin/selection | ~/bin/large-type -
+Set contrast,Accessibility,Set display contrast (0 is default\, 1 is high),~/bin/access -contrast 0
+Toggle grayscale,Accessibility,Make display grayscale,~/bin/access -gray
+Don't open at login,Accounts,Cancel specified app(s) opening at login,~/bin/loginitems -r $(~/bin/app Mail)
+List login items,Accounts,List apps to be opened at login for current user,~/bin/loginitems -l
+List login sessions,Accounts,Print info on currently logged in sessions,~/bin/sessions
+Logout,Accounts,Logout,~/bin/power logout
+New login session,Accounts,"Fast User Switching" functionality\, even if it's turned off.,~/bin/sessions -new
+Open at login,Accounts,Open specified app(s) at login,~/bin/loginitems -a `~/bin/app Mail`
+Airport power status,Airport,Is airport power on / off,~/bin/airport -s
+Toggle airport power,Airport,Toggle airport on / off,~/bin/airport -t
+Turn airport off,Airport,Turn off airport,~/bin/airport -0
+Turn airport on,Airport,Turn on airport,~/bin/airport -1
+Always open with...,Applications,Associate a file type with an application in the Launch Services database,~/bin/app -s Rixedit ~/Documents/todo.txt # always open text files with Rixedit
+Hide application,Applications,Hide application with given PID,~/bin/hide `~/bin/pid Xfile`
+List launched apps,Applications,List of currently launched applications,~/bin/app -l nbpi
+Look up in Dictionary,Applications,Look up a word / phrase in Dictionary.app,/usr/bin/open dict:/// dict:///`~/bin/urlencode "sine qua non"`;
+Process ID by app,Applications,Display the process ID of a launched application by name,~/bin/pid clix
+Process IDs (all),Applications,List process IDs of all running applications,~/bin/pid -l
+Quit application,Applications,Quit app with specified PID,~/bin/quit `~/bin/pid Finder`
+Relaunch application,Applications,Relaunch active app,~/bin/relaunch `~/bin/app -c i`
+Show application,Applications,Unhide application with given PID,~/bin/hide -s `~/bin/pid Xfile`
+Convert image,Files,Convert image (or icon) from one format to another - use extensions to specify,~/bin/imgconv ~/Pictures/input.tiff ~/Pictures/output.png
+File information,Files,Miscellaneous file information,~/bin/fileinfo ~
+Set icon,Files,Set a custom icon for a file,~/bin/img -icon ~/Pictures/computer.tiff ~/bin
+UTI of file,Files,Get Uniform Type Identifier associated with a file type,~/bin/uti ~/Desktop
+Animate Desktop,Interface,Move the desktop with a transition effect,~/bin/transition -e cube -o right 0
+Animate window,Interface,Transition effect on specified (clicked-on) window,~/bin/win -i | ~/bin/transition -e swap -o right -o transparent -
+Make all windows translucent,Interface,Set the alpha value for all open windows,~/bin/winalpha -a 0.8
+Make window translucent,Interface,Set the alpha value for specified window(s),~/bin/win -i | ~/bin/winalpha -a 0.7 -
+Read PDF,Interface,Open PDF fullscreen,~/bin/slideshow -p ~/Documents/file.pdf
+Shadow information,Interface,Information for shadow of a particular window,~/bin/shadows -sdxyf `~/bin/win -i`
+Shadows off,Interface,Turn window shadows off globally,~/bin/shadows -0
+Shadows on,Interface,Turn window shadows on globally,~/bin/shadows -1
+Slideshow,Interface,Run a fullscreen slideshow,~/bin/slideshow ~/Pictures/*
+Window screenshot,Interface,Take screenshot of a window\, but include the shadow,~/bin/win -i | ~/bin/img -capture ~/output.png -
+Large Type,Misc,Display a "large type" notification,~/bin/large-type 'Danger\, Will Robinson!'
+Urldecode string,Misc,Decode a url-encoded string,~/bin/urlencode -decode 'name%3Djohn%20smith%20%26%20co.'
+Urlencode string,Misc,Encode a string for use in URLs or as POST data values.,~/bin/urlencode -e '&+?=!'     'name=john smith'
+Beep,System,Play specified system sound / sound file.,~/bin/beep Sosumi
+Display sleep,System,Turn off computer display (Tiger and below),~/bin/power displaysleep
+Eject,System,Eject volume by name or by path,~/bin/eject MyiPod
+List removeable media,System,List of currently mounted volumes,~/bin/eject -l
+Process information,System,Misc information on a specific process,~/bin/process `~/bin/pid CLIX`
+Restart,System,Restart computer,~/bin/power restart
+Serial number,System,Print computer's serial number,~/bin/serial
+Shutdown,System,Turn off computer,~/bin/power shutdown
+Sleep,System,Put computer in "sleep" mode,~/bin/power sleep

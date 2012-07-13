@@ -1,0 +1,42 @@
+<h1 <strong CLIMac>>
+<hr/>
+<table
+<tr <td <a {href "alert.html"} alert>><td Customisable popup dialog>>
+<tr <td <a {href "any2txt.html"} any2txt>><td Convert many document formats to plain text>>
+<tr <td <a {href "app.html"} app>><td Find OS X applications>>
+<tr <td <a {href "beep.html"} beep>><td Play the system alert (or any other) sound>>
+<tr <td <a {href "cifilter.html"} cifilter>><td Discover and apply to Core Image filters>>
+<tr <td <a {href "dict.html"} dict>><td Manage system dictionaries and related settings>>
+<tr <td <a {href "dup.html"} dup>><td Duplicate files>>
+<tr <td <a {href "fileicon.html"} fileicon>><td Get the icon for a file as an image>>
+<tr <td <a {href "goosh.html"} goosh>><td A "Google shell"; search, translate, etc. from the command line>>
+<tr <td <a {href "imgbrowser.html"} imgbrowser>><td View the images in a directory>>
+<tr <td <a {href "imgconv.html"} imgconv>><td Convert images between many different formats>>
+<tr <td <a {href "imgshadow.html"} imgshadow>><td Add a shadow to an image>>
+<!-- <tr><td><a href="imgsnap">imgsnap</a></td><td></td></tr> -->
+<tr <td <a {href "imgtext.html"} imgtext>><td Make an image of the specified text>>
+<tr <td <a {href "imgview.html"} imgview>><td Look at an image>>
+<tr <td <a {href "loginitems.html"} loginitems>><td Manage login items>>
+<tr <td <a {href "nml.html"} nml>><td A concise markup language that generates HTML>>
+<tr <td <a {href "normalize.html"} normalize>><td Apply Unicode normalisation to text>>
+<tr <td <a {href "pdfcat.html"} pdfcat>><td Combine PDF documents>>
+<tr <td <a {href "pdfextract.html"} pdfextract>><td Extract specific pages from a PDF document>>
+<tr <td <a {href "pdfinfo.html"} pdfinfo>><td Print PDF document attributes>>
+<tr <td <a {href "pid.html"} pid>><td Find process IDs of running processes>>
+<tr <td <a {href "ql.html"} ql>><td Generate QuickLook thumbnails and previews>>
+<tr <td <a {href "quit.html"} quit>><td (Gracefully) quit applications>>
+<tr <td <a {href "readalias.html"} readalias>><td Dereference a Finder alias>>
+<tr <td <a {href "setapp.html"} setapp>><td Set which application should open files of certain types>>
+<tr <td <a {href "seticon.html"} seticon>><td Set a custom icon for a file>>
+<tr <td <a {href "slideshow.html"} slideshow>><td View a slideshow of images, a PDF or QuickLook>>
+<tr <td <a {href "trash.html"} trash>><td Move files to the trash>>
+<tr <td <a {href "win.html"} win>><td Find window IDs of on-screen windows>>
+<tr <td <a {href "winalpha.html"} winalpha>><td Change transparency of on-screen windows>>
+<tr <td <a {href "winlevel.html"} winlevel>><td Set windows to float above / below others>>
+<tr <td <a {href "winmove.html"} winmove>><td Move a window to a certain point on the screen>>
+<tr <td <a {href "winshadow.html"} winshadow>><td Manage and modify window shadows>>
+<tr <td <a {href "wintransform.html"} wintransform>><td Transform windows>>
+<tr <td <a {href "xattr.html"} xattr>><td Manage extended attributes of files>>
+
+>
+<hr/>

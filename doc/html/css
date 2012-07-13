@@ -1,0 +1,157 @@
+body {
+	font: normal normal 100.01%/150% "Lucida Sans Unicode", "Lucida Grande", Verdana, sans-serif;
+	color: #333;
+	background: #fff;
+	margin: 0 auto;
+	width: 35em;
+}
+body,p,hr,ol,ul,li {
+	padding: 0;
+}
+h1,h2,h3,h4,h5,h6 {
+	font-family: Calibri, "Helvetica Neue", sans-serif;
+	font-weight: bold;
+	padding: 0;
+	clear: both;
+	text-align: left;
+}
+h1 {
+	font-size: 2.25em; /* 36 */
+	line-height: 1; /* 36 */
+	margin: .75em 0;
+
+	color: #463B2D; /* dark brown */
+	text-align: center;
+}
+h1 > strong {
+	color: #D10709; /* crimson */
+}
+h2 {
+	font-size: 1.75em; /* 28 */
+	line-height: inherit; /* 24 */
+	margin: inherit 0; /* 24 */
+
+	color: #155C9B; /* blue */
+}
+h3 {
+	font-size: 1.5em; /* 24 */
+	line-height: 1; /* 24 */
+	margin: 1em 0; /* 24 */
+
+	color: #463B2D; /* dark brown */
+}
+h4 {
+	font-size: 1.25em; /* 20 */
+	line-height: 1.2; /* 24 */
+	margin: 1.2em 0; /* 24 */
+}
+h5 {
+	font-size: 1.25em; /* 20 */
+	line-height: 1.2; /* 24 */
+	margin: 1.2em 0; /* 24 */
+
+	font-weight: normal;
+}
+h6 {
+	font-size: 1.2em; /* 19.2px */
+	line-height: 1.25; /* ~24 */
+	margin: 1.25em 0; /* ~24 */
+
+	font-weight: normal;
+	color: #A52A2A; /* brown */
+}
+
+p {
+	margin: 1.5em 0;
+}
+a {
+/*	color: inherit; */
+	text-decoration: inherit;
+}
+p > a:link {
+	color: #002BB8;
+}
+p > a[href^="http:"] {
+	color: #36B;
+}
+p > a:visited {
+	color: #5A3696;
+}
+a:hover {
+	text-decoration: underline;
+}
+p > a:active {
+	color: #FAA700;
+}
+hr {
+	height: 1px;
+	border: 0;
+	background-image: -webkit-gradient(linear, left top, right top, from(#fff), color-stop(.5, #ddd), to(#fff));
+	background-color: #ddd;
+	margin: 1em 0;
+	clear: both;
+}
+dt,pre {
+	font-family: Monaco, "DejaVu Sans Mono", "Bitstream Vera Sans Mono", Consolas, "Andale Mono", Courier;
+}
+pre {
+	font-size: 80%;
+	line-height: 1.5;
+	margin: 0;
+	padding: 0 1em;
+}
+q {
+	quotes: "“" "”" "‘" "’";
+}
+p strong {
+	font-family: "Arial Rounded MT Bold", "Helvetica Neue", sans-serif;
+	font-weight: bold;
+}
+small {
+	color: #A52A2A;
+}
+div,img {
+	margin: 0;
+	padding: 0;
+	clear: none;
+}
+ol, ul {
+	list-style-position: outside;
+	margin: 1.5em 0;
+	margin-left: 1.5em;
+}
+ul {
+	list-style: none;
+}
+p > ul {
+	list-style: circle;
+}
+ul ul, ul ol, ol ul, ol ol {
+	padding-left: 2.5em;
+	margin: 0;
+}
+li {
+	margin: 0;
+}
+
+td {
+	padding: 0 0 0 1em;
+}
+
+dt {
+	font-weight: normal;
+	margin: .5em 0;
+}
+var {
+	font-weight: normal;
+	text-decoration: underline;
+	font-style: normal;
+}
+code, kbd, pre, samp {
+	font-family: monaco, menlo, monospace;
+}
+pre {
+	font-size: 1.1em;
+	padding: .5em 1em;
+	white-space: pre-wrap;
+}

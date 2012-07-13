@@ -1,0 +1,72 @@
+<h1>app</h1>
+<p>Find and list applications.</p>
+
+<div>
+<h2>Usage</h2>
+<pre>app <var>name</var></pre>
+<pre>app [-l] [-a | -b | -f | -w | -u | -t] <var>argument</var></pre>
+<h3>Options</h3>
+<dl>
+	<dt>-l</dt>
+	<dd>Print paths to all relevant applications, not just the default.</dd>
+	<dt>-a</dt>
+	<dd>The currently active (front most) application.</dd>
+	<dt>-b</dt>
+	<dd>The application with the specified bundle ID.</dd>
+	<dt>-f</dt>
+	<dd>The application</dd></dl>
+<h2>Examples</h2>
+<pre><samp>% </samp><kbd>app Summary.doc | less</kbd></pre>
+<pre><samp>% </samp><kbd>app Summary.doc -o Summary.txt</kbd></pre>
+<h2>Notes</h2>
+<p>Supported formats to convert from include PDF, HTML, Word Documents and RTF files. If <code>possible</code>, a QuickLook preview is generated from which the text is extracted; this allows many other types such as Keynote and PowerPoint documents to be converted.</p>
+<h2>See also</h2>
+<p><a>{href "ql.html"} ql</a></p>
+<h2>Bugs</h2>
+<p>Some undocumented functions are used in generating a QuickLook preview.</p>
+<hr>
+</div>
+<style>
+body {
+	background: #333;
+	color: #eee;
+
+	min-width: 600px;
+	max-width: 40em;
+	margin: 0 auto;
+	padding: 0;
+
+	font-family: "Trebuchet MS", sans-serif;
+}
+h1,h2,h3,h4,h5,h6 {
+	margin: 1em 0 0;
+	padding: 0;
+}
+h1 {
+	font-weight: normal;
+}
+div {
+	background: #fff;
+	color: #000;
+	
+	margin: 1em 0;
+	padding: .5em 2em;
+}
+p {
+	margin: .6em 0;
+	font-family: Georgia, "Linux Libertine", serif;
+	font-size: 1.2em;
+}
+h1 + p {
+	color: #bbb;
+	font-size: 1.5em;
+}
+samp,kbd,code{
+	font-family:Monaco,"Lucida Console",monospace;
+	border-bottom:1px solid #bebebe;
+	background-color:#f5f5f5;
+	padding:1px 2px;
+	overflow:auto;
+	font-size:12px
+}
+</style>
