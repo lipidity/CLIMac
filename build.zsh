@@ -37,7 +37,7 @@ DOIT(){
 
 # _make  util-name  extra-cflags
 _make(){
-	DOIT $CC -DUTIL_NAME=$1 $_CFLAGS ${(P)$(print ${1}_CFLAGS)} $CFLAGS -o $* && _post $1
+  DOIT $CC -DUTIL_NAME=$1 $_CFLAGS ${(P)$(print ${1}_CFLAGS)} ${(z)CFLAGS} -o $* && _post $1
 }
 # post-processing of built product
 _post(){

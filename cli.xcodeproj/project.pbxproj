@@ -1930,7 +1930,7 @@
 			);
 			includeInIndex = 0;
 			name = Documentation;
-			path = doc;
+			path = doc/man1;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

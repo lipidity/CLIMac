@@ -20,7 +20,8 @@
 	<h2 Notes>
 	<p Supported formats to convert from include PDF, HTML, Word Documents and RTF files. If possible, a QuickLook preview is generated from which the text is extracted; this allows many other types such as Keynote and PowerPoint documents to be converted.>
 	<h2 See also>
-	<p <a {href "ql.html"} ql>>
+	<p <a [href "ql.html"] ql>>
 	<h2 Bugs>
 	<p Some undocumented functions are used in generating a QuickLook preview.>
 <hr/>
+
