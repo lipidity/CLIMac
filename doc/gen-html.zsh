@@ -1,12 +1,10 @@
 #!/bin/zsh
-
+emulate zsh
 setopt extendedglob
-
-FILTER=../../src/nml
 
 cd ${0:h};
 
-mkdir -p ${PREFIX:=build/htmlman1}
+mkdir -p ${PREFIX:=./htmlman1}
 
 print -l ' == Updating files'
 for i in html/*.nml; do
@@ -21,7 +19,7 @@ for i in html/*.nml; do
 			[[ ${i:t:r} == "index" ]] || print -n -- ${i:t:r}' | '
 			print -n 'CLIMac &ndash; OS X Command Line Utilities</title><link href="css" rel="stylesheet">
 <body>'
-			$FILTER < $i
+			${FILTER:=$(whence -p nml)} < $i
 		} > $t
 	fi
 done

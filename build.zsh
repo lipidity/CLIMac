@@ -7,24 +7,22 @@ emulate -L zsh
 
 TRAPZERR(){ echo ' ** Build Failed **'; exit 1 }
 
-cd $0:h
-SELF=$0:t
+cd $0:h/src
+SELF=../$0:t
 
 #DEBUG=0
 
 : ${PREFIX:=$HOME}
 : ${BINDIR:=$PREFIX/bin}
-: ${DATEDIR:=$PREFIX/share}
+: ${DATADIR:=$PREFIX/share}
 : ${MANDIR:=$DATADIR/man}
 
 : ${CC:=clang}
 
-_CFLAGS=(-Os -mtune=native -mdynamic-no-pic -ffast-math -fstrict-aliasing -ftree-vectorize -std=gnu99 -pipe -fvisibility=hidden -fno-pic -Wfatal-errors -Wall -Wextra -Wcast-align -Wwrite-strings -Wstrict-prototypes -Wno-cast-qual -freorder-blocks)
+_CFLAGS=(-Os -mtune=native -ffast-math -fstrict-aliasing -ftree-vectorize -std=gnu99 -pipe -fvisibility=hidden -fno-pic -Wfatal-errors -Wall -Wextra -Wcast-align -Wwrite-strings -Wstrict-prototypes -Wno-cast-qual -freorder-blocks)
 
 if [[ $CC:t == clang ]]; then
 	_CFLAGS+=-march=native
-else
-	_CFLAGS+=-combine
 fi
 [[ $CC:t != gcc ]] && _CFLAGS+=-flto
 
