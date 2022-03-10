@@ -87,7 +87,7 @@ add_fmks(){
 ## == SPECIFY GROUP MEMBERSHIPS HERE ==
 f_AppKit=(alert app appr beep bundle cifilter dup fileicon imgconv imgshadow imgtext setapp seticon trash)
 f_CoreServices=(dict)
-f_Carbon=(hotkeys)
+f_Carbon=(hotkeys readalias)
 
 ## == UTIL-SPECIFIC CONFIGURATION HERE ==
 add_fmks any2txt     	Quartz QuickLook
